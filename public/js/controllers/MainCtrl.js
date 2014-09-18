@@ -1,5 +1,5 @@
 angular.module('MainCtrl', [])
 
 .controller('MainController', function($scope) {
-	$scope.testing = "COIN DROPPP";
+  $scope.testing = "COIN DROPPP";
 });
