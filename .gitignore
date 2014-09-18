@@ -12,7 +12,6 @@ ehthumbs.db
 Thumbs.db
 
 # temp files
-public
 dist
 .tmp
 .idea
