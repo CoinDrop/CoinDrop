@@ -4,5 +4,5 @@ angular.module('MainCtrl', [])
 	var test = {};
 	test.get = function() {
 		return $http.get('/api/home');
-	}
+	};
 }]);

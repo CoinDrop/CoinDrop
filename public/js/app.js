@@ -1,4 +1,6 @@
-angular.module('coindropApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainFactory']);'use strict';
+
+
+// angular.module('coindropApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainFactory'])
 
 /**
  * @ngdoc overview
