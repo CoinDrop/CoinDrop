@@ -54,9 +54,9 @@ gulp.task('sass', function() {
 
 //Compile LESS -> CSS
 gulp.task('build-less', function() {
-	return gulp.src('styles.less')
-		.pipe(less())
-		.pipe(gulp.dest('./source/css'));
+  return gulp.src('styles.less')
+    .pipe(less())
+    .pipe(gulp.dest('./source/css'));
 });
 
 // // Concatenate & Minify JS
