@@ -15,6 +15,8 @@ var browserify = require('gulp-browserify');
 var livereload = require('gulp-livereload');
 var mocha = require('gulp-mocha');
 var clean = require('gulp-clean');
+var shell = require('gulp-shell');
+var karma = require('karma').server;
 
 
 gulp.task('default', ['clean', 'lint', 'scripts', 'serve', 'watch']);
@@ -26,6 +28,12 @@ gulp.task('clean', function(){
     .pipe(clean());
 });
 
+gulp.task('test', function(done){
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
 
 // // Lint Task
 gulp.task('lint', function() {
