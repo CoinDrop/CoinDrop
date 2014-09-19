@@ -37,5 +37,8 @@
     "gulp-uglify": "^1.0.1",
     "method-override": "*",
     "mongoose": "*"
+  },
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.1.4"
   }
 }
