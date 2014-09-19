@@ -1,8 +1,6 @@
 var path = require('path');
-var Campaign = require('../config/models/campaign.js')
+var Campaign = require('./config/models/campaign.js')
 var express = require('express');
-
-
 
 module.exports = function(app) {
 var router = express.Router();
@@ -31,17 +29,12 @@ var router = express.Router();
           res.send(err);
         }
         res.json(campaigns);
-      })
-    })
-
+      });
+    });
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));
-    // res.sendFile('./public/views/index.html');
-  })
+  });
 
   app.use('/api', router);
-}
-
-
-
+};
