@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var path = require('path');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -13,9 +14,9 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
-require('./app/routes')(app); //configure routes
+require('./routes')(app); //configure routes
 
 app.listen(port);
 console.log('app listening in on port ', port);

@@ -5,7 +5,7 @@ angular.module('appRoutes', [])
   .when('/', {
     templateUrl: 'views/index.html',
     controller: 'MainController'
-  })
+  });
 
   $locationProvider.html5Mode(true);
 }]);
