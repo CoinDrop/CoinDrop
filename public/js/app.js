@@ -1,7 +1,4 @@
 
-
-// angular.module('coindropApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainFactory'])
-
 /**
  * @ngdoc overview
  * @name lenderBeeApp

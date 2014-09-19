@@ -3,6 +3,7 @@ var Campaign = require('../config/models/campaign.js')
 var express = require('express');
 
 module.exports = function(app) {
+	var router = express.Router();
 
 	router.use(function(req, res, next) {
 		console.log('ROUTING IN PROGRESS.');//this will happen everytime a request is sent to the api
@@ -14,8 +15,6 @@ module.exports = function(app) {
 		.post(function(req, res) {
 			var campaign = new Campaign();
 			campaign.title = req.body.title;
-			console.log('REQ BODY HERE: ', req.body);
-			console.log('REQ BODY TITLE HERE: ', req.body.title);
 			campaign.save(function(err) {
 				if(err) {
 					res.send(err);
