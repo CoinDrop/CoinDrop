@@ -12,17 +12,6 @@ var router = express.Router();
 
   //server routes here
   router.route('/campaigns')
-    .post(function(req, res) {
-      var campaign = new Campaign();
-console.log("Object.keys(req.body) ===========>\n"+Object.keys(req.body));
-      campaign.title = req.body.title;
-      campaign.save(function(err) {
-        if(err) {
-          res.send(err);
-        }
-        res.json({ message: 'a new campaign is created!' });
-      });
-    })
 
     .get(function(req, res) {
 console.log(typeof Campaign.find);
@@ -34,6 +23,18 @@ console.log(campaigns);
         res.json(campaigns);
       });
     });
+
+    .post(function(req, res) {
+      var campaign = new Campaign();
+console.log("Object.keys(req.body) ===========>\n"+Object.keys(req.body));
+      campaign.title = req.body.title;
+      campaign.save(function(err) {
+        if(err) {
+          res.send(err);
+        }
+        res.json({ message: 'a new campaign is created!' });
+      });
+    })
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'));

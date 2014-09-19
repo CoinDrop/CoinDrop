@@ -1,4 +1,4 @@
 CoinDrop
 ============
 
-User-driven central resource for all things bitcoin.
+Crowd-funding via Bitcoin, using the technical properties of the Bitcoin to provide unique services to users.
