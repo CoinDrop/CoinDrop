@@ -14,6 +14,7 @@ var router = express.Router();
   router.route('/campaigns')
     .post(function(req, res) {
       var campaign = new Campaign();
+console.log("Object.keys(req.body) ===========>\n"+Object.keys(req.body));
       campaign.title = req.body.title;
       campaign.save(function(err) {
         if(err) {
@@ -24,7 +25,9 @@ var router = express.Router();
     })
 
     .get(function(req, res) {
+console.log(typeof Campaign.find);
       Campaign.find(function(err, campaigns) {
+console.log(campaigns);
         if(err) {
           res.send(err);
         }
