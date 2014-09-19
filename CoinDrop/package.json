@@ -34,8 +34,15 @@
     "gulp-nodemon": "^1.0.4",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^0.7.3",
+    "gulp-shell": "^0.2.9",
     "gulp-uglify": "^1.0.1",
+    "karma": "^0.12.23",
+    "karma-mocha": "^0.1.9",
     "method-override": "*",
+    "mocha": "^1.21.4",
     "mongoose": "*"
+  },
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.1.4"
   }
 }
