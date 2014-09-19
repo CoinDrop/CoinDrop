@@ -19,7 +19,7 @@ var shell = require('gulp-shell');
 var karma = require('karma').server;
 
 
-gulp.task('default', ['clean', 'lint', 'scripts', 'serve', 'watch']);
+gulp.task('default', ['clean', 'lint', 'test', 'scripts', 'serve', 'watch']);
 
 
 //clean build directory
