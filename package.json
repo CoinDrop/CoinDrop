@@ -1,0 +1,10 @@
+{
+  "name": "coindrop",
+  "main": "./server/server.js",
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "body-parser": "*",
+    "method-override": "*"
+  }
+}
