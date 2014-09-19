@@ -16,84 +16,42 @@ var livereload = require('gulp-livereload');
 var mocha = require('gulp-mocha');
 var clean = require('gulp-clean');
 
-//Express startup
-// gulp.task('express', function() {
-//     var express = require('express');
-//     var app = express();
-//     app.use(express.static(__dirname));
-//     app.listen(4000);
-// })
+
+gulp.task('default', ['clean', 'lint', 'scripts', 'serve', 'watch']);
+
 
 //clean build directory
 gulp.task('clean', function(){
-  gulp.src(paths.client.build, {read: false} )
+  gulp.src('./dist', {read: false} )
     .pipe(clean());
 });
 
-gulp.task('serve', function() {
-    gulp.src()
-})
 
 // // Lint Task
-// //checks any javascript file in our js/ directory and makes
-// //there are no errors in our code
 gulp.task('lint', function() {
-    return gulp.src('js/*.js')
+    return gulp.src('./public/js/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
-// // Compile Our Sass
-// //compiles any of our sass files in our scss/ directory into .css
-// //and saves the compiled .css file in our css/ directory
-gulp.task('sass', function() {
-    return gulp.src('scss/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('css'));
-});
-
-//Compile LESS -> CSS
-gulp.task('build-less', function() {
-  return gulp.src('styles.less')
-    .pipe(less())
-    .pipe(gulp.dest('./source/css'));
-});
-
 // // Concatenate & Minify JS
-// //concats all javascript files in our js/ directory and saves the
-// //output to our dist/ directory.  Then gulp takes that concatenated
-// //file, minifies it, renames it, and saves it to the dist/ directory
-// //alongside the concatenated file
 gulp.task('scripts', function() {
-    return gulp.src('js/*.js')
+    return gulp.src('./public/js/**/*.js')
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('./dist'))
         .pipe(rename('all.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('serve', ['build'], function(){
-  return nodemon({
-    script: 'server.js', options: '-i client/*'
-  });
-});
+//start node server
+gulp.task('serve', function() {
+    return nodemon({ script: './app/server.js' });
+})
 
-// // Watch Files For Changes
-// //watch task is used to run tasks as we make changes to our files.
-// //As code is written and files are modified, gulp.watch() method will
-// //listen for changes and automatically run our tasks again so we don't
-// //have to continuously run it in the command line.
+// Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('js/*.js', ['lint', 'scripts']);
-    gulp.watch('scss/*.scss', ['sass']);
+    gulp.watch('./public/js/**/*.js', ['lint', 'scripts']);
 });
 
-// Default Task
-//this is a wrapper to our other tasks.  This will be the task that
-//is ran upon entering gulp into the command line without any additional
-// parameters.
-gulp.task('default', ['express', 'lint', 'sass', 'scripts', 'watch']);
-// gulp.task('default', ['express']);
 
-//after this, run gulp in terminal
