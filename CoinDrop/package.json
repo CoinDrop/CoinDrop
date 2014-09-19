@@ -1,10 +1,29 @@
 {
   "name": "coindrop",
-  "main": "./server/server.js",
+  "version": "0.0.0",
+  "description": "coindrop",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitSauced/CoinDrop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitSauced/CoinDrop/issues"
+  },
+  "homepage": "https://github.com/gitSauced/CoinDrop",
   "dependencies": {
     "body-parser": "*",
     "express": "*",
-    "gulp": "^3.8.8",
+    "gulp": "*",
     "gulp-browserify": "^0.5.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.4.1",
