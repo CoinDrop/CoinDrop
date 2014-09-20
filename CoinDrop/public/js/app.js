@@ -1,5 +1,13 @@
+<<<<<<< Updated upstream
 
 angular.module('coindropApp', [
+=======
+'use strict';
+angular.module('coindropApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'MainFactory']);
+
+var app = angular
+  .module('coindropApp', [
+>>>>>>> Stashed changes
     'coindrop.home',
     'MainCtrl',
     'MainFactory',
@@ -11,7 +19,7 @@ angular.module('coindropApp', [
     'ngTouch'
   ])
   .config(function ($routeProvider) {
-    // console.log('app.config loaded!');
+    console.log('app.config loaded.');
     $routeProvider
       .when('/', {
       })
