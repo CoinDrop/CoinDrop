@@ -1,0 +1,4 @@
+git commit
+git pull --rebase coindrop <dev>
+git push origin <feature_branch>
+create a pull request when ready
