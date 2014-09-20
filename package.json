@@ -18,8 +18,5 @@
     "gulp-uglify": "^1.0.1",
     "method-override": "*",
     "mongoose": "*"
-  },
-  "scripts" :{
-    "start" : "node ./app/server.js"
-    }
+  }
 }
