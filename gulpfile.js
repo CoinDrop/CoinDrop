@@ -46,7 +46,7 @@ gulp.task('scripts', function() {
 
 //start node server
 gulp.task('serve', function() {
-    return nodemon({ script: './app/server.js' });
+    return nodemon({ script: 'server.js' });
 })
 
 // Watch Files For Changes

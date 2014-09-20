@@ -1,6 +1,5 @@
 {
   "name": "coindrop",
-  "main": "./app/server.js",
   "dependencies": {
     "body-parser": "*",
     "express": "*",
