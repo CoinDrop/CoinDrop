@@ -12,8 +12,17 @@ angular.module('coindropApp', [
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('form', {
-        url: '/form',
-        templateUrl: 'views/form.html'
-      });
+      .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html'
+    })
+      .state('home', {
+        url: '/home',
+        templateUrl: 'views/home.html'
+      })
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html'
+      })
+
   }]);
