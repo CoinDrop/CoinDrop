@@ -92,9 +92,9 @@ app.get('/', function(req,res){
     console.log(results[i]);
     }
 });
-	 res.send('asd');
+	 res.end('asd');
 });
-require('./app/routes')(app); //configure routes
+//require('./app/routes')(app); //configure routes
 
 app.listen(port);
 console.log('app listening in on port ', port);
