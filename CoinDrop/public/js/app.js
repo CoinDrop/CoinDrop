@@ -1,4 +1,3 @@
-
 angular.module('coindropApp', [
     // 'ngAnimate',
     // 'ngCookies',
