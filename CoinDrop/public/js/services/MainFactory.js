@@ -1,4 +1,4 @@
-angular.module('MainCtrl', [])
+angular.module('coindropApp')
 
 .factory('MainFactory', ['$http', function($http) {
   var test = {};

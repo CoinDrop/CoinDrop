@@ -1,37 +1,28 @@
 
 angular.module('coindropApp', [
-    'coindrop.home',
-    'MainCtrl',
-    'MainFactory',
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
+    // 'ngAnimate',
+    // 'ngCookies',
+    // 'ngResource',
+    'ui.router'
+    // 'ngSanitize',
+    // 'ngTouch'
   ])
-  .config(function ($routeProvider) {
+  .config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
     // console.log('app.config loaded!');
-    $routeProvider
-      .when('/', {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+      .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html'
+    })
+      .state('home', {
+        url: '/home',
+        templateUrl: 'views/home.html'
       })
-      .when('/home', {
-        templateUrl: 'PATH TO HTML TEMPLATE FOR VIEW',
-        controller: 'CONTROLLER NAME'
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html'
       })
-      .when('/', {
-        templateUrl: '',
-        controller: ''
-      })
-      .when('/', {
-        templateUrl: '',
-        controller: ''
-      })
-      .when('/', {
-        templateUrl: '',
-        controller: ''
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+
+  }]);
