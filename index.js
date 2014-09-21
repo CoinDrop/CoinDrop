@@ -83,6 +83,7 @@ app.get('/', function(req,res){
     console.log(results[i]);
     }
 });
+	 res.send('asd');
 });
 require('./app/routes')(app); //configure routes
 
