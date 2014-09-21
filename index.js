@@ -100,3 +100,5 @@ app.listen(port);
 console.log('app listening in on port ', port);
 exports = module.exports = app; //expose app
 
+console.log(process.env.CUSTOMCONNSTR_MONGOLAB_URI);
+console.log('asdsa');
