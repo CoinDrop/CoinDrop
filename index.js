@@ -6,8 +6,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cors = require('cors');
 var db = require('./app/config/db');
-var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || db.url;
-
+var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI;
+console.log(process.env.CUSTOMCONNSTR_MONGOLAB_URI);
 mongoose.connect(connectionString);
 
 //mongoose TEST
