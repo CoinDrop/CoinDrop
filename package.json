@@ -2,6 +2,7 @@
   "name": "coindrop",
   "dependencies": {
     "body-parser": "*",
+    "cors": "^2.4.2",
     "express": "*",
     "gulp": "^3.8.8",
     "gulp-browserify": "^0.5.0",
