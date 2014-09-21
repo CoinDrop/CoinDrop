@@ -56,6 +56,7 @@ fluffy.save(function (err, fluffy) {
     console.log(results[i]);
     }
 });
+
 };
 getData();
   //mongoose test over
@@ -72,7 +73,17 @@ app.use(bodyParser.json()); // app.use(bodyParser.json({ type: 'application/vnd.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
-
+app.get('/', function(req,res){
+	 Kitten.find(function (err, kittens) {
+    if (err) return console.error(err);
+    var results = [];
+    for(var i=0; i< kittens.length;i++)
+    {
+      results[i] = JSON.stringify(kittens[i].message);
+    console.log(results[i]);
+    }
+});
+});
 require('./app/routes')(app); //configure routes
 
 app.listen(port);
