@@ -14,7 +14,7 @@ angular.module('coindropApp', [
       .state('login', {
       url: '/login',
       templateUrl: 'views/login.html'
-    })
+      })
       .state('home', {
         url: '/home',
         templateUrl: 'views/home.html'
@@ -22,6 +22,6 @@ angular.module('coindropApp', [
       .state('signup', {
         url: '/signup',
         templateUrl: 'views/signup.html'
-      })
+      });
 
   }]);
