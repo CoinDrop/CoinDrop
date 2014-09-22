@@ -2,36 +2,42 @@
 <html ng-app='coindropApp' lang="en">
 <head>
   <meta charset="UTF-8">
-
   <title>CoinDrop</title>
-
   <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css'>
 
   <link rel='stylesheet' href='css/index.css'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/loggedin.css'>
 
-
 </head>
-
-  <script src='lib/angular/angular.min.js'></script>
-  <script src='lib/angular-ui-router/release/angular-ui-router.min.js'></script>
-  <script src='lib/angular-animate/angular-animate.min.js'></script>
-  <script src='js/app.js'></script>
-  <!-- // <script src='js/controllers/SignupController.js'></script> -->
-  <script src='js/services/authservice.js'></script>
-  <script src='js/controllers/AuthController.js'></script>
 
 <body>
   <header ng-include="'views/navbar.html'"></header>
-
   <div ui-view class='main-container'>
-
-
   </div>
 
+  <!-- VENDOR -->
+  <script src='lib/angular/angular.min.js'></script>
+  <script src='lib/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <!-- APP -->
+  <script src='js/app.js' type="text/javascript" charset="utf-8"></script>
 
+  <script src="js/login/login.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/login/login.controller.js" type="text/javascript" charset="utf-8"></script>
 
+  <script src="js/home/home.js" type="text/javascript" charset="utf-8"></script>
 
+  <script src="js/signup/signup.js" type="text/javascript" charset="utf-8"></script>
+
+<!--
+  <script src='lib/angular-animate/angular-animate.min.js'></script>
+  <!-- // <script src='js/controllers/SignupController.js'></script>
+  <script src='js/services/authservice.js'></script>
+  <script src='js/controllers/AuthController.js'></script>
+-->
+
+  <!-- // <script src='js/controllers/MainCtrl.js'></script> -->
+  <!-- // <script src='js/services/MainFactory.js'></script> -->
+  <!-- // <script src='js/appRoutes.js'></script> -->
 </body>
 </html>

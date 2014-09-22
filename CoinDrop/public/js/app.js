@@ -1,9 +1,7 @@
-
-;(function() {
-'use strict';
-
-angular.module('coindropApp', [
-    'ngAnimate',
+;(function(){
+  'use strict';
+  angular.module('coindropApp', [
+    // 'ngAnimate',
     // 'ngCookies',
     // 'ngResource',
     'ui.router',
@@ -12,33 +10,10 @@ angular.module('coindropApp', [
     // 'ngSanitize',
     // 'ngTouch'
   ])
-  .config(['$urlRouterProvider', '$stateProvider', function ($urlRouterProvider, $stateProvider) {
+  .config(['$urlRouterProvider', '$stateProvider', configuration]);
+
+  function configuration($urlRouterProvider, $stateProvider) {
     // console.log('app.config loaded!');
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider
-      .state('main', {
-        url:'/',
-        templateUrl: 'views/main.html'
-      })
-      .state('signup', {
-        url: '/signup',
-        templateUrl: 'views/signup.html',
-        controller: 'AuthController'
-      })
-      .state('login', {
-        url: '/login',
-        templateUrl: 'views/login.html',
-        controller: 'AuthController'
-      })
-      .state('loggedin', {
-        url: '/loggedin',
-        templateUrl: 'views/loggedin.html'
-      })
-      .state('home', {
-        url: '/home',
-        templateUrl: 'views/main.html'
-      });
-
-  }]);
+    $urlRouterProvider.otherwise('/login');
+  }
 }).call(this);
