@@ -8,20 +8,21 @@
 
 .col-centered{
     float: none;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .title {
-    color: rgba(255, 255, 255, 255);
-    font-size: 60px;
+    color: #ffffff;
+    font-size: 75px;
     line-height: 1;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-align: center;
+    margin-top: 200px;
 }
 
 .tagline {
     margin-top: 30px;
-    color: rgba(255, 255, 255, .8);
+    color: #ffffff;
     text-align: center;
 }
 

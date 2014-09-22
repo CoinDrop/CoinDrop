@@ -9,6 +9,6 @@
         url: '/user',
         templateUrl: 'scripts/states/user/user.html',
         controller: 'userCtrl'
-      })
+      });
     }
 }).call(this);

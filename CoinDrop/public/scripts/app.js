@@ -1,7 +1,7 @@
 ;(function(){
   'use strict';
   angular.module('coindropApp', [
-    // 'ngAnimate',
+    'ngAnimate',
     // 'ngCookies',
     // 'ngResource',
     'ui.router',
@@ -12,7 +12,7 @@
 
   function configuration($urlRouterProvider, $stateProvider) {
     // console.log('app.config loaded!');
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/');
   }
 }).call(this);
 

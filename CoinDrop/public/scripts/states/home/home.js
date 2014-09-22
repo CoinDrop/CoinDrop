@@ -6,8 +6,8 @@
   function configuration($stateProvider) {
     $stateProvider
       .state('home', {
-        url: '/home',
-        templateUrl: 'scripts/states/home/home.html'
+        url: '/',
+        templateUrl: 'views/main.html'
       });
   }
 }).call(this);
