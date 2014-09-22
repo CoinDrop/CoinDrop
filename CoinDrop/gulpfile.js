@@ -27,14 +27,14 @@ gulp.task('test', function(done){
 
 // // Lint Task
 gulp.task('jshint', function() {
-    return gulp.src('./public/js/**/*.js')
+    return gulp.src('./public/scripts/**/*.js')
         .pipe(g.jshint())
         .pipe(g.jshint.reporter('default'));
 });
 
 // // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src('./public/js/**/*.js')
+    return gulp.src('./public/scripts/**/*.js')
         .pipe(ngAnnotate())
         .pipe(g.concat('all.js'))
         .pipe(gulp.dest('./dist'))
@@ -57,7 +57,7 @@ gulp.task('browser-sync', ['styles'], function() {
     gulp.watch(['./public/index.html'], reload);
     gulp.watch(['./public/views/**/*.html'], reload);
     gulp.watch(['./public/css/**/*.{scss,css}',], ['styles', reload]);
-    gulp.watch(['./public/js/**/*.js'], ['jshint']);
+    gulp.watch(['./public/scripts/**/*.js'], ['jshint']);
     gulp.watch(['./public/images/**/*'], reload);
 });
 
@@ -69,7 +69,7 @@ gulp.task('serve', function() {
 
 // Watch Files For Changes
 // gulp.task('watch', function() {
-//     gulp.watch('./public/js/**/*.js', ['lint', 'scripts', 'styles']);
+//     gulp.watch('./public/scripts/**/*.js', ['lint', 'scripts', 'styles']);
 // });
 
 
