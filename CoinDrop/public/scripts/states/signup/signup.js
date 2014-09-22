@@ -7,7 +7,7 @@
     $stateProvider
     .state('signup', {
       url: '/signup',
-      templateUrl: 'js/signup/signup.html'
+      templateUrl: 'scripts/states/signup/signup.html'
     })
   }
 }).call(this);

@@ -22,7 +22,7 @@ module.exports = function(config) {
       'public/lib/angular-mocks/angular-mocks.js',
 
       // our app code
-      'public/js/**/*.js',
+      'public/scripts/**/*.js',
 
       // our spec files
       'specs/**/*.js'
