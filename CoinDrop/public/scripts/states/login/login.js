@@ -9,6 +9,6 @@
         url: '/login',
         templateUrl: 'scripts/states/login/login.html',
         controller: 'loginCtrl'
-      })
+      });
     }
 }).call(this);

@@ -12,6 +12,6 @@
       };
       function acceptInput(){
         console.log(arguments);
-      };
+      }
     });
 }).call(this);

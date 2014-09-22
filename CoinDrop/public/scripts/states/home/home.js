@@ -8,6 +8,6 @@
       .state('home', {
         url: '/home',
         templateUrl: 'scripts/states/home/home.html'
-      })
-    }
+      });
+  }
 }).call(this);
