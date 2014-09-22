@@ -4,3 +4,17 @@ body {
   margin-top: 60px;
 }
 
+.main-container.ng-enter {
+	transition: .5s linear all;
+	-webkit-transition: .5s linear all;
+	-moz-transition: .5s linear all;
+	-o-transition: .5s linear all;
+}
+
+.main-container.ng-enter {
+	opacity: 0;
+}
+
+.main-container.ng-enter-active {
+	opacity: 1;
+}
