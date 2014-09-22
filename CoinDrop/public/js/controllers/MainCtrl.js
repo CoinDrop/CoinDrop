@@ -1,5 +1,12 @@
-angular.module('coindropApp')
+;(function(){
+  'use strict';
+  angular
+    .module('coindropApp')
+    .controller('MainController', MainController);
 
-.controller('MainController', function($scope) {
-  $scope.testing = "COIN DROPPP";
-});
+
+  MainController.$inject = ['$scope'];
+  function MainController($scope) {
+    $scope.testing = "COIN DROPPP";
+  }
+}).call(this);
