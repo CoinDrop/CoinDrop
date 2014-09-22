@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
   angular
-    .module('coindropApp.authservice', [])
+    .module('coindropApp')
     .factory('Auth', Auth);
     Auth.$inject = ['$http'];
     function Auth($http) {

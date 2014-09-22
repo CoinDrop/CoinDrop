@@ -7,7 +7,7 @@
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: 'js/home/home.html'
+        templateUrl: 'scripts/states/home/home.html'
       })
     }
 }).call(this);

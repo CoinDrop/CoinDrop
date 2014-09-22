@@ -10,7 +10,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 
-gulp.task('default', ['clean', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
+gulp.task('default', ['clean', 'inject', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
 
 //clean build directory
 gulp.task('clean', function(){
@@ -23,6 +23,19 @@ gulp.task('test', function(done){
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done);
+});
+
+// auto-inject JS scripts into <script> in index.html
+gulp.task('inject', function(){
+  var target = gulp.src('./public/index.html');
+  var scripts = gulp.src(['./public/scripts/app.js', './public/scripts/**/*.js'], {read:false});
+  return target
+    .pipe(g.inject(scripts, {
+      name:'AngularFiles',
+      ignorePath:'public',
+      addRootSlash:false
+    }))
+    .pipe(gulp.dest('./public'));
 });
 
 // // Lint Task

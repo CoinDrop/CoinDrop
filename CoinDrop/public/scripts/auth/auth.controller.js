@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('coindropApp.auth', [])
+    .module('coindropApp')
     .controller('AuthController', AuthController);
 
     // AuthController.$inject = ['$window', '$state', 'Auth'];
@@ -15,7 +15,5 @@
         console.log($scope.user.username, $scope.user.email, $scope.user.password);
       };
     }
-
-
 
 }).call(this);

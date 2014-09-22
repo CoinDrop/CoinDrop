@@ -5,8 +5,6 @@
     // 'ngCookies',
     // 'ngResource',
     'ui.router',
-    'coindropApp.auth',
-    'coindropApp.authservice',
     // 'ngSanitize',
     // 'ngTouch'
   ])
