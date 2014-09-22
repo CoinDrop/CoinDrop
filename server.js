@@ -12,6 +12,10 @@ mongoose.connect(connectionString);
 console.log(process.env.CUSTOMCONNSTR_MONGOLAB_URI);
 
 
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("acceptable");
+});
 
 
 
