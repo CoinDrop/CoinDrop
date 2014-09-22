@@ -8,6 +8,7 @@ var g = require('gulp-load-plugins')({lazy:false});
 var karma = require('karma').server;
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
+var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('default', ['clean', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
 
@@ -34,6 +35,7 @@ gulp.task('jshint', function() {
 // // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src('./public/js/**/*.js')
+        .pipe(ngAnnotate())
         .pipe(g.concat('all.js'))
         .pipe(gulp.dest('./dist'))
         .pipe(g.rename('all.min.js'))
