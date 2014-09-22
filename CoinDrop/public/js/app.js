@@ -1,8 +1,14 @@
+
+;(function() {
+'use strict';
+
 angular.module('coindropApp', [
-    // 'ngAnimate',
+    'ngAnimate',
     // 'ngCookies',
     // 'ngResource',
-    'ui.router'
+    'ui.router',
+    'coindropApp.auth',
+    'coindropApp.authservice',
     // 'ngSanitize',
     // 'ngTouch'
   ])
@@ -11,17 +17,28 @@ angular.module('coindropApp', [
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('login', {
-      url: '/login',
-      templateUrl: 'views/login.html'
-      })
-      .state('home', {
-        url: '/home',
-        templateUrl: 'views/home.html'
+      .state('main', {
+        url:'/',
+        templateUrl: 'views/main.html'
       })
       .state('signup', {
         url: '/signup',
-        templateUrl: 'views/signup.html'
+        templateUrl: 'views/signup.html',
+        controller: 'AuthController'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'AuthController'
+      })
+      .state('loggedin', {
+        url: '/loggedin',
+        templateUrl: 'views/loggedin.html'
+      })
+      .state('home', {
+        url: '/home',
+        templateUrl: 'views/main.html'
       });
 
   }]);
+}).call(this);
