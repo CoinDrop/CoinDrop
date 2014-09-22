@@ -1,10 +1,30 @@
 {
   "name": "coindrop",
+  "version": "0.0.0",
+  "description": "coindrop",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gitSauced/CoinDrop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitSauced/CoinDrop/issues"
+  },
+  "homepage": "https://github.com/gitSauced/CoinDrop",
   "dependencies": {
     "body-parser": "*",
     "cors": "^2.4.2",
     "express": "*",
-    "gulp": "^3.8.8",
+    "gulp": "*",
     "gulp-browserify": "^0.5.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.4.1",
@@ -15,8 +35,19 @@
     "gulp-nodemon": "^1.0.4",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^0.7.3",
+    "gulp-shell": "^0.2.9",
     "gulp-uglify": "^1.0.1",
+    "gulp-minify-css": "*",
+    "tiny-lr": "*",
+    "karma": "^0.12.23",
+    "karma-mocha": "^0.1.9",
     "method-override": "*",
+    "mocha": "^1.21.4",
     "mongoose": "*"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.3.7",
+    "gulp": "^3.8.8",
+    "karma-chrome-launcher": "^0.1.4"
   }
 }

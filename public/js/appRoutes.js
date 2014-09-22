@@ -1,4 +1,4 @@
-angular.module('appRoutes', [])
+angular.module('coindropApp')
 
 .config(['$routePrvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
