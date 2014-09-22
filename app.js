@@ -7,6 +7,8 @@ var methodOverride = require('method-override');
 var db = require('./app/config/db');
 var connectionString = process.env.CUSTOMCONNSTR_MONGOLAB_URI || db.url;
 mongoose.connect(connectionString);
+console.log(process.env.CUSTOMCONNSTR_MONGOLAB_URI);
+
 
 var port = process.env.PORT || 8080;
 
