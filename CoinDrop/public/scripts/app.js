@@ -15,3 +15,4 @@
     $urlRouterProvider.otherwise('/login');
   }
 }).call(this);
+
