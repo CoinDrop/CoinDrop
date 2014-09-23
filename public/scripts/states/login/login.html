@@ -7,13 +7,11 @@
             Login
           </div>
           <div class="panel-body">
-            <!-- <form ng-submit="acceptInput()"> -->
-              <label>Username</label>
-              <input ng-model="username" class="form-control" type="text"><br>
-              <label>Password</label>
-              <input ng-model="password" class="form-control" type="password"><br>
-              <button class="btn btn-default" type="submit" ng-click="acceptInput(username, password)">Login</button>
-            <!-- </form> -->
+            <form ng-init="username='';password=''" ng-submit="doLogin(username, password)">
+              <label>Username</label> <input ng-model="username" class="form-control" type="text"><br>
+              <label>Password</label> <input ng-model="password" class="form-control" type="password"><br>
+              <button class="btn btn-default" type="submit">Login</button>
+            </form>
           </div>
         </div>
       </div>
