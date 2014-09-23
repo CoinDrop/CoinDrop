@@ -23,7 +23,8 @@ describe('Utilities', function(){
     it('should return an object with correct properties', function(){
       expect(wallet).to.be.a('object');
       expect(wallet.address).to.be.ok;
-      expect(wallet.privateKey).to.be.ok;
+      expect(wallet.privateKey1).to.be.ok;
+      expect(wallet.privateKey2).to.be.ok;
     });
 
     describe('.address', function(){
@@ -37,13 +38,14 @@ describe('Utilities', function(){
 
     });
 
-    describe('.privateKey', function(){
+    describe('privatekeys', function(){
 
-      it('should be a valid BTC testnet privateKey', function(){
-        expect(wallet.privateKey).to.be.a('string');
-        expect(wallet.privateKey.length).to.equal(52);
-        expect(base58check.decode(wallet.privateKey)).to.be.ok;
-        expect(wallet.privateKey[0]).to.match(/K|L/);
+      it('should be a valid BTC testnet privateKey, constructed from 2 properties', function(){
+        var privateKey = wallet.privateKey1 + wallet.privateKey2;
+        expect(privateKey).to.be.a('string');
+        expect(privateKey.length).to.equal(52);
+        expect(base58check.decode(privateKey)).to.be.ok;
+        expect(privateKey[0]).to.match(/K|L/);
       });
 
     });
