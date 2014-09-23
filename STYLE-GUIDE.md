@@ -382,6 +382,3 @@ When writing any block of code that is logically subordinate to the line immedia
     <!-- bad -->
     <script src="a.js" type="text/javascript"></script>
     ```
-    
-    
-    ANGULAR STYLE GUIDE: https://github.com/johnpapa/angularjs-styleguide/blob/master/README.md#manual-dependency-injection
