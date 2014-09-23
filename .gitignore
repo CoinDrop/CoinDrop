@@ -19,6 +19,7 @@ dist
 # public modules
 node_modules
 client/bower_components
+public/lib
 
 # Logs
 logs
@@ -46,4 +47,4 @@ dist/
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
-lib/
+bower_components/
