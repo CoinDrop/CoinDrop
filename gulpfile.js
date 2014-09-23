@@ -9,14 +9,17 @@ var karma = require('karma').server;
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
-
-gulp.task('default', ['clean', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
+var del = require('del');
+gulp.task('default', ['clean', 'inject', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
 
 //clean build directory
-gulp.task('clean', function(){
-  gulp.src('./dist', {read: false} )
-    .pipe( g.clean());
-});
+// gulp.task('clean', function(){
+//   gulp.src('./dist', {read: false} )
+//     .pipe( g.clean());
+// });
+
+gulp.task('clean', del.bind(null, ['./dist']));
+
 
 gulp.task('test', function(done){
   karma.start({
@@ -25,16 +28,29 @@ gulp.task('test', function(done){
   }, done);
 });
 
+// auto-inject JS scripts into <script> in index.html
+gulp.task('inject', function(){
+  var target = gulp.src('./public/index.html');
+  var scripts = gulp.src(['./public/scripts/app.js', './public/scripts/**/*.js'], {read:false});
+  return target
+    .pipe(g.inject(scripts, {
+      name:'AngularFiles',
+      ignorePath:'public',
+      addRootSlash:false
+    }))
+    .pipe(gulp.dest('./public'));
+});
+
 // // Lint Task
 gulp.task('jshint', function() {
-    return gulp.src('./public/js/**/*.js')
+    return gulp.src('./public/scripts/**/*.js')
         .pipe(g.jshint())
         .pipe(g.jshint.reporter('default'));
 });
 
 // // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src('./public/js/**/*.js')
+    return gulp.src('./public/scripts/**/*.js')
         .pipe(ngAnnotate())
         .pipe(g.concat('all.js'))
         .pipe(gulp.dest('./dist'))
@@ -43,10 +59,10 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('styles', function() {
-    return gulp.src('./public/css/**/*.css')
+gulp.task('styles', ['clean'] , function() {
+    return gulp.src('./public/css/*.css')
     .pipe( g.minifyCss({keyBreaks:true}))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('browser-sync', ['styles'], function() {
@@ -57,19 +73,19 @@ gulp.task('browser-sync', ['styles'], function() {
     gulp.watch(['./public/index.html'], reload);
     gulp.watch(['./public/views/**/*.html'], reload);
     gulp.watch(['./public/css/**/*.{scss,css}',], ['styles', reload]);
-    gulp.watch(['./public/js/**/*.js'], ['jshint']);
+    gulp.watch(['./public/scripts/**/*.js'], ['jshint']);
     gulp.watch(['./public/images/**/*'], reload);
 });
 
 //start node server
 gulp.task('serve', function() {
     // return nodemon({ script: './app/server.js' });
-    require('./app/server.js');
+    require('./server.js');
 });
 
 // Watch Files For Changes
 // gulp.task('watch', function() {
-//     gulp.watch('./public/js/**/*.js', ['lint', 'scripts', 'styles']);
+//     gulp.watch('./public/scripts/**/*.js', ['lint', 'scripts', 'styles']);
 // });
 
 

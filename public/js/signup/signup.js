@@ -8,6 +8,6 @@
     .state('signup', {
       url: '/signup',
       templateUrl: 'js/signup/signup.html'
-    })
+    });
   }
 }).call(this);

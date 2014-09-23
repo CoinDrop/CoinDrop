@@ -33,7 +33,7 @@ var router = express.Router();
     });
 
   router.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, './public/index.html'));
   });
 
   app.use('/api', router);

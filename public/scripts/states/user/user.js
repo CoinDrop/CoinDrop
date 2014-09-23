@@ -5,10 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('login', {
-        url: '/login',
-        templateUrl: 'js/login/login.html',
-        controller: 'loginCtrl'
+      .state('user', {
+        url: '/user',
+        templateUrl: 'scripts/states/user/user.html',
+        controller: 'userCtrl'
       });
     }
 }).call(this);
