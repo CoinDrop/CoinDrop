@@ -17,7 +17,7 @@ describe('Utilities', function(){
 
   describe('makeWallet()', function(){
     beforeEach(function(){
-      var wallet = Utilities.makeWallet();
+      wallet = Utilities.makeWallet();
     });
 
     it('should return an object with correct properties', function(){
