@@ -26,7 +26,7 @@ module.exports = function(config) {
       'public/scripts/**/*.js',
 
       // our spec files
-      'specs/**/*.js'
+      'specs/public/*.js'
     ],
 
 
@@ -71,6 +71,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: true
   });
 };
