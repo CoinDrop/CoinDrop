@@ -14,6 +14,11 @@
         console.log('clicked');
         console.log($scope.user.username, $scope.user.email, $scope.user.password);
       };
+      $scope.login = function(form) {
+        console.log(form);
+        console.log('clicked');
+        console.log($scope.user.username, $scope.user.password);
+      };
     }
 
 }).call(this);
