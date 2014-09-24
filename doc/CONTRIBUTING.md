@@ -34,7 +34,7 @@ Prefix each commit like so
 
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
-```
+```bash
 git remote add upstream https://github.com/CoinDrop/CoinDrop.git
 ```
 
@@ -84,7 +84,7 @@ your code merged into the main repo. Step 1 is to rebase upstream
 changes to the master branch into yours by running this command
 from your branch:
 
-```
+```bash
 git pull --rebase upstream master
 ```
 
@@ -103,7 +103,7 @@ as possible.
 
 Once you are done fixing conflicts for a specific commit, run:
 
-```
+```bash
 git rebase --continue
 ```
 
