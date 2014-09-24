@@ -20,7 +20,7 @@ module.exports = function(config) {
       'public/lib/angular/angular.js',
       'public/lib/angular-ui-router/release/angular-ui-router.js',
       'public/lib/angular-mocks/angular-mocks.js',
-      // 'public/lib/angular-animate/angular-animate.js',
+      'public/lib/angular-animate/angular-animate.js',
       
       // our app code
       'public/scripts/**/*.js',

@@ -80,9 +80,3 @@ gulp.task('serve', function() {
     require('./server.js');
 });
 
-// Watch Files For Changes
-// gulp.task('watch', function() {
-//     gulp.watch('./public/scripts/**/*.js', ['lint', 'scripts', 'styles']);
-// });
-
-
