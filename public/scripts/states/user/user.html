@@ -1,25 +1,31 @@
-
-<!-- <header class="header" id="banner">
-<span class="headertitle">USER DASHBOARD</span>
-</header>
-
-<div class="container">
-  <div class="transaction">
-
-      <table class="table table-hover" ng-repeat="transaction in transactions">
-        <tr>TESTING TESTING TESTING</tr>
-      </table>
-</div>
+<button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-usd"></span> Create 
+</button>
 
 
-</div> -->
-<div ng-init="transactions = [{transaction: 'Buying a cell phone from this person from another state', progress: 'PENDING'},
-{transaction: 'Buying a book from this person from another state', progress: 'PENDING'},
-{transaction: 'Buying a computer from this person from another state', progress: 'PENDING'}]">
-<table ng-table class="transactions">
-<tr ng-repeat="trans in transactions">
-<td title="'Transaction"> {{ trans.transaction }}</td>
-<td title="'Progress'"> {{ trans.progress }}</td>
-</tr>
+<div class="table-responsive">
+<table ng-table class="table">
+ 	<tr>
+ 		<th>Transaction</th>
+ 		<th>Description</th>
+ 		<th>Date</th>
+ 		<th>Progress</th>
+ 	</tr>
+ 	<div ng-init="transactions=[
+ 	{Transaction: '1', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '2', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '3', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '4', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '5', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '6', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Transaction: '7', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'}]">
+ 	</div>
+
+ 	<tr ng-repeat='transaction in transactions'>
+ 		<td>{{ transaction.Transaction }}</td>
+		<td>{{ transaction.Description }}</td>
+		<td>{{ transaction.Date }}</td>
+		<td>{{ transaction.Progress }}</td>
+	</tr>
 </table>
-
+</div>
