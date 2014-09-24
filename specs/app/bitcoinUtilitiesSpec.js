@@ -11,7 +11,7 @@ describe('Utilities', function(){
   it('exists', function(){
     expect(Utilities).to.be.a('object');
   });
-  
+
   it('should have a makeWallet method', function(){
     expect(Utilities.makeWallet).to.be.a('function');
   });

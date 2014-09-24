@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Initiate a new payment pathway
+          </div>
+          <strong>This will create a new pathway for funds</strong> to transfer in either direction.
+          It will allow money to transfer between you and another user. The new pathway will be be empty.
+          After it's created, either party can commit any size payment to the other via escrow.
+          <div class="panel-body">
+            <form ng-init="otherUsername=''" ng-submit="doInitiate(otherUsername)">
+              <label>Other user</label> <input ng-model="otherUsername" class="form-control" type="text"><br>
+              <button class="btn btn-default" type="submit">Initiate</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

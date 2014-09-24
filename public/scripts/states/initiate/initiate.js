@@ -5,10 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('login', {
-        url: '/login',
-        templateUrl: 'js/login/login.html',
-        controller: 'loginCtrl'
+      .state('initiate', {
+        url: '/initiate',
+        templateUrl: 'scripts/states/initiate/initiate.html',
+        controller: 'initiateCtrl'
       });
     }
 }).call(this);

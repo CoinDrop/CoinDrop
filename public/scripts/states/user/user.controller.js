@@ -6,7 +6,7 @@
       $scope.testing = "COIN DROPPP";
       $scope.acceptInput = loginService.acceptInput;
           })
-    
+
     .factory('loginService', function(){
       return {
         acceptInput:acceptInput

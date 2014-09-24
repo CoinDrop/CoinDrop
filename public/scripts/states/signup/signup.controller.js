@@ -4,7 +4,7 @@
     .module('coindropApp')
     .controller('signupCtrl', function($scope, loginService) {
       $scope.testing = "COIN DROPPP";
-      $scope.acceptInput = loginService.acceptInput;
+      $scope.acceptInput = signupService.doSignup;
           })
     .factory('signupService', function(){
       return {
