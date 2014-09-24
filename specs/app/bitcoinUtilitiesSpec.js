@@ -1,3 +1,5 @@
+/*jshint expr:true */
+
 var path = require('path');
 var expect = require('chai').expect;
 var base58check = require(path.resolve(__dirname, '..', '..', 'node_modules/bitcoinjs-lib/node_modules/bs58check/src/bs58check.js'));
@@ -7,7 +9,7 @@ var Utilities = require(path.resolve(__dirname, '..', '..', 'app/bitcoinUtilitie
 describe('Utilities', function(){
 
   it('exists', function(){
-    expect(Utilities).to.be.a('object')
+    expect(Utilities).to.be.a('object');
   });
   
   it('should have a makeWallet method', function(){
