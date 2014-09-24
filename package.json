@@ -48,10 +48,7 @@
     "mocha": "^1.21.4",
     "mongoose": "^3.8.16",
     "ng-annotate": "^0.10.1",
-<<<<<<< HEAD
     "path": "^0.4.9",
-=======
->>>>>>> fd38ae392f233c65651f62f3b6eddee6c5d2b607
     "supertest": "^0.13.0",
     "tiny-lr": "*"
   },
