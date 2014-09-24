@@ -35,7 +35,7 @@ Prefix each commit like so
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/common-badger/wanderlust.git
+git remote add upstream https://github.com/CoinDrop/CoinDrop.git
 ```
 
 ### Cut a namespaced feature branch from master
