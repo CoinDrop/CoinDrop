@@ -10,7 +10,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var del = require('del');
-gulp.task('default', ['clean', 'inject', 'jshint', 'scripts','styles', 'browser-sync', 'serve']);
+gulp.task('default', ['clean', 'styles','inject', 'jshint', 'scripts', 'browser-sync', 'serve']);
 
 //clean build directory
 // gulp.task('clean', function(){
