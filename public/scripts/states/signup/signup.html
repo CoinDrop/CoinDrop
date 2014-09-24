@@ -8,10 +8,10 @@
           </div>
           <div class="panel-body">
             <form ng-init="username='';password='';email=''" ng-submit="doSignup(username,password,email)">
-              <label>Username</label> <input class="form-control" type="text"><br>
-              <label>Password</label> <input class="form-control" type="text"><br>
-              <label>E-mail</label> <input class="form-control" type="text"><br>
-              <button class="btn btn-default">Signup</button>
+              <label>Username</label> <input ng-model="username" class="form-control" type="text"><br>
+              <label>Password</label> <input ng-model="password" class="form-control" type="password"><br>
+              <label>E-mail</label> <input ng-model="email" class="form-control" type="text"><br>
+              <button class="btn btn-default" type="submit">Signup</button>
             </form>
           </div>
         </div>

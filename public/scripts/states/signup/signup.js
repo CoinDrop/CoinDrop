@@ -5,9 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-    .state('signup', {
-      url: '/signup',
-      templateUrl: 'scripts/states/signup/signup.html'
-    });
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'scripts/states/signup/signup.html',
+        controller: 'signupCtrl'
+      });
   }
 }).call(this);
