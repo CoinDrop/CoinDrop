@@ -1,8 +1,3 @@
-var request = require('supertest');
-var express = require('express');
-var expect = require('chai').expect;
-var app = require('../../server.js');
-
 //var db = require('../app/config');
 //var User = require('../app/models/user');
 //var Link = require('../app/models/link');
@@ -16,17 +11,28 @@ describe('Routing', function() {
   //     .end(done);
   // });
 
-  var $route;
+  var $state, $injector, $rootScope;
 
-  beforeEach(module('coindropApp'));
+  // beforeEach(module('coindropApp'));
   beforeEach(inject(function($injector){
-    $route = $injector.get('$route');
+    $state = $injector.get('$state');
   }));
 
-  it('Should have /initiate route, template, and controller', function () {
-    expect($route.routes['/initiate']).to.be.ok();
-    expect($route.routes['/initiate'].controller).to.be('initiateCtrl');
-    expect($route.routes['/initiate'].templateUrl).to.be('scripts/states/initiate/initiate.html');
+  it('Should have /home route', function () {
+    expect($state.href('home')).to.equal('#/');
+  });
+  it('Should have /login route', function () {
+    expect($state.href('login')).to.equal('#/login');
+  });
+  it('Should have /signup route', function () {
+    expect($state.href('signup')).to.equal('#/signup');
+  });
+  it('Should have /user route', function () {
+    // expect($state.href('')).to.equal('#/user');
+    expect($state.href('user')).to.equal('#/user');
+  });
+  it('Should have /initiate route', function () {
+    expect($state.href('initiate')).to.equal('#/initiate');
   });
 
 });

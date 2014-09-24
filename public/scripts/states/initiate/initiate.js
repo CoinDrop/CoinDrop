@@ -8,7 +8,7 @@
       .state('initiate', {
         url: '/initiate',
         templateUrl: 'scripts/states/initiate/initiate.html',
-        controller: 'initiateCtrl'
+        controller: 'InitiateController'
       });
     }
 }).call(this);

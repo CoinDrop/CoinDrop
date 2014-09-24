@@ -2,7 +2,7 @@
   'use strict';
   angular
     .module('coindropApp')
-    .controller('userCtrl', function($scope, loginService) {
+    .controller('UserController', function($scope, loginService) {
       $scope.testing = "COIN DROPPP";
       $scope.acceptInput = loginService.acceptInput;
           })

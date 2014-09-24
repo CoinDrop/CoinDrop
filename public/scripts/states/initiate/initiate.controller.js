@@ -2,8 +2,7 @@
   'use strict';
   angular
     .module('coindropApp')
-    .controller('initiateCtrl', function($scope, initiateService) {
-      $scope.testing = "COIN DROPPP";
+    .controller('InitiateController', function($scope, initiateService) {
       $scope.doInitiate = initiateService.doInitiate;
     })
     .factory('initiateService', function(){
