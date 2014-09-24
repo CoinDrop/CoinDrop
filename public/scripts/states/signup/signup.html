@@ -7,16 +7,12 @@
             Signup
           </div>
           <div class="panel-body">
-            <label>Username</label>
-            <input class="form-control" type="text"><br>
-
-            <label>Password</label>
-            <input class="form-control" type="text"><br>
-
-            <label>E-mail</label>
-            <input class="form-control" type="text"><br>
-
-            <button class="btn btn-default">Signup</button>
+            <form ng-init="username='';password='';email=''" ng-submit="doSignup(username,password,email)">
+              <label>Username</label> <input class="form-control" type="text"><br>
+              <label>Password</label> <input class="form-control" type="text"><br>
+              <label>E-mail</label> <input class="form-control" type="text"><br>
+              <button class="btn btn-default">Signup</button>
+            </form>
           </div>
         </div>
       </div>

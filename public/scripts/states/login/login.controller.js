@@ -8,9 +8,9 @@
           })
     .factory('loginService', function(){
       return {
-        acceptInput:acceptInput
+        doLogin:doLogin
       };
-      function acceptInput(){
+      function doLogin(){
         console.log(arguments);
       }
     });
