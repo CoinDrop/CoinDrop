@@ -2,7 +2,7 @@
 //includes the gulp core plugins associated with the tasks
 //that we will be performing.  Next we setup each of our separate
 //tasks.  These tasks are lint, sass, scripts, and default.
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 var g = require('gulp-load-plugins')({lazy:false});
 var karma = require('karma').server;
 var browserSync = require('browser-sync');
