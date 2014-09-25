@@ -12,14 +12,14 @@ describe('Utilities', function(){
     expect(Utilities).to.be.a('object');
   });
 
-  it('should have a makeTran method', function(){
-    expect(Utilities.makeTran).to.be.a('function');
+  it('should have a makeWallet method', function(){
+    expect(Utilities.makeWallet).to.be.a('function');
   });
 
 
-  describe('makeTran()', function(){
+  describe('makeWallet()', function(){
     beforeEach(function(){
-      wallet = Utilities.makeTran();
+      wallet = Utilities.makeWallet();
     });
 
     it('should return an object with correct properties', function(){
