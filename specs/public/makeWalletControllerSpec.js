@@ -19,7 +19,7 @@ describe('MakeWalletController', function() {
     createController();
   }));
 
-  it('should have makeWalletController', function() {
+  it('should have MakeWalletController', function() {
     expect('MakeWalletController').to.exist;
   });
   it('should have a doMakeWallet method', function() {

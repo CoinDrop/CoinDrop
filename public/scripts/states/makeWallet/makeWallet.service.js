@@ -2,7 +2,7 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('makeWalletService', MakeWalletService);
+    .factory('MakeWalletService', MakeWalletService);
   /* @inject */
   function MakeWalletService($http){
     return {
@@ -18,5 +18,5 @@
         return resp;
       });
     }
-  });
+  }
 }).call(this);
