@@ -2,17 +2,17 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('MakeWalletService', MakeWalletService);
+    .factory('TranDetailService', TranDetailService);
   /* @inject */
-  function MakeWalletService($http){
+  function TranDetailService($http){
     return {
-      doMakeWallet:doMakeWallet
+      doTranDetail:doTranDetail
     };
-    function doMakeWallet(makeWallet) {
+    function doTranDetail(tranDetail) {
       return $http({
         method: 'POST',
         url: 'api/wallet/new',
-        data: makeWallet
+        data: tranDetail
       })
       .then(function(resp){
         return resp;

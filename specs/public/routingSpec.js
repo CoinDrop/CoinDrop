@@ -31,8 +31,8 @@ describe('Routing', function() {
     // expect($state.href('')).to.equal('#/user');
     expect($state.href('user')).to.equal('#/user');
   });
-  it('Should have /makeWallet route', function () {
-    expect($state.href('makeWallet')).to.equal('#/makeWallet');
+  it('Should have /makeTran route', function () {
+    expect($state.href('makeTran')).to.equal('#/makeTran');
   });
 
 });

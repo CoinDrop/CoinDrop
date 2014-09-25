@@ -1,7 +1,7 @@
 // Utilities for bitcoin logic stored here
 var Bitcoin = require('bitcoinjs-lib');
 
-module.exports.makeWallet = function(){
+module.exports.makeTran = function(){
   var BTCWallet = new Bitcoin.Wallet(null, Bitcoin.networks.testnet);
   var privateKey = BTCWallet.getPrivateKey(0).toWIF();
   var wallet = {
