@@ -13,7 +13,7 @@ describe('Routing', function() {
 
   var $state, $injector, $rootScope;
 
-  // beforeEach(module('coindropApp'));
+  beforeEach(module('coindropApp'));
   beforeEach(inject(function($injector){
     $state = $injector.get('$state');
   }));
@@ -31,8 +31,8 @@ describe('Routing', function() {
     // expect($state.href('')).to.equal('#/user');
     expect($state.href('user')).to.equal('#/user');
   });
-  it('Should have /initiate route', function () {
-    expect($state.href('initiate')).to.equal('#/initiate');
+  it('Should have /makeWallet route', function () {
+    expect($state.href('makeWallet')).to.equal('#/makeWallet');
   });
 
 });

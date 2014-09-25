@@ -5,10 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('initiate', {
-        url: '/initiate',
-        templateUrl: 'scripts/states/initiate/initiate.html',
-        controller: 'InitiateController'
+      .state('makeWallet', {
+        url: '/makeWallet',
+        templateUrl: 'scripts/states/makeWallet/makeWallet.html',
+        controller: 'MakeWalletController'
       });
     }
 }).call(this);

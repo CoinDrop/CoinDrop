@@ -22,6 +22,6 @@ describe('', function() {
         .end(done);
     });
 
-    });
+  });
 
 });

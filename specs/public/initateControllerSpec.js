@@ -1,6 +1,6 @@
 /*jshint expr:true */
 
-describe('InitiateController', function() {
+describe('MakeWalletController', function() {
   var createController;
   var $scope;
   var $rootScope;
@@ -12,18 +12,18 @@ describe('InitiateController', function() {
 
     var $controller = $injector.get('$controller');
     createController = function() {
-      return $controller('InitiateController', {
+      return $controller('MakeWalletController', {
         $scope: $scope
       });
     };
     createController();
   }));
 
-  it('should have initiateController', function() {
-    expect('InitiateController').to.exist;
+  it('should have makeWalletController', function() {
+    expect('MakeWalletController').to.exist;
   });
-  it('should have a doInitiate method', function() {
-    expect($scope.doInitiate).to.be.a('function');
+  it('should have a doMakeWallet method', function() {
+    expect($scope.doMakeWallet).to.be.a('function');
   });
 
 });
