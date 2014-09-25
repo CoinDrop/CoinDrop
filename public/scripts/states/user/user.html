@@ -24,7 +24,7 @@
  	{Transaction: '7', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'}]">
  	</div>
 
- 	<tr ng-repeat='transaction in transactions'>
+ 	<tr ng-repeat='transaction in transactions' ng-click="goTranDetail(transaction)">
  		<td>{{ transaction.Transaction }}</td>
 		<td>{{ transaction.Description }}</td>
 		<td>{{ transaction.Date }}</td>
