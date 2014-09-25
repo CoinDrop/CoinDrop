@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 
+
+
 app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -32,21 +34,69 @@ app.all('/*', function(req, res, next) {
 
 require('./app/routes')(app); //configure routes
 
-app.post('/test', function(req,res){
+app.post('/signup', function(req,res){
  var username = req.body.username;
   var password = req.body.password;
   var newUser = new User({
           username: username,
           password: password
         });
-       newUser.save(function(err, newUser) {
-          if (err) {
-            res.send(500, err);
-          }
-        res.redirect('/');
-        });
+ newUser.save(function(err, newUser) {
+    if (err) {
+      res.send(500, err);
+    }
+  res.redirect('/');
+  });
 
 });
+
+app.post('/login', function(req,res){
+ var username = req.body.username;
+ var password = req.body.password;
+
+    User.find({'username': 'Svnh'},function (err, users) {
+            if (err) return console.error(err);
+           
+            if(users[0].password === password)
+            {
+              console.log("authenticated");
+            }
+
+          });
+  res.redirect('/');
+  });
+
+app.post('/create', function(req,res){
+ var otherUser = req.body.otherUser;
+
+    User.find({'username': 'Svnh'},function (err, users) {
+            if (err) return console.error(err);
+            var tempWalletObj = {
+              address: "1234",
+              key1: "key",
+              key2: '',
+              otherUser: "Brandon"
+            }
+
+            users[0].transactions.push(tempWalletObj);
+            console.log(users[0]);
+            users[0].save(function(err, newUser) {
+                if (err) {
+                  res.send(500, err);
+                }
+              res.redirect('/');
+              });
+          });
+  });
+
+
+
+
+
+
+
+
+
 
 app.listen(port);
 console.log('app listening in on port ', port);
