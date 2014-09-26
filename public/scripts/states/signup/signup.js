@@ -7,7 +7,8 @@
     $stateProvider
     .state('signup', {
       url: '/signup',
-      templateUrl: 'scripts/states/signup/signup.html'
+      templateUrl: 'scripts/states/signup/signup.html',
+      controller: 'AuthController'
     });
   }
 }).call(this);
