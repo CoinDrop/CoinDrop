@@ -4,20 +4,33 @@
   angular
     .module('coindropApp')
     .controller('AuthController', AuthController);
-
-    // AuthController.$inject = ['$window', '$state', 'Auth'];
-    function AuthController($scope) {
+    /* @inject */
+    function AuthController ($scope, $window, $state, authService) {
       $scope.user = {};
 
-      $scope.signup = function(form) {
-        console.log(form);
-        console.log('clicked');
-        console.log($scope.user.username, $scope.user.email, $scope.user.password);
+      $scope.login = function () {
+        console.log('INSIDE CLIENT LOGIN:', $scope.user);
+        authService.login($scope.user)
+        .then(function (resp) {
+          console.log('IN HERE');
+          // $window.localStorage.setItem('com.coindrop', token);
+          $state.go('user');
+        })
+        .catch(function (error) {
+          console.log('Error During Login :', error);
+        });
       };
-      $scope.login = function(form) {
-        console.log(form);
-        console.log('clicked');
-        console.log($scope.user.username, $scope.user.password);
+      
+      $scope.signup = function() {
+        console.log('INSIDE SIGNUP: ', $scope.user);
+        authService.signup($scope.user)
+        .then(function (token) {
+          // $window.localStorage.setItem('com.coindrop', token);
+          $state.go('user');
+        })
+        .catch(function (error) {
+          console.log('Error During Signup: ', error);
+        });
       };
     }
 
