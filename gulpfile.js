@@ -10,18 +10,25 @@ var reload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var mocha = require('gulp-mocha');
 var del = require('del');
+var nodemon = require('gulp-nodemon');
+var exit = require('gulp-exit');
 
 //run gulp in command line to perform all of these actions
-gulp.task('default', ['clean', 'inject', 'jshint', 'mocha', 'scripts', 'styles', 'browser-sync', 'serve']);
+gulp.task('default', ['clean', 'inject', 'jshint', 'scripts', 'mocha', 'styles', 'browser-sync', 'serve']);
 
-//clean build directory
+// clean build directory
 // gulp.task('clean', function(){
 //   gulp.src('./dist', {read: false} )
 //     .pipe( g.clean());
 // });
 
 //without this our dist file will not be cleared out
-gulp.task('clean', del.bind(null, ['./dist']));
+gulp.task('clean', del(['./dist'], function(err) {
+  if(err) {
+    console.log('Gulp Clean Error');
+  }
+  console.log('Dist files have been removed');
+}));
 
 //without this our browser testing will not work
 gulp.task('test', ['jshint'], function(done){
@@ -55,7 +62,7 @@ gulp.task('inject', function(){
 
 //without this our js files will not be checked for syntax errors
 gulp.task('jshint', function() {
-    return gulp.src(['./public/scripts/**/*.js', './specs/*/**.js'])
+    return gulp.src(['./public/scripts/**/*.js', './specs/*/**.js', './app/**/*.js'])
         .pipe(g.jshint())
         .pipe(g.jshint.reporter('default'));
 });
@@ -63,8 +70,10 @@ gulp.task('jshint', function() {
 //without this our js files will not be concatenated and minified
 gulp.task('scripts', function() {
     return gulp.src('./public/scripts/**/*.js')
-        .pipe(ngAnnotate())
         .pipe(g.concat('all.js'))
+        .pipe(ngAnnotate({
+          add: true
+        }))
         .pipe(gulp.dest('./dist'))
         .pipe(g.rename('all.min.js'))
         .pipe(g.uglify())
@@ -82,7 +91,7 @@ gulp.task('styles', function() {
 //our browser will not reload automatically when changes are made
 //our tests will also re-run automaitcally when changes are made
 //to the spec files
-gulp.task('browser-sync', ['styles'], function() {
+gulp.task('browser-sync', function() {
     browserSync({
         notify: false,
         server: './public'
@@ -90,15 +99,15 @@ gulp.task('browser-sync', ['styles'], function() {
     gulp.watch(['./public/index.html'], reload);
     gulp.watch(['./public/**/*.html'], reload);
     gulp.watch(['./public/css/**/*.{scss,css}',], ['styles', reload]);
-    gulp.watch(['./public/scripts/**/*.js'], ['jshint']);
+    gulp.watch(['./public/scripts/**/*.js', './app/**/*.js'], ['jshint']);
     gulp.watch(['./specs/*/**.js'], ['mocha']);
     gulp.watch(['./public/images/**/*'], reload);
 });
 
 //without this our server will not start up automatically
 gulp.task('serve', function() {
-    // return nodemon({ script: './app/server.js' });
-    require('./server.js');
+    return nodemon({ script: './server.js' });
+    // require('./server.js');
 });
 
 gulp.task('copy-bower-components', function () {
