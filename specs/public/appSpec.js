@@ -9,7 +9,7 @@ describe('coindropApp module', function() {
   });
 
   //withut these tests, we wont know if we're injecting the proper dependencies
-  describe('coindropApp dependencies', function() {
+  describe('coindropApp module dependencies', function() {
     var dependencies;
     var hasModule = function(module) {
       return dependencies.indexOf(module) >= 0;
@@ -25,6 +25,6 @@ describe('coindropApp module', function() {
     });
     it('should have ngAnimate as a dependency', function() {
       expect(hasModule('ngAnimate')).to.equal(true);
-    })
+    });
   });
 });
