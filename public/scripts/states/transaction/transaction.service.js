@@ -31,7 +31,7 @@
       else if (ret.activity.offer)                ret.status = 'on offer';
       else                                        ret.status = 'empty';
       // $scope.transaction = ret;
-      console.log(ret);
+      // console.log(ret);
       return ret;
       // FIXME: real data here.
       // $http.get('api/transaction/'+tranId)
