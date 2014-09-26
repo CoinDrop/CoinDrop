@@ -14,7 +14,9 @@ var nodemon = require('gulp-nodemon');
 var exit = require('gulp-exit');
 
 //run gulp in command line to perform all of these actions
-gulp.task('default', ['clean', 'inject', 'jshint', 'scripts', 'mocha', 'styles', 'browser-sync', 'serve']);
+gulp.task('default', ['clean'], function(done) {
+ g.runSequence(['inject', 'jshint', 'scripts', 'styles', 'mocha', 'browser-sync', 'serve'], done);
+})
 
 // clean build directory
 // gulp.task('clean', function(){
@@ -23,12 +25,7 @@ gulp.task('default', ['clean', 'inject', 'jshint', 'scripts', 'mocha', 'styles',
 // });
 
 //without this our dist file will not be cleared out
-gulp.task('clean', del(['./dist'], function(err) {
-  if(err) {
-    console.log('Gulp Clean Error');
-  }
-  console.log('Dist files have been removed');
-}));
+gulp.task('clean', del.bind(null, ['./dist']));
 
 //without this our browser testing will not work
 gulp.task('test', ['jshint'], function(done){
@@ -82,9 +79,9 @@ gulp.task('scripts', function() {
 
 //without this our styles will not be minified
 gulp.task('styles', function() {
-    return gulp.src('./public/css/**/*.css')
-    .pipe( g.minifyCss({keyBreaks:true}))
-    .pipe(gulp.dest('./dist'))
+    return gulp.src('./public/css/*.css')
+    .pipe(g.minifyCss({keyBreaks:true}))
+    .pipe(gulp.dest('./dist'));
 });
 
 //without this our files will not be watched for changes and
@@ -106,8 +103,8 @@ gulp.task('browser-sync', function() {
 
 //without this our server will not start up automatically
 gulp.task('serve', function() {
-    return nodemon({ script: './server.js' });
-    // require('./server.js');
+    // return nodemon({ script: './server.js' });
+    require('./server.js');
 });
 
 gulp.task('copy-bower-components', function () {
