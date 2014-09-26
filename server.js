@@ -17,8 +17,7 @@ db.once('open', function callback () {
   console.log("Connected to MONGODB!");
 });
 
-
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(bodyParser.json()); // app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
