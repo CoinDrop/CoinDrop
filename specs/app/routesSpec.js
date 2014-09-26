@@ -13,16 +13,7 @@ var User = require('../../app/config/models/user.js');
 describe('', function() {
       User.remove({username : 'Svnh'}).exec();
       User.remove({password : 'Svnh'}).exec();
- beforeEach(function(done) {
-    // Log out currently signed in user
-    request(app).get('/')
-      .end(function(err, res) {
-
-        // Delete objects from db so they can be created later for the test
-  
-        done();
-      });
-  });
+      User.remove({username : 'Brandon'}).exec();
 
 
 
@@ -59,7 +50,7 @@ describe('', function() {
         .end(done);
     });
 
-    it('should be able to authenticate and sign in a User', function(done) {
+    it('should be able to authenticate and sign in a Svnh User', function(done) {
       request(app)
         .post('/login')
         .expect(200)
@@ -78,52 +69,92 @@ describe('', function() {
         .end(done);
     });
 
-    it('should create a bitcoin wallet and store the address', function(done) {
-      request(app)
-        .post('/create')
-        .expect(200)
+ it('should create a Brandon User', function(done) {
+      
+           //CREATES A USER NAMED BRANDON
+          request(app)
+        .post('/signup')
         .send({
-          'otherUser': 'Brandon'})
+          'username': 'Brandon',
+          'password': 'yelpsucks' })
+        .expect(function() {
+          User.find({'username': 'Brandon'},function (err, users) {
+            if (err) return console.error(err);
+            expect(users[0].password).to.equal('yelpsucks');
+         
+          });
+
+        }).end(done);    
+    });
+
+
+    it('should create a bitcoin wallet and store the address', function(done) {
+      
+
+          request(app).post('/create')
         .expect(302)
+        .send({
+          'username': 'Svnh',
+          'otherUser': 'Brandon'})
         .expect(function() {
 
-          User.find({'username': 'Svnh'},function (err, users) {
+          User.find(function (err, users) {
             if (err) return console.error(err);
             expect(users[0].transactions[0]['address']).to.equal("1234");
             expect(users[0].transactions[0]['key1']).to.equal("key");
             expect(users[0].transactions[0]['key2']).to.equal('');
             expect(users[0].transactions[0]['otherUser']).to.equal("Brandon");
+
+            expect(users[1].transactions[0]['address']).to.equal("5678");
+            expect(users[1].transactions[0]['key1']).to.equal("rkey");
+            expect(users[1].transactions[0]['key2']).to.equal('');
+            expect(users[1].transactions[0]['otherUser']).to.equal("Svnh");
           });
-        })
-        .end(done);
+        }).end(done);
+
+
+//CREATES A TRANSACTION WITH BRANDON AS THE OTHER USER
+
+        
     });
 
- xit('should be able to store a user-specific list of updating transactions', function(done) {
+ it('should be able to retrieve a list of updating transactions', function(done) {
       request(app)
-        .post('/test')
+        .post('/transactions')
         .expect(200)
         .send({
-          'username': 'Svnh',
-          'password': 'Svnh' })
-        .expect(302)
-        .expect(function() {
-        })
+          'username': 'Svnh'})
+        .expect(function(res) {
+            expect(res.body.transactions[0]).to.be.ok;
+          }
+        )
         .end(done);
     });
 
-        xit('should be able to release the key to the other user', function(done) {
+        it('should be able to release the key to the other user', function(done) {
+            //SHOULD HAVE A TRANSACTION FOR BRANDON
         request(app)
-        .post('/test')
-        .expect(200)
+        .post('/release')
+        .expect(302)
         .send({
           'username': 'Svnh',
-          'password': 'Svnh' })
-        .expect(302)
+          'otherUser': 'Brandon' })
         .expect(function() {
-        })
-        .end(done);
-    });
+          User.find({'username': 'Brandon'},function (err, users) {
+            if (err) return console.error(err);
+    
+            expect(users[0].transactions[0]['address']).to.equal("5678");
+            expect(users[0].transactions[0]['key1']).to.equal("rkey");
+            expect(users[0].transactions[0]['key2']).to.equal('key');
+            expect(users[0].transactions[0]['otherUser']).to.equal("Svnh");
+
+          });
+        }).end(done);
+
+        }); 
 
     });
 
-}); 
+    });
+
+
