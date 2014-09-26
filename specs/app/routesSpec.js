@@ -50,7 +50,7 @@ describe('', function() {
         .end(done);
     });
 
-    it('should be able to authenticate and sign in a Svnh User', function(done) {
+    it('should be able to authenticate and sign in a User', function(done) {
       request(app)
         .post('/login')
         .expect(200)
@@ -69,7 +69,7 @@ describe('', function() {
         .end(done);
     });
 
- it('should create a Brandon User', function(done) {
+ it('should be able to create another User', function(done) {
       
            //CREATES A USER NAMED BRANDON
           request(app)
@@ -132,7 +132,7 @@ describe('', function() {
     });
 
         it('should be able to release the key to the other user', function(done) {
-            //SHOULD HAVE A TRANSACTION FOR BRANDON
+     
         request(app)
         .post('/release')
         .expect(302)
@@ -142,7 +142,7 @@ describe('', function() {
         .expect(function() {
           User.find({'username': 'Brandon'},function (err, users) {
             if (err) return console.error(err);
-    
+
             expect(users[0].transactions[0]['address']).to.equal("5678");
             expect(users[0].transactions[0]['key1']).to.equal("rkey");
             expect(users[0].transactions[0]['key2']).to.equal('key');
