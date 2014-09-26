@@ -8,7 +8,7 @@
       .state('login', {
         url: '/login',
         templateUrl: 'scripts/states/login/login.html',
-        controller: 'loginCtrl'
+        controller: 'AuthController'
       });
     }
 }).call(this);
