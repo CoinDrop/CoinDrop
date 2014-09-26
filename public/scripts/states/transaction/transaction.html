@@ -4,7 +4,7 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Transaction {{transaction.id}}
+            Transaction {{transaction.id}} <strong>{{ transaction.status }}</strong>
           </div>
           <div class="panel-body">
             <dl>
@@ -14,11 +14,12 @@
                 <dd>{{ transaction.status }}</dd>
               <dt>activity</dt>
                 <dd>
-                  <div ng-show="transaction.activity.create">{{transaction.activity.create}} created container</div>
-                  <div ng-show="transaction.activity.offer" >{{transaction.activity.offer }} made an offer</div>
-                  <div ng-show="transaction.activity.escrow">{{transaction.activity.escrow}} entered escrow</div>
-                  <div ng-show="transaction.activity.give"  >{{transaction.activity.give  }} sent payment</div>
-                  <div ng-show="transaction.activity.take"  >{{transaction.activity.take  }} received refund</div>
+                  <div ng-show="transaction.activity.create" >{{transaction.activity.create }} created container</div>
+                  <div ng-show="transaction.activity.offer"  >{{transaction.activity.offer  }} made an offer</div>
+                  <div ng-show="transaction.activity.decline">{{transaction.activity.decline}} offer declined</div>
+                  <div ng-show="transaction.activity.escrow" >{{transaction.activity.escrow }} entered escrow</div>
+                  <div ng-show="transaction.activity.give"   >{{transaction.activity.give   }} finalized payment</div>
+                  <div ng-show="transaction.activity.take"   >{{transaction.activity.take   }} received refund</div>
                 </dd>
               <dt>greeting</dt>
                 <dd>{{ transaction.greeting }}</dd>

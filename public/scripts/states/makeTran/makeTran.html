@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-12">
       <div class="col-md-8 col-md-offset-2">
@@ -13,7 +13,7 @@
           <div class="panel-body">
             <form ng-submit="doMakeTran()">
               <label>Other user</label> <input ng-model="makeTran.otherUsername" class="form-control" type="text"><br>
-              <label>Memo</label> <textarea ng-model="makeTran.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
+              <label>Memo</label><textarea ng-model="makeTran.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
               <label>Greeting</label> <textarea ng-model="makeTran.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
               <button class="btn btn-default" type="submit">create an empty wallet</button>
             </form>
@@ -22,4 +22,31 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Create an empty cash box locked by two keys.</h4>
+      </div>
+      You will get the address of the wallet and one of the two keys.
+      The other user will get the address and the other key.
+      Anyone can deposit money or read the balance.
+      Withdrawing money requires both keys.
+      <div class="modal-body">
+        <form ng-submit="doMakeTran()">
+          <label>Other user</label> <input ng-model="makeTran.otherUsername" class="form-control" type="text"><br>
+          <label>Memo</label> <textarea ng-model="makeTran.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
+          <label>Greeting</label> <textarea ng-model="makeTran.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
+          <button class="btn btn-default" type="submit">create an empty wallet</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
