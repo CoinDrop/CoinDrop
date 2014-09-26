@@ -9,9 +9,12 @@
     function getTransaction(transaction) {
       // FIXME: fake data here.
       var memos = [
-        'Canon SLR with telephoto kit for sale in Reno' ,
-        'Motorcycle helmet for sale in Sacramento' ,
-        'iPhone 5 16GB white for sale in Portland' ];
+        'Canon SLR with telephoto kit in Los Angeles' ,
+        'Bronze statuette of Greek warrior in Oakland',
+        'Handmade clay teapot with four cups in Reno' ,
+        'Silver dollar coin in South San Francisco'   ,
+        'Black motorcycle helmet in Sacramento'       ,
+        'White iPhone 5 16GB in Portland'             ];
       var ret = {
         id:'tr-20948',
         memo: memos[Math.floor(Math.random()*memos.length)],
@@ -19,9 +22,9 @@
         activity: { create : '2014-09-14T07:07:31Z' ,
                     offer  : '2014-09-14T07:19:40Z' }
       };
-      var i0_4 = Math.floor(Math.random()*6);
-      if (i0_4>0) ret.activity[i0_4<2?'decline':'escrow'] = '2014-09-15T04:30:12Z';
-      if (i0_4>2) ret.activity[i0_4<4?'give'   : 'take' ] = '2014-09-19T07:23:36Z';
+      var i0_6 = Math.floor(Math.random()*7);
+      if (i0_6>0) ret.activity[i0_6<2?'decline':'escrow'] = '2014-09-15T04:30:12Z';
+      if (i0_6>2) ret.activity[i0_6<4?'take'   : 'give' ] = '2014-09-19T07:23:36Z';
       if (ret.activity.give || ret.activity.take) ret.status = 'settled';
       else if (ret.activity.escrow)               ret.status = 'in escrow';
       else if (ret.activity.decline)              ret.status = 'declined';
