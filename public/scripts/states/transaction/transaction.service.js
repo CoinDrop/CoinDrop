@@ -8,7 +8,7 @@
     return { getTransaction:getTransaction };
     function getTransaction(tranId) {
       // FIXME: fake data here.
-      var i0_4 = Math.floor(Math.random()*4);
+      var i0_4 = Math.floor(Math.random()*5);
       var ret = {
         id:'tr-20948',
         memo:'Reno Canon SLR with telephoto kit',
