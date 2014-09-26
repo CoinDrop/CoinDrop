@@ -83,6 +83,16 @@ var router = express.Router();
         next(error);
       });
     });
+
+  router.route('/transactions')
+    .get(function(req, res) {
+      Transaction.find(function(err, transactions) {
+        if(err) {
+          res.send(err);
+        }
+        res.json(transactions);
+      });
+    });
     
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
