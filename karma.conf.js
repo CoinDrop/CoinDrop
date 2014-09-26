@@ -19,7 +19,7 @@ module.exports = function(config) {
       // angular source
       'public/lib/angular/angular.js',
       'public/lib/angular-ui-router/release/angular-ui-router.js',
-      'public/lib/angular-mocks/angular-mocks.js',
+      'node_modules/angular-mocks/angular-mocks.js',
       'public/lib/angular-animate/angular-animate.js',
       
       // our app code
