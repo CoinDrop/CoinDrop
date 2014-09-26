@@ -53,7 +53,6 @@ gulp.task('inject', function(){
     .pipe(gulp.dest('./public'));
 });
 
-
 //without this our js files will not be checked for syntax errors
 gulp.task('jshint', function() {
     return gulp.src(['./public/scripts/**/*.js', './specs/*/**.js'])
