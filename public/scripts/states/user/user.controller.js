@@ -2,12 +2,21 @@
   'use strict';
   angular
     .module('coindropApp')
-    .controller('UserController', function($scope, loginService) {
-      // $scope.showTransaction = function(tranId) { $state.go("/transaction/"+tranId); };
-      $scope.testing = "COIN DROPPP";
 
-    })
-    .factory('loginService', function(){
-      return {};
-    });
+    .controller('UserController', UserController);
+    function UserController ($scope, userService) {
+      $scope.data = {};
+      
+      $scope.chooseThisTrans = function () {
+        userService.chooseThisTrans(this.transaction);
+      };
+
+      ($scope.getAllTransactions = function() {
+        userService.getAllTransactions()
+        .success(function(transactions) {
+          $scope.data.transactions = transactions;
+        })();
+      });
+    }
+
 }).call(this);
