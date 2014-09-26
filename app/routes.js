@@ -1,6 +1,8 @@
 var path = require('path');
-var Campaign = require('./config/models/campaign.js')
+var User = require('./config/models/user.model.js');
 var express = require('express');
+var Q = require('q');
+var jwt = require('jwt-simple');
 
 module.exports = function(app) {
 var router = express.Router();
@@ -11,27 +13,77 @@ var router = express.Router();
   });
 
   //server routes here
-  router.route('/campaigns')
+  router.route('/signup')
     .post(function(req, res) {
-      var campaign = new Campaign();
-      campaign.title = req.body.title;
-      campaign.save(function(err) {
-        if(err) {
-          res.send(err);
-        }
-        res.json({ message: 'a new campaign is created!' });
-      });
+      var username = req.body.username;
+      var password = req.body.password;
+      var email = req.body.email;
+      var create;
+      var newUser;
+      console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
+
+      var findOne = Q.nbind(User.findOne, User);
+      findOne({username: username})
+        .then(function(user) {
+          if(user) {
+            next(new Error('User already exists!'));
+          } else {
+            create = Q.nbind(User.create, User);
+            newUser = {
+              username: username,
+              password: password,
+              email: email
+            };
+            return create(newUser);
+          }
+        })
+        .then(function (user) {
+          // var token = jwt.encode(user, 'secret');
+          res.json({message: 'SIGNING UP NEW USER'});
+        })
+        .fail(function (error) {
+          next(error);
+        });
     })
 
     .get(function(req, res) {
-      Campaign.find(function(err, campaigns) {
+      User.find(function(err, users) {
         if(err) {
           res.send(err);
         }
-        res.json(campaigns);
+        res.json(users);
       });
     });
 
+  router.route('/login')
+    .post(function(req, res) {
+      var username = req.body.username;
+      var password = req.body.password;
+
+      console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
+      var findUser = Q.nbind(User.findOne, User);
+      findUser({username: username})
+      .then(function (user) {
+        if(!user) {
+          next(new Error('User does not exist'));
+        } else {
+          console.log('inside find user');
+          return user.comparePasswords(password);
+        }
+      })
+      .then(function (foundUser) {
+        if(foundUser) {
+          // var token = jwt.encode(foundUser, 'secret');
+          // res.json({token: token});
+          console.log('FOUND USER');
+          res.json({message: 'USER FOUND'});
+        }
+      })
+      .fail(function (error) {
+        next(error);
+      });
+    });
+    
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
