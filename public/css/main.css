@@ -1,0 +1,30 @@
+/*.main.container {
+    overflow-y: hidden ! important;
+    overflow-x: hidden ! important;
+    background-image: url('/assets/images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}*/
+
+.col-centered{
+    float: none;
+    margin: auto;
+}
+
+.title {
+    color: #ffffff;
+    font-size: 75px;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 400px;
+}
+
+.tagline {
+    margin-top: 20px;
+    margin-left: 50px;
+    color: #ffffff;
+    text-align: right;
+}
+
+

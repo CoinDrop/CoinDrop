@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Create an empty wallet locked by two keys.
+          </div>
+          You will get the address of the wallet and one of the two keys.
+          The other user will get the address and the other key.
+          Anyone can deposit money or read the balance.
+          Withdrawing money requires both keys.
+          <div class="panel-body">
+            <form ng-submit="doMakeTran()">
+              <label>Other user</label> <input ng-model="makeTran.otherUsername" class="form-control" type="text"><br>
+              <label>Me</label> <input ng-model="makeTran.me" class="form-control" type="text"><br>
+              <label>Amount BTC</label> <input ng-model="makeTran.btc" class="form-control" type="text"><br>
+              <label>Memo</label><textarea ng-model="makeTran.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
+              <label>Greeting</label> <textarea ng-model="makeTran.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
+              <button class="btn btn-primary" type="submit" ng-click="createTrans()">Create Transaction</button>
+              <button class="btn btn-primary" type="submit" ng-click="returnToDash()">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

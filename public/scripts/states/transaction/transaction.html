@@ -1,0 +1,37 @@
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Transaction {{transaction._id}} <br>
+    <strong>{{ transaction.btc }} btc</strong>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Me</dt>
+        <dd>{{ transaction.me }}</dd></dt>
+      <dt>Other User</dt>
+        <dd>{{ transaction.otherUsername }}</dd></dt>
+      <dt>memo</dt>
+        <dd>{{ transaction.memo }}</dd></dt>
+      <dt>status</dt>
+        <dd>{{ transaction.status }}</dd>
+      <dt>address</dt>
+        <dd>{{ transaction.address }}</dd>
+      <dt>key 1</dt>
+        <dd>{{ transaction.key1 }}</dd>
+      <dt>key 2</dt>
+        <dd>{{ transaction.key2 }}</dd>
+      <dt>activity</dt>
+        <dd>
+          <div ng-show="transaction.activity.create" >{{transaction.activity.create }} created container</div>
+          <div ng-show="transaction.activity.offer"  >{{transaction.activity.offer  }} made an offer</div>
+          <div ng-show="transaction.activity.decline">{{transaction.activity.decline}} offer declined</div>
+          <div ng-show="transaction.activity.escrow" >{{transaction.activity.escrow }} entered escrow</div>
+          <div ng-show="transaction.activity.give"   >{{transaction.activity.give   }} finalized payment</div>
+          <div ng-show="transaction.activity.take"   >{{transaction.activity.take   }} received refund</div>
+        </dd>
+      <dt>greeting</dt>
+        <dd>{{ transaction.greeting }}</dd>
+    </dl>
+  </div>
+</div>
