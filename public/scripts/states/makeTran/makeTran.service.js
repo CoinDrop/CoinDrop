@@ -6,12 +6,12 @@
   /* @inject */
   function MakeTranService($http){
     return {
-      doMakeTran:doMakeTran
+      doMakeTran: doMakeTran
     };
     function doMakeTran(makeTran) {
       return $http({
         method: 'POST',
-        url: 'api/transaction/new',
+        url: 'api/transactions',
         data: makeTran
       })
       .then(function(resp){
