@@ -1,5 +1,5 @@
 var path = require('path');
-var User = require('./config/models/user.model.js');
+//var User = require('./config/models/user.model.js');
 var express = require('express');
 var Q = require('q');
 var jwt = require('jwt-simple');

@@ -22,7 +22,7 @@ exports.signupUser = function(req,res){
   res.redirect('/');
   });
 
-}
+};
 
 //loginUser authenticates and logs in a user. Currently does not do much.
 //Todo: create basic security and session tokens.
@@ -45,7 +45,7 @@ exports.loginUser = function(req,res){
           });
   res.redirect('/');
 
-}
+};
 
 //createTransaction creates a transaction and stores it in the users transaction array.
 //It creates a second transaction object for the otherUser and stores it in its array as well.
@@ -115,7 +115,7 @@ exports.releaseKey = function(req,res){
                     break;
                   }
                 }
-
+                  var otherUser = req.body.otherUser;
                 //Then we find the otherUser and give them the key.
               User.find({'username': otherUser},function (err, users) {
             if (err) {res.send(500, err);}
@@ -139,4 +139,4 @@ exports.getTransactions =  function(req,res){
                 res.send({transactions: users[0].transactions});
             
           });
-  }
+  };
