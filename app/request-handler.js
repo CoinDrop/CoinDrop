@@ -2,6 +2,7 @@
 var db = require('./config/db');
 //User is the exported mongoose schema for users.
 var User = require('./config/models/user');
+var BTCUtilities = require('./bitcoinUtilities.js');
 
 //Signup User creates and stores a user mongoose document
 exports.signupUser = function(req,res){
@@ -55,6 +56,7 @@ exports.loginUser = function(req,res){
 exports.createTransaction =  function(req,res){
   var username = req.body.username;
   var otherUser = req.body.otherUser;
+  var wallet = BTCUtilities.makeWallet();
   //We find the user that is creating the transaction here
    User.find({'username': username},function (err, users) {
     if (err) return console.error(err);
@@ -62,8 +64,8 @@ exports.createTransaction =  function(req,res){
 
     //here we create a temporary transaction
     var tempWalletObj = {
-      address: "1234",
-      key1: "key",
+      address: wallet.address,
+      key1: wallet.privateKey1,
       key2: '',
       otherUser: otherUser
     }
@@ -78,8 +80,8 @@ exports.createTransaction =  function(req,res){
     if (err) return console.error(err);
     //then we create a second transaction object and store it to save it.
     var tempWalletforOtherUser = {
-      address: "5678",
-      key1: 'rkey',
+      address: wallet.address,
+      key1: wallet.privateKey2,
       key2: '',
       otherUser: username
     }
