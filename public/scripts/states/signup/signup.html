@@ -1,0 +1,27 @@
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Signup
+        </div>
+        <form class="form" name="form" ng-submit="signup()" novalidate>
+        <div class="panel-body">
+          <label>E-mail</label>
+          <input class="form-control" type="text" ng-model="user.email"><br>
+
+          <label>Username</label>
+          <input class="form-control" type="text" ng-model="user.username"><br>
+
+          <label>Password</label>
+          <input class="form-control" type="text" ng-model="user.password"><br>
+
+          <button class="btn btn-primary" type="submit">Signup</button>
+        
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
