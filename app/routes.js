@@ -1,8 +1,10 @@
 var path = require('path');
 var User = require('./config/models/user.model.js');
+var Transaction = require('./config/models/transaction.model.js');
 var express = require('express');
 var Q = require('q');
 var jwt = require('jwt-simple');
+var btcUtil = require('./bitcoinUtilities.js');
 
 module.exports = function(app) {
 var router = express.Router();
@@ -86,13 +88,67 @@ var router = express.Router();
 
   router.route('/transactions')
     .get(function(req, res) {
+      console.log('GET ALL SERVER SIDE');
       Transaction.find(function(err, transactions) {
         if(err) {
           res.send(err);
         }
         res.json(transactions);
       });
+    })
+    .post(function(req, res) {
+      var greeting = req.body.greeting;
+      var otherUsername = req.body.otherUsername;
+      var btc = req.body.btc;
+      var memo = req.body.memo;
+      var create;
+      var newTransaction;
+      console.log('INSIDE NEW TRANSACTION SERVER SIDE');
+
+      var findTransaction = Q.nbind(Transaction.findOne, Transaction);
+
+      findTransaction({ otherUsername: otherUsername, memo: memo, greeting: greeting, btc: btc})
+        .then(function(transaction) {
+          if(transaction) {
+            next(new Error('Transaction already Exists'));
+          } else {
+            create = Q.nbind(Transaction.create, Transaction);
+            newTransaction = {
+              otherUsername: otherUsername,
+              memo: memo,
+              greeting: greeting,
+              btc: btc
+            };
+            return create(newTransaction);
+          }
+        })
+        .then(function(transaction) {
+          res.json({message: 'NEW TRANSACTION IS CREATED'});
+        })
+        .fail(function(error) {
+          next(error);
+        });
+      });
+
+  router.route('/transactions/:_id')
+    .get(function(req, res) {
+      console.log('INSIDE SERVER FOR TRANS ID:', req.params);
+      Transaction.findById(req.params._id, function(err, transaction) {
+        if(err) {
+          res.send(err);
+        } else {
+          console.log('error in here');
+          res.json(transaction);
+        }
+      });
     });
+
+
+
+
+
+
+
     
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
@@ -100,3 +156,5 @@ var router = express.Router();
 
   app.use('/api', router);
 };
+
+
