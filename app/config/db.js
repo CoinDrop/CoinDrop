@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 
 mongoURI = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/coinDB';
@@ -11,6 +10,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
  // console.log('Mongodb connection open');
 });
+
 
 
 

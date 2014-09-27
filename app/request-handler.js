@@ -22,6 +22,7 @@ exports.signupUser = function(req,res){
   res.redirect('/');
   });
 
+
 };
 
 //loginUser authenticates and logs in a user. Currently does not do much.
@@ -44,6 +45,7 @@ exports.loginUser = function(req,res){
 
           });
   res.redirect('/');
+
 
 };
 
@@ -139,4 +141,5 @@ exports.getTransactions =  function(req,res){
                 res.send({transactions: users[0].transactions});
             
           });
+
   };
