@@ -3,6 +3,7 @@
   angular.module('coindropApp')
   .config(['$stateProvider', configuration]);
 
+  /* @inject */
   function configuration($stateProvider, authService) {
     $stateProvider
       .state('user', {
