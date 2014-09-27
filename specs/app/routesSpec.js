@@ -17,8 +17,6 @@ describe('', function() {
       User.remove({password : 'Svnh'}).exec();
       User.remove({username : 'Brandon'}).exec();
 
-
-
   describe('Routing', function() {
     it('should work', function(done) {
       request(app)
@@ -30,6 +28,8 @@ describe('', function() {
   });
 
 });
+
+
 //TESTING FOR THE DATABASE
 
   describe('Database', function() {
@@ -72,51 +72,7 @@ describe('', function() {
         .end(done);
     });
 
-<<<<<<< HEAD
-=======
-//TESTING FOR THE DATABASE
 
-  describe('Database', function() {
-
-    it('should be able to sign up a User', function(done) {
-      request(app)
-        .post('/signup')
-        .expect(200)
-        .send({
-          'username': 'Svnh',
-          'password': 'Svnh' })
-        .expect(302)
-        .expect(function() {
-         
-          User.find({'username': 'Svnh'},function (err, users) {
-            if (err) return console.error(err);
-            expect(users[0].password).to.equal('Svnh');
-          });
-
-        })
-        .end(done);
-    });
-
-    it('should be able to authenticate and sign in a User', function(done) {
-      request(app)
-        .post('/login')
-        .expect(200)
-        .send({
-          'username': 'Svnh',
-          'password': 'Svnh' })
-        .expect(302)
-        .expect(function() {
-         
-        User.find({'username': 'Svnh'},function (err, users) {
-            if (err) return console.error(err);
-            expect(users[0].password).to.equal('Svnh');
-          });
-
-        })
-        .end(done);
-    });
-
->>>>>>> d3cf49a7e7beb99a59f0ffcb5b19e434b5cfad0d
  it('should be able to create another User', function(done) {
       
            //CREATES A USER NAMED BRANDON
@@ -145,9 +101,9 @@ describe('', function() {
           'username': 'Svnh',
           'otherUser': 'Brandon'})
         .expect(function() {
-
           User.find(function (err, users) {
             if (err) return console.error(err);
+            
             expect(users[0].transactions[0]['address']).to.equal("1234");
             expect(users[0].transactions[0]['key1']).to.equal("key");
             expect(users[0].transactions[0]['key2']).to.equal('');
@@ -202,11 +158,3 @@ describe('', function() {
         }); 
 
     });
-
-<<<<<<< HEAD
-
-=======
-    });
->>>>>>> d3cf49a7e7beb99a59f0ffcb5b19e434b5cfad0d
-
-
