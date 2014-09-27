@@ -5,7 +5,7 @@
     .factory('TransactionService', TransactionService);
   /* @inject */
   function TransactionService($http){
-    return { getTransaction:getTransaction };
+    return { getTransaction: getTransaction };
     function getTransaction(transaction) {
       // FIXME: fake data here.
       var memos = [
