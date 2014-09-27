@@ -22,7 +22,7 @@ describe('Routing', function() {
     // expect($state.href('')).to.equal('#/user');
     expect($state.href('user')).to.equal('/user');
   });
-  it('Should have /transaction/new route', function () {
-    expect($state.href('makeTran')).to.equal('/transaction/new');
+  it('Should have /transactions route', function () {
+    expect($state.href('makeTran')).to.equal('/transactions');
   });
 });
