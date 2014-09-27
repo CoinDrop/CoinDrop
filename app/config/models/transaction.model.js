@@ -4,16 +4,19 @@ var bcrypt = require('bcrypt');
 var Q = require('q');
 
 var TransactionSchema = new Schema({
-  description: {
+  memo: {
     type: String,
   },
-  username: {
+  otherUsername: {
     type: String,
     required: true
   },
-  amount: {
+  btc: {
     type: String,
     required: true
+  },
+  greeting: {
+    type: String
   }
 });
 
