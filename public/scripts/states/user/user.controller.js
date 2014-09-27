@@ -1,22 +1,30 @@
 ;(function(){
+/*jshint expr:true */
   'use strict';
   angular
     .module('coindropApp')
-
     .controller('UserController', UserController);
-    function UserController ($scope, userService) {
+    /* @inject */
+    function UserController ($scope, userService, $state) {
       $scope.data = {};
+
+      // $scope.transactions = userService.getData();
       
-      $scope.chooseThisTrans = function () {
-        userService.chooseThisTrans(this.transaction);
+      $scope.chooseThisTrans = function (id) {
+        console.log('CHOSE THIS ID IN USER CONTROLLER:', id);
+        $state.go('user.transaction', {id: id});
+        // userService.chooseThisTrans(this.transaction); dont need now
       };
 
       ($scope.getAllTransactions = function() {
         userService.getAllTransactions()
-        .success(function(transactions) {
-          $scope.data.transactions = transactions;
-        })();
-      });
+        .then(function(transactions) {
+          $scope.data.transactions = transactions.data;
+        });
+      })();
+      
     }
 
 }).call(this);
+
+//user controller sets the transaction
