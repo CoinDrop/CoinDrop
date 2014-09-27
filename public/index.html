@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>CoinDrop</title>
   <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='lib/ng-table/ng-table.css'>
+  <!-- <link rel='stylesheet' href='lib/ng-table/ng-table.css'> -->
   <link rel='stylesheet' href='css/index.css'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/user.css'>
@@ -15,6 +15,7 @@
 <body>
 
   <header ng-include="'views/navbar.html'"></header>
+  
   <div ui-view class='main-container'>
 
   </div>
@@ -22,7 +23,7 @@
   <script src='lib/angular/angular.min.js'></script>
   <script src='lib/angular-ui-router/release/angular-ui-router.min.js'></script>
   <script src='lib/angular-animate/angular-animate.min.js'></script>
-  <script src='lib/ng-table/ng-table.js'></script>
+  <!-- // <script src='lib/ng-table/ng-table.js'></script> -->
   <!-- APP -->
   <!-- // <script src='scripts/app.js' type="text/javascript" charset="utf-8"></script> -->
   <!-- 
@@ -36,20 +37,18 @@
 <script src="scripts/appRoutes.js"></script>
 <script src="scripts/auth/auth.controller.js"></script>
 <script src="scripts/auth/auth.service.js"></script>
-<script src="scripts/states/home/home.controller.js"></script>
 <script src="scripts/states/home/home.js"></script>
-<script src="scripts/states/login/login.controller.js"></script>
 <script src="scripts/states/login/login.js"></script>
 <script src="scripts/states/makeTran/makeTran.controller.js"></script>
 <script src="scripts/states/makeTran/makeTran.js"></script>
 <script src="scripts/states/makeTran/makeTran.service.js"></script>
-<script src="scripts/states/signup/signup.controller.js"></script>
 <script src="scripts/states/signup/signup.js"></script>
 <script src="scripts/states/transaction/transaction.controller.js"></script>
 <script src="scripts/states/transaction/transaction.js"></script>
 <script src="scripts/states/transaction/transaction.service.js"></script>
 <script src="scripts/states/user/user.controller.js"></script>
 <script src="scripts/states/user/user.js"></script>
+<script src="scripts/states/user/user.service.js"></script>
 <!-- endinject -->
 
 </body>

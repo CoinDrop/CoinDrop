@@ -2,7 +2,7 @@
 //includes the gulp core plugins associated with the tasks
 //that we will be performing.  Next we setup each of our separate
 //tasks.  These tasks are lint, sass, scripts, and default.
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 var g = require('gulp-load-plugins')({lazy:false});
 var karma = require('karma').server;
 var browserSync = require('browser-sync');
@@ -10,11 +10,15 @@ var reload = browserSync.reload;
 var ngAnnotate = require('gulp-ng-annotate');
 var mocha = require('gulp-mocha');
 var del = require('del');
+var nodemon = require('gulp-nodemon');
+var exit = require('gulp-exit');
 
 //run gulp in command line to perform all of these actions
-gulp.task('default', ['clean', 'inject', 'jshint', 'mocha', 'scripts', 'styles', 'browser-sync', 'serve']);
+gulp.task('default', ['clean'], function(done) {
+ g.runSequence(['inject', 'jshint', 'scripts', 'styles', 'mocha', 'browser-sync', 'serve'], done);
+})
 
-//clean build directory
+// clean build directory
 // gulp.task('clean', function(){
 //   gulp.src('./dist', {read: false} )
 //     .pipe( g.clean());
@@ -55,7 +59,7 @@ gulp.task('inject', function(){
 
 //without this our js files will not be checked for syntax errors
 gulp.task('jshint', function() {
-    return gulp.src(['./public/scripts/**/*.js', './specs/*/**.js'])
+    return gulp.src(['./public/scripts/**/*.js', './specs/*/**.js', './app/**/*.js'])
         .pipe(g.jshint())
         .pipe(g.jshint.reporter('default'));
 });
@@ -63,8 +67,10 @@ gulp.task('jshint', function() {
 //without this our js files will not be concatenated and minified
 gulp.task('scripts', function() {
     return gulp.src('./public/scripts/**/*.js')
-        .pipe(ngAnnotate())
         .pipe(g.concat('all.js'))
+        .pipe(ngAnnotate({
+          add: true
+        }))
         .pipe(gulp.dest('./dist'))
         .pipe(g.rename('all.min.js'))
         .pipe(g.uglify())
@@ -73,16 +79,16 @@ gulp.task('scripts', function() {
 
 //without this our styles will not be minified
 gulp.task('styles', function() {
-    return gulp.src('./public/css/**/*.css')
-    .pipe( g.minifyCss({keyBreaks:true}))
-    .pipe(gulp.dest('./dist'))
+    return gulp.src('./public/css/*.css')
+    .pipe(g.minifyCss({keyBreaks:true}))
+    .pipe(gulp.dest('./dist'));
 });
 
 //without this our files will not be watched for changes and
 //our browser will not reload automatically when changes are made
 //our tests will also re-run automaitcally when changes are made
 //to the spec files
-gulp.task('browser-sync', ['styles'], function() {
+gulp.task('browser-sync', function() {
     browserSync({
         notify: false,
         server: './public'
@@ -90,14 +96,14 @@ gulp.task('browser-sync', ['styles'], function() {
     gulp.watch(['./public/index.html'], reload);
     gulp.watch(['./public/**/*.html'], reload);
     gulp.watch(['./public/css/**/*.{scss,css}',], ['styles', reload]);
-    gulp.watch(['./public/scripts/**/*.js'], ['jshint']);
+    gulp.watch(['./public/scripts/**/*.js', './app/**/*.js'], ['jshint']);
     gulp.watch(['./specs/*/**.js'], ['mocha']);
     gulp.watch(['./public/images/**/*'], reload);
 });
 
 //without this our server will not start up automatically
 gulp.task('serve', function() {
-    // return nodemon({ script: './app/server.js' });
+    // return nodemon({ script: './server.js' });
     require('./server.js');
 });
 

@@ -4,7 +4,7 @@
     'ngAnimate',
     // 'ngCookies',
     // 'ngResource',
-    'ui.router',
+    'ui.router'
     // 'ngSanitize',
     // 'ngTouch'
   ])
@@ -15,4 +15,3 @@
     $urlRouterProvider.otherwise('/');
   }
 }).call(this);
-
