@@ -12,8 +12,8 @@
           Withdrawing money requires both keys.
           <div class="panel-body">
             <form ng-submit="doMakeTran()">
-              <label>Me</label> <input ng-model="makeTran.myUsername" class="form-control" type="text"><br>
-              <label>Other user</label> <input ng-model="makeTran.otherUsername" class="form-control" type="text"><br>
+              <label>Me</label> <input ng-model="makeTran.username" class="form-control" type="text"><br>
+              <label>Other user</label> <input ng-model="makeTran.otherUser" class="form-control" type="text"><br>
               <label>Amount BTC</label> <input ng-model="makeTran.btc" class="form-control" type="text"><br>
               <label>Memo</label><textarea ng-model="makeTran.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
               <label>Greeting</label> <textarea ng-model="makeTran.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>

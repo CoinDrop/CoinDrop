@@ -11,7 +11,7 @@
     function doMakeTran(makeTran) {
       return $http({
         method: 'POST',
-        url: 'api/transaction/new',
+        url: '/create',
         data: makeTran
       })
       .then(function(resp){
