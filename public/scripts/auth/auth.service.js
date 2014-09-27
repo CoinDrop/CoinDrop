@@ -15,7 +15,7 @@
       function signup (user) {
         return $http({
           method: 'POST',
-          url: '/api/signup',
+          url: '/signup',
           data: user
         })
         .then(function (resp) {
@@ -27,7 +27,7 @@
       function login (user) {
         return $http({
           method: 'POST',
-          url: '/api/login',
+          url: '/login',
           data: user
         })
         .then(function (resp) {
