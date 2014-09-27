@@ -3,6 +3,7 @@ var path = require('path');
 var express = require('express');
 var Q = require('q');
 var jwt = require('jwt-simple');
+var User = require('./models/user.js');
 
 module.exports = function(app) {
 var router = express.Router();
