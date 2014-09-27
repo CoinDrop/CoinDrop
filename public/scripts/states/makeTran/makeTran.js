@@ -6,7 +6,7 @@
   function configuration($stateProvider) {
     $stateProvider
       .state('makeTran', {
-        url: '/transaction/new',
+        url: '/transactions',
         templateUrl: 'scripts/states/makeTran/makeTran.html',
         controller: 'MakeTranController'
       });
