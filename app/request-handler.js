@@ -8,6 +8,7 @@ var BTCUtilities = require('./bitcoinUtilities.js');
 exports.signupUser = function(req,res){
   var username = req.body.username;
   var password = req.body.password;
+  console.log('signing up user: ', req.body);
 
   var newUser = new User({
           username: username,
@@ -20,34 +21,28 @@ exports.signupUser = function(req,res){
     if (err) {
       res.send(500, err);
     }
-  res.redirect('/');
+    res.redirect('/');
   });
-
 
 };
 
 //loginUser authenticates and logs in a user. Currently does not do much.
 //Todo: create basic security and session tokens.
 exports.loginUser = function(req,res){
- var username = req.body.username;
- var password = req.body.password;
-//User.find searches the mongo database for the User model.
-//It retrieves an array of 'users' that match the object query in the first parameter
-//The users array is used in the callback function.
-//users[0] is used because we know usernames are unique.
-//There will only ever be one object in the users array with a username query at index 0.
-    User.find({'username': username},function (err, users) {
-            if (err) return console.error(err);
-           
-            if(users[0].password === password)
-            {
-              console.log("authenticated");
-            }
-
-          });
+  var username = req.body.username;
+  var password = req.body.password;
+  //User.find searches the mongo database for the User model.
+  //It retrieves an array of 'users' that match the object query in the first parameter
+  //The users array is used in the callback function.
+  //users[0] is used because we know usernames are unique.
+  //There will only ever be one object in the users array with a username query at index 0.
+  User.find({'username': username},function (err, users) {
+    if (err) return console.error(err);
+    if(users[0].password === password){
+      console.log("authenticated");
+    }
+  });
   res.redirect('/');
-
-
 };
 
 //createTransaction creates a transaction and stores it in the users transaction array.
@@ -57,6 +52,8 @@ exports.createTransaction =  function(req,res){
   var username = req.body.username;
   var otherUser = req.body.otherUser;
   var wallet = BTCUtilities.makeWallet();
+  console.log('creating transaction: ', req.body, wallet);
+
   //We find the user that is creating the transaction here
    User.find({'username': username},function (err, users) {
     if (err) return console.error(err);
@@ -92,7 +89,7 @@ exports.createTransaction =  function(req,res){
         res.send(500, err);
       }
       //then we redirect to root
-    res.redirect('/');
+      res.redirect('/');
     });
   });  
 
@@ -104,42 +101,39 @@ exports.createTransaction =  function(req,res){
 
 //The releaseKey function releases the key to the otherUser.
 exports.releaseKey = function(req,res){
-              var username = req.body.username;
-              //The user is found in the database
-              User.find({'username': username},function (err, senderUser) {
-          //The database looks for the transaction with the right otherUser variable
-                for(var i = 0; i < senderUser[0].transactions.length; i++){
-                  var otherUser = req.body.otherUser;
+  var username = req.body.username;
+  //The user is found in the database
+  User.find({'username': username},function (err, senderUser) {
+    //The database looks for the transaction with the right otherUser variable
+    for(var i = 0; i < senderUser[0].transactions.length; i++){
+      var otherUser = req.body.otherUser;
 
-                  if(senderUser[0].transactions[i].otherUser === otherUser){
-                    //We retrieve the key that needs to be sent here
-                    var sentKey = senderUser[0].transactions[i].key1;
-                    break;
-                  }
-                }
-                var otherUser = req.body.otherUser;
-                //Then we find the otherUser and give them the key.
-              User.find({'username': otherUser},function (err, users) {
-            if (err) {res.send(500, err);}
-              users[0].transactions[0].key2 = sentKey;
-              users[0].save(function(err, newUser) {
-                if (err) {res.send(500, err);}
-                res.redirect('/');
-              });
+      if(senderUser[0].transactions[i].otherUser === otherUser){
+        //We retrieve the key that needs to be sent here
+        var sentKey = senderUser[0].transactions[i].key1;
+        break;
+      }
+    }
+    var otherUser = req.body.otherUser;
+    //Then we find the otherUser and give them the key.
+    User.find({'username': otherUser},function (err, users) {
+      if (err) {res.send(500, err);}
+      users[0].transactions[0].key2 = sentKey;
+      users[0].save(function(err, newUser) {
+        if (err) {res.send(500, err);}
+          res.redirect('/');
+        });
 
-          });
+    });
 
-      });
-  };
+  });
+};
 
   //getTransactions just returns a list of transactions from the requested username
 exports.getTransactions =  function(req,res){
-
-              var username = req.body.username;
-            User.find({'username': username},function (err, users) {
-            if (err) return console.error(err);
-                res.send({transactions: users[0].transactions});
-            
-          });
-
-  };
+  var username = req.body.username;
+  User.find({'username': username},function (err, users) {
+    if (err) return console.error(err);
+    res.send({transactions: users[0].transactions});
+  });
+};
