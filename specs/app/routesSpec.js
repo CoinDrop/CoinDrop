@@ -105,26 +105,26 @@ describe('', function() {
           User.find(function (err, users) {
             if (err) return console.error(err);
 
-            var addresses = [users[0].transactions[0]['address'], users[1].transactions[0]['address']];
-            var privateKey = users[0].transactions[0]['key1'] + users[1].transactions[0]['key1'];
+            var addresses = [users[0].transactions[0].address, users[1].transactions[0].address];
+            var privateKey = users[0].transactions[0].key1 + users[1].transactions[0].key1;
 
             addresses.forEach(function(address){
               expect(address).to.be.a('string');
               expect(address.length).to.equal(34);
               expect(base58check.decode(address)).to.be.ok;
               expect(address[0]).to.match(/m|n/);
-            })
+            });
 
             expect(privateKey).to.be.a('string');
             expect(privateKey.length).to.equal(52);
             expect(base58check.decode(privateKey)).to.be.ok;
             expect(privateKey[0]).to.match(/K|L/);
 
-            expect(users[0].transactions[0]['key2']).to.equal('');
-            expect(users[0].transactions[0]['otherUser']).to.equal("Brandon");
+            expect(users[0].transactions[0].key2).to.equal('');
+            expect(users[0].transactions[0].otherUser).to.equal("Brandon");
 
-            expect(users[1].transactions[0]['key2']).to.equal('');
-            expect(users[1].transactions[0]['otherUser']).to.equal("Svnh");
+            expect(users[1].transactions[0].key2).to.equal('');
+            expect(users[1].transactions[0].otherUser).to.equal("Svnh");
           });
         }).end(done);
 
@@ -155,7 +155,7 @@ describe('', function() {
         .expect(function() {
           User.find({'username': 'Brandon'},function (err, users) {
             if (err) return console.error(err);
-            var address = users[0].transactions[0]['address'];
+            var address = users[0].transactions[0].address;
             // TO DO: find out which key is first half (look for K or L at start)
             var privateKey = users[0].transactions[0].key2 + users[0].transactions[0].key1;
 
@@ -169,7 +169,7 @@ describe('', function() {
             expect(base58check.decode(privateKey)).to.be.ok;
             expect(privateKey[0]).to.match(/K|L/);
 
-            expect(users[0].transactions[0]['otherUser']).to.equal("Svnh");
+            expect(users[0].transactions[0].otherUser).to.equal("Svnh");
 
           });
         }).end(done);

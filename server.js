@@ -33,7 +33,7 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-require('./app/routes')(app); //configure routes
+// require('./app/routes')(app); //configure routes
 
 
 app.post('/signup', handler.signupUser);
