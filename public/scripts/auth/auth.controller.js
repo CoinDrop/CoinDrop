@@ -12,7 +12,6 @@
         console.log('INSIDE CLIENT LOGIN:', $scope.user);
         authService.login($scope.user)
         .then(function (resp) {
-          console.log('IN HERE');
           // $window.localStorage.setItem('com.coindrop', token);
           $state.go('user');
         })
