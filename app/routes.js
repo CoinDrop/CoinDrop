@@ -102,26 +102,48 @@ var router = express.Router();
       var otherUsername = req.body.otherUsername;
       var btc = req.body.btc;
       var memo = req.body.memo;
+      var me = req.body.me;
       var create;
       var newTransaction;
-      console.log('INSIDE NEW TRANSACTION SERVER SIDE');
 
       var findTransaction = Q.nbind(Transaction.findOne, Transaction);
+      var findUser = Q.nbind(User.findOne, User);
 
-      findTransaction({ otherUsername: otherUsername, memo: memo, greeting: greeting, btc: btc})
+      findTransaction({ otherUsername: otherUsername, memo: memo, greeting: greeting, btc: btc, me: me})
         .then(function(transaction) {
+        var wallet = btcUtil.makeWallet();
           if(transaction) {
             next(new Error('Transaction already Exists'));
           } else {
-            create = Q.nbind(Transaction.create, Transaction);
-            newTransaction = {
+            var deal = new Transaction({
               otherUsername: otherUsername,
+              me: me,
               memo: memo,
               greeting: greeting,
-              btc: btc
-            };
-            return create(newTransaction);
-          }
+              btc: btc,
+              address: wallet.address,
+              key1: wallet.privateKey1,
+              key2: 'n/a'
+            });
+            console.log('inside find transaction *******:', deal);
+            deal.save();
+              findUser({otherUsername: otherUsername})
+                .then(function(user) {
+                  if(found) {
+                    var otherUserDeal  = new Transaction({
+                      memo: memo,
+                      greeting: greeting,
+                      btc: btc,
+                      me: otherUsername,
+                      otherUsername: me,
+                      address: wallet.addres,
+                      key1: 'n/a',
+                      key2: wallet.privateKey2
+                    });
+                    otherUserDeal.save();
+                  }
+                })
+            }
         })
         .then(function(transaction) {
           res.json({message: 'NEW TRANSACTION IS CREATED'});
@@ -138,7 +160,6 @@ var router = express.Router();
         if(err) {
           res.send(err);
         } else {
-          console.log('error in here');
           res.json(transaction);
         }
       });
