@@ -16,7 +16,7 @@ var exit = require('gulp-exit');
 //run gulp in command line to perform all of these actions
 gulp.task('default', ['clean'], function(done) {
  g.runSequence(['inject', 'jshint', 'scripts', 'styles', 'mocha', 'browser-sync', 'serve'], done);
-})
+});
 
 // clean build directory
 // gulp.task('clean', function(){
@@ -88,7 +88,7 @@ gulp.task('styles', function() {
 //our browser will not reload automatically when changes are made
 //our tests will also re-run automaitcally when changes are made
 //to the spec files
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', ['styles'], function() {
     browserSync({
         notify: false,
         server: './public'
