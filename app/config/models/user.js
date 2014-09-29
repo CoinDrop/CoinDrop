@@ -1,7 +1,6 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-//var bcrypt = require('bcrypt');
 var Q = require('q');
 var SALT_WORK_FACTOR = 10;
 
@@ -21,6 +20,7 @@ var UserSchema = new Schema({
   }
 });
 
+/*
 UserSchema.methods.comparePasswords = function (userPassword) {
   var defer = Q.defer();
   var savedPassword = this.password;
@@ -55,5 +55,5 @@ UserSchema.pre('save', function (next) {
     });
   });
 });
-
+*/
 module.exports = mongoose.model('User', UserSchema);
