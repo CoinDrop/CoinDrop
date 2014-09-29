@@ -7,14 +7,14 @@
     function UserController ($scope, userService) {
       $scope.data = {};
       
-      $scope.chooseThisTrans = function () {
-        userService.chooseThisTrans(this.transaction);
+      $scope.chooseThisDeal = function () {
+        userService.chooseThisDeal(this.deal);
       };
 
-      ($scope.getAllTransactions = function() {
-        userService.getAllTransactions()
-        .success(function(transactions) {
-          $scope.data.transactions = transactions;
+      ($scope.getAllDeals = function() {
+        userService.getAllDeals()
+        .success(function(deals) {
+          $scope.data.deals = deals;
         })();
       });
     }

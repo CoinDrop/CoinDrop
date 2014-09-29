@@ -68,7 +68,7 @@ exports.createTransaction =  function(req,res){
       key1: wallet.privateKey1,
       key2: '',
       otherUser: otherUser
-    }
+    };
     //then we save it into the database after pushing it to the users transaction array
     users[0].transactions.push(tempWalletObj);
     users[0].save(function(err, newUser) {
@@ -84,7 +84,7 @@ exports.createTransaction =  function(req,res){
       key1: wallet.privateKey2,
       key2: '',
       otherUser: username
-    }
+    };
 
     user[0].transactions.push(tempWalletforOtherUser);
     user[0].save(function(err, newUser) {
@@ -105,25 +105,26 @@ exports.createTransaction =  function(req,res){
 //The releaseKey function releases the key to the otherUser.
 exports.releaseKey = function(req,res){
               var username = req.body.username;
+              var otherUser;
               //The user is found in the database
               User.find({'username': username},function (err, senderUser) {
           //The database looks for the transaction with the right otherUser variable
                 for(var i = 0; i < senderUser[0].transactions.length; i++)
                 {
-                  var otherUser = req.body.otherUser;
+                  otherUser = req.body.otherUser;
 
-                  if(senderUser[0].transactions[i]['otherUser'] === otherUser)
+                  if(senderUser[0].transactions[i].otherUser === otherUser)
                   {
                     //We retrieve the key that needs to be sent here
-                    var sentKey = senderUser[0].transactions[i]['key1'];
+                    var sentKey = senderUser[0].transactions[i].key1;
                     break;
                   }
                 }
-                  var otherUser = req.body.otherUser;
+                otherUser = req.body.otherUser;
                 //Then we find the otherUser and give them the key.
               User.find({'username': otherUser},function (err, users) {
             if (err) {res.send(500, err);}
-              users[0].transactions[0]['key2'] = sentKey;
+              users[0].transactions[0].key2 = sentKey;
               users[0].save(function(err, newUser) {
                 if (err) {res.send(500, err);}
                 res.redirect('/');

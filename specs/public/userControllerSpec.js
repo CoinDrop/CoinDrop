@@ -40,8 +40,8 @@ describe('AuthController', function() {
   it('should have a user controller', function() {
     expect('AuthController').to.exist;
   });
-  it('should have a chooseThisTrans method', function() {
-    expect($scope.chooseThisTrans).to.be.an('function');
+  it('should have a chooseThisDeal method', function() {
+    expect($scope.chooseThisDeal).to.be.an('function');
   });
   // it('should have a signup method', function() {
   //   expect($scope.signup).to.be.a('function');

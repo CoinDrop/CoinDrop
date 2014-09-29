@@ -6,23 +6,23 @@
     /* @inject */
     function userService (){
       return {
-        chooseThisTrans: chooseThisTrans,
-        getAllTransactions: getAllTransactions
+        chooseThisDeal: chooseThisDeal,
+        getAllDeals: getAllDeals
       };
-      function chooseThisTrans (transaction) {
+      function chooseThisDeal (deal) {
         return $http({
           method: 'GET',
-          url: '/transactions'
+          url: '/deals'
         })
         .then(function (resp) {
           return resp;
         });
       }
 
-      function getAllTransactions () {
+      function getAllDeals () {
         return $http({
           method: 'GET',
-          url: '/transactions'
+          url: '/deals'
         });
       }
 

@@ -125,6 +125,16 @@ describe('', function() {
 
             expect(users[1].transactions[0]['key2']).to.equal('');
             expect(users[1].transactions[0]['otherUser']).to.equal("Svnh");
+            
+            // expect(users[0].transactions[0].address).to.equal("1234");
+            // expect(users[0].transactions[0].key1).to.equal("key");
+            // expect(users[0].transactions[0],key2).to.equal('');
+            // expect(users[0].transactions[0].otherUser).to.equal("Brandon");
+            //
+            // expect(users[1].transactions[0].address).to.equal("5678");
+            // expect(users[1].transactions[0].key1).to.equal("rkey");
+            // expect(users[1].transactions[0].key2).to.equal('');
+            // expect(users[1].transactions[0].otherUser).to.equal("Svnh");
           });
         }).end(done);
 
@@ -170,6 +180,10 @@ describe('', function() {
             expect(privateKey[0]).to.match(/K|L/);
 
             expect(users[0].transactions[0]['otherUser']).to.equal("Svnh");
+            // expect(users[0].transactions[0].address).to.equal("5678");
+            // expect(users[0].transactions[0].key1).to.equal("rkey");
+            // expect(users[0].transactions[0].key2).to.equal('key');
+            // expect(users[0].transactions[0].otherUser).to.equal("Svnh");
 
           });
         }).end(done);

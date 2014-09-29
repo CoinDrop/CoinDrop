@@ -6,27 +6,26 @@
 <div class="table-responsive">
 <table ng-table class="table">
  	<tr>
- 		<th>Transaction</th>
  		<th>Description</th>
  		<th>Date</th>
  		<th>Progress</th>
  	</tr>
-<!--  	<div ng-init="transactions=[
- 	{Transaction: '1', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '2', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '3', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '4', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '5', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '6', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Transaction: '7', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'}]">
+<!--  	<div ng-init="deals=[
+ 	{Deal: '1', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '2', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '3', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '4', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '5', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '6', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
+ 	{Deal: '7', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'}]">
  	</div> -->
 
-<!-- <tr ng-repeat="transaction in data.transactions" ng-click="chooseThisTrans(transaction)"> -->
- 	<tr ng-repeat='transaction in data.transactions' ng-click="chooseThisTrans(transaction)">
- 		<td>{{ transaction.Transaction }}</td>
-		<td>{{ transaction.Description }}</td>
-		<td>{{ transaction.Date }}</td>
-		<td>{{ transaction.Progress }}</td>
+<!-- <tr ng-repeat="deal in data.deals" ng-click="chooseThisDeal(deal)"> -->
+ 	<tr ng-repeat='deal in data.deals' ng-click="chooseThisDeal(deal)">
+     <!-- <td>{{ deal.id }}</td> -->
+		<td>{{ deal.memo }}</td>
+		<td>{{ deal.activity.create }}</td>
+		<td>{{ deal.status }}</td>
 	</tr>
 </table>
 </div>
