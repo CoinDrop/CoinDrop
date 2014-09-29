@@ -22,7 +22,6 @@
   "homepage": "https://github.com/gitSauced/CoinDrop",
   "dependencies": {
     "angular-mocks": "^1.2.22",
-    "bcrypt": "*",
     "bitcoinjs-lib": "^1.1.1",
     "body-parser": "*",
     "bs58check": "^1.0.1",

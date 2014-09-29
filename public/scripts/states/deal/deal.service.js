@@ -7,7 +7,6 @@
   function DealService($http){
     return { getDeal:getDeal };
     function getDeal(deal) {
-      // FIXME: fake data here.
       var memos = [
         'Canon SLR with telephoto kit in Los Angeles' ,
         'Bronze statuette of Greek warrior in Oakland',

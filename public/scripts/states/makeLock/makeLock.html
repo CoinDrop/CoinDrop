@@ -16,7 +16,8 @@
               <label>Amount BTC</label> <input ng-model="makeLock.btc" class="form-control" type="text"><br>
               <label>Memo</label><textarea ng-model="makeLock.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
               <label>Greeting</label> <textarea ng-model="makeLock.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
-              <button class="btn btn-default" type="submit">create an empty wallet</button>
+              <button class="btn btn-primary" type="submit" ng-click="createTrans()">Create Empty Deal</button>
+              <button class="btn btn-primary" type="submit" ng-click="returnToDash()">Cancel</button>
             </form>
           </div>
         </div>

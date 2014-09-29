@@ -28,24 +28,40 @@
         </div>
       </div>
     </div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Transaction {{transaction._id}} <br>
+    <strong>{{ transaction.btc }} btc</strong>
+  </div>
+  <div class="panel-body">
+    <dl>
+      <dt>Me</dt>
+        <dd>{{ transaction.me }}</dd></dt>
+      <dt>Other User</dt>
+        <dd>{{ transaction.otherUsername }}</dd></dt>
+      <dt>memo</dt>
+        <dd>{{ transaction.memo }}</dd></dt>
+      <dt>status</dt>
+        <dd>{{ transaction.status }}</dd>
+      <dt>address</dt>
+        <dd>{{ transaction.address }}</dd>
+      <dt>key 1</dt>
+        <dd>{{ transaction.key1 }}</dd>
+      <dt>key 2</dt>
+        <dd>{{ transaction.key2 }}</dd>
+      <dt>activity</dt>
+        <dd>
+          <div ng-show="transaction.activity.create" >{{transaction.activity.create }} created container</div>
+          <div ng-show="transaction.activity.offer"  >{{transaction.activity.offer  }} made an offer</div>
+          <div ng-show="transaction.activity.decline">{{transaction.activity.decline}} offer declined</div>
+          <div ng-show="transaction.activity.escrow" >{{transaction.activity.escrow }} entered escrow</div>
+          <div ng-show="transaction.activity.give"   >{{transaction.activity.give   }} finalized payment</div>
+          <div ng-show="transaction.activity.take"   >{{transaction.activity.take   }} received refund</div>
+        </dd>
+      <dt>greeting</dt>
+        <dd>{{ transaction.greeting }}</dd>
+    </dl>
   </div>
 </div>
-
-<!-- <div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>< ! - - /.modal-content - - >
-  </div>< ! - - /.modal-dialog - - >
-</div>< ! - - /.modal - - >
--->

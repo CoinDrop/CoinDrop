@@ -3,7 +3,7 @@
   angular.module('coindropApp', [
     'ngAnimate',
     // 'ngCookies',
-    // 'ngResource',
+    // 'ng-Table',
     'ui.router'
     // 'ngSanitize',
     // 'ngTouch'
