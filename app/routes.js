@@ -126,23 +126,23 @@ var router = express.Router();
             });
             console.log('inside find transaction *******:', deal);
             deal.save();
-              findUser({otherUsername: otherUsername})
-                .then(function(user) {
-                  if(found) {
-                    var otherUserDeal  = new Transaction({
-                      memo: memo,
-                      greeting: greeting,
-                      btc: btc,
-                      me: otherUsername,
-                      otherUsername: me,
-                      address: wallet.addres,
-                      key1: 'n/a',
-                      key2: wallet.privateKey2
-                    });
-                    otherUserDeal.save();
-                  }
-                })
-            }
+            findUser({otherUsername: otherUsername})
+              .then(function(user) {
+                if(found) {
+                  var otherUserDeal  = new Transaction({
+                    memo: memo,
+                    greeting: greeting,
+                    btc: btc,
+                    me: otherUsername,
+                    otherUsername: me,
+                    address: wallet.addres,
+                    key1: 'n/a',
+                    key2: wallet.privateKey2
+                  });
+                  otherUserDeal.save();
+                }
+              });
+          }
         })
         .then(function(transaction) {
           res.json({message: 'NEW TRANSACTION IS CREATED'});

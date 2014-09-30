@@ -7,38 +7,48 @@
     function userService ($http){
 
       return {
-        chooseThisTrans: chooseThisTrans,
-        getAllTransactions: getAllTransactions,
-        getOneTrans: getOneTrans,
-        findData: findData
+        chooseThisDeal: chooseThisDeal,
+        getAllDeals: getAllDeals
+// =======
+//         chooseThisTrans: chooseThisTrans,
+//         getAllTransactions: getAllTransactions,
+//         getOneTrans: getOneTrans,
+//         findData: findData
+// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
       };
-      function chooseThisTrans (transaction) {
+      function chooseThisDeal (deal) {
         return $http({
           method: 'GET',
-          url: 'api/transactions'
+          url: '/deals'
+// =======
+//           url: 'api/transactions'
+// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
         })
         .then(function (resp) {
           return resp;
         });
       }
 
-      function getAllTransactions () {
+      function getAllDeals () {
         return $http({
           method: 'GET',
-          url: 'api/transactions'
-        })
-        .then(function(resp) {
-          console.log('INSIDE GET ALL TRANS');
-          return resp;
-        });
-      }
-      function getOneTrans(transactionId) {        
-        return $http({
-          method: 'GET',
-          url: 'api/transactions/'+transactionId
-        })
-        .then(function (resp) {
-          return resp;
+          url: '/deals'
+// =======
+//           url: 'api/transactions'
+//         })
+//         .then(function(resp) {
+//           console.log('INSIDE GET ALL TRANS');
+//           return resp;
+//         });
+//       }
+//       function getOneTrans(transactionId) {
+//         return $http({
+//           method: 'GET',
+//           url: 'api/transactions/'+transactionId
+//         })
+//         .then(function (resp) {
+//           return resp;
+// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
         });
       }
 

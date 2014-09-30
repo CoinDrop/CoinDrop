@@ -5,10 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('makeTran', {
-        url: '/transactions',
-        templateUrl: 'scripts/states/makeTran/makeTran.html',
-        controller: 'MakeTranController'
+      .state('makeLock', {
+        url: '/makeLock',
+        templateUrl: 'scripts/states/makeLock/makeLock.html',
+        controller: 'MakeLockController'
       });
     }
 }).call(this);

@@ -1,9 +1,40 @@
 <nav class='navbar navbar-default navbar-fixed-top'>
-  <div class='navbar-header'>
-    <a class='navbar-brand' href='/'>CoinDrop</a>
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CoinDrop</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class='nav navbar-nav navbar-right'>
+        <li>
+          <a ui-sref='home'>
+            <i class='fa fa-home fa-2x'></i><span class="visible-xs">home</span></a></li>
+        <li>
+          <a ui-sref='login'>
+            <i class='fa fa-sign-in fa-2x'></i></a></li>
+        <li>
+          <a ui-sref='signup'>
+            <i class='fa fa-share fa-2x'></i></a></li>
+        <li>
+          <a ui-sref='user'>
+            <i class='fa fa-user fa-2x'></i></a></li>
+        <li>
+          <a ui-sref='makeLock'>
+            <i class='fa fa-plus'></i><i class='fa fa-bitcoin fa-2x'></i></a></li>
+        <li>
+          <a ui-sref='deal'>
+            <i class='fa fa-eye'></i><i class='fa fa-bitcoin fa-2x'></i></a></li>
+      </ul>
+    </div>
   </div>
 
-  <ul class='nav navbar-nav navbar-right'>
+  <!-- <ul class='nav navbar-nav navbar-right'>
     <li>
       <a ui-sref='user'>
         <i class='homePage'></i>home</a></li>
@@ -13,6 +44,14 @@
     <li>
       <a ui-sref='signup'>
         <i class='signUp'></i>signup</a></li>
-
-  </ul>
+    <li>
+      <a ui-sref='user'>
+        <i class='loggedin'></i>user home</a></li>
+    <li>
+      <a ui-sref='makeLock'>
+        <i class='makeLock'></i>new deal</a></li>
+    <li>
+      <a ui-sref='deal'>
+        <i class='deal'></i>show deal</a></li>
+  </ul> -->
 </nav>
