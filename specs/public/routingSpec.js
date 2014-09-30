@@ -23,8 +23,8 @@ describe('Routing', function() {
     // expect($state.href('')).to.equal('#/user');
     expect($state.href('user')).to.equal('/user');
   });
-  it('Should have /deal/new route', function () {
-    expect($state.href('makeLock')).to.equal('/deal/new');
+  it('Should have /makeLock route', function () {
+    expect($state.href('newEmpty')).to.equal('/makeLock');
 // =======
 //   it('Should have /transactions route', function () {
 //     expect($state.href('makeTran')).to.equal('/transactions');

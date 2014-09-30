@@ -2,13 +2,13 @@
   'use strict';
   angular
     .module('coindropApp')
-    .controller('MakeLockController', MakeLockController);
+    .controller('NewEmptyController', NewEmptyController);
     /* @inject */
-    function MakeLockController($scope, MakeLockService){
-      $scope.makeLock = {};
-      $scope.doMakeLock = function(){
-        console.log($scope.makeLock);
-        MakeLockService.doMakeLock($scope.makeLock);
+    function NewEmptyController($scope, NewEmptyService){
+      $scope.newEmpty = {};
+      $scope.doNewEmpty = function(){
+        console.log($scope.newEmpty);
+        NewEmptyService.doNewEmpty($scope.newEmpty);
       };
     }
 }).call(this);

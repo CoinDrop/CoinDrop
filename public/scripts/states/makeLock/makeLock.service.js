@@ -2,17 +2,17 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('MakeLockService', MakeLockService);
+    .factory('NewEmptyService', NewEmptyService);
   /* @inject */
-  function MakeLockService($http){
+  function NewEmptyService($http){
     return {
-      doMakeLock:doMakeLock
+      doNewEmpty:doNewEmpty
     };
-    function doMakeLock(makeLock) {
+    function doNewEmpty(newEmpty) {
       return $http({
         method: 'POST',
         url: 'api/deal/new',
-        data: makeLock
+        data: newEmpty
       })
       .then(function(resp){
         return resp;
