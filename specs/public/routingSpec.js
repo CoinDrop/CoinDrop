@@ -27,7 +27,7 @@ describe('Routing', function() {
     expect($state.href('makeLock')).to.equal('/makeLock');
 // =======
 //   it('Should have /transactions route', function () {
-//     expect($state.href('makeTran')).to.equal('/transactions');
+//     expect($state.href('makeLock')).to.equal('/transactions');
 // >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
   });
 });
