@@ -2,17 +2,17 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('MakeTranService', MakeTranService);
+    .factory('MakeLockService', MakeLockService);
   /* @inject */
-  function MakeTranService($http){
+  function MakeLockService($http){
     return {
-      doMakeTran: doMakeTran
+      doMakeLock:doMakeLock
     };
-    function doMakeTran(makeTran) {
+    function doMakeLock(makeLock) {
       return $http({
         method: 'POST',
-        url: 'api/transactions',
-        data: makeTran
+        url: 'api/deal/new',
+        data: makeLock
       })
       .then(function(resp){
         return resp;

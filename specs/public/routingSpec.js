@@ -1,5 +1,6 @@
 /*jshint expr:true */
 // 'use strict';
+
 describe('Routing', function() {
 
   var $state, $injector, $rootScope;
@@ -22,7 +23,11 @@ describe('Routing', function() {
     // expect($state.href('')).to.equal('#/user');
     expect($state.href('user')).to.equal('/user');
   });
-  it('Should have /transactions route', function () {
-    expect($state.href('makeTran')).to.equal('/transactions');
+  it('Should have /makeLock route', function () {
+    expect($state.href('makeLock')).to.equal('/makeLock');
+// =======
+//   it('Should have /transactions route', function () {
+//     expect($state.href('makeLock')).to.equal('/transactions');
+// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
   });
 });

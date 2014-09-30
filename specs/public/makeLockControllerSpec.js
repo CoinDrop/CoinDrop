@@ -1,6 +1,6 @@
 /*jshint expr:true */
 
-describe('MakeTranController', function() {
+describe('MakeLockController', function() {
   var createController;
   var $scope;
   var $rootScope;
@@ -12,18 +12,18 @@ describe('MakeTranController', function() {
 
     var $controller = $injector.get('$controller');
     createController = function() {
-      return $controller('MakeTranController', {
+      return $controller('MakeLockController', {
         $scope: $scope
       });
     };
     createController();
   }));
 
-  it('should have MakeTranController', function() {
-    expect('MakeTranController').to.exist;
+  it('should have MakeLockController', function() {
+    expect('MakeLockController').to.exist;
   });
-  it('should have a doMakeTran method', function() {
-    expect($scope.doMakeTran).to.be.a('function');
+  it('should have a doMakeLock method', function() {
+    expect($scope.doMakeLock).to.be.a('function');
   });
 
 });

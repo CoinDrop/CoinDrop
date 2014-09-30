@@ -1,6 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{deal.id}} <strong>{{ deal.status }}</strong>
+          </div>
+          <div class="panel-body">
+            <dl>
+              <dt>memo</dt>
+                <dd>{{ deal.memo }}</dd></dt>
+              <dt>status</dt>
+                <dd>{{ deal.status }}</dd>
+              <dt>activity</dt>
+                <dd>
+                  <div ng-show="deal.activity.create" >{{deal.activity.create }} created container</div>
+                  <div ng-show="deal.activity.offer"  >{{deal.activity.offer  }} made an offer</div>
+                  <div ng-show="deal.activity.decline">{{deal.activity.decline}} offer declined</div>
+                  <div ng-show="deal.activity.escrow" >{{deal.activity.escrow }} entered escrow</div>
+                  <div ng-show="deal.activity.give"   >{{deal.activity.give   }} finalized payment</div>
+                  <div ng-show="deal.activity.take"   >{{deal.activity.take   }} received refund</div>
+                </dd>
+              <dt>greeting</dt>
+                <dd>{{ deal.greeting }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-<div class="panel panel-default">
+<!-- <div class="panel panel-default">
   <div class="panel-heading">
     Transaction {{transaction._id}} <br>
     <strong>{{ transaction.btc }} btc</strong>
@@ -32,6 +62,8 @@
         </dd>
       <dt>greeting</dt>
         <dd>{{ transaction.greeting }}</dd>
-    </dl>
+    </dl> -->
+
+
   </div>
 </div>

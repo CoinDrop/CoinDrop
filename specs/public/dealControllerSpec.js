@@ -1,6 +1,6 @@
 /*jshint expr:true */
 
-describe('transactionController', function() {
+describe('dealController', function() {
   var createController;
   var $scope;
   var $rootScope;
@@ -12,18 +12,18 @@ describe('transactionController', function() {
 
     var $controller = $injector.get('$controller');
     createController = function() {
-      return $controller('TransactionController', {
+      return $controller('DealController', {
         $scope: $scope
       });
     };
     createController();
   }));
 
-  it('should have TransactionController', function() {
-    expect('TransactionController').to.exist;
+  it('should have DealController', function() {
+    expect('DealController').to.exist;
   });
-  it('should have a getTransaction method', function() {
-    expect($scope.getTransaction).to.be.a('function');
+  it('should have a getDeal method', function() {
+    expect($scope.getDeal).to.be.a('function');
   });
 
 });

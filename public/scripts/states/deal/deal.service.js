@@ -2,12 +2,11 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('TransactionService', TransactionService);
+    .factory('DealService', DealService);
   /* @inject */
-  function TransactionService($http){
-    return { getTransaction: getTransaction };
-    function getTransaction(transaction) {
-      // FIXME: fake data here.
+  function DealService($http){
+    return { getDeal:getDeal };
+    function getDeal(deal) {
       var memos = [
         'Canon SLR with telephoto kit in Los Angeles' ,
         'Bronze statuette of Greek warrior in Oakland',
@@ -30,13 +29,13 @@
       else if (ret.activity.decline)              ret.status = 'declined';
       else if (ret.activity.offer)                ret.status = 'on offer';
       else                                        ret.status = 'empty';
-      // $scope.transaction = ret;
+      // $scope.deal = ret;
       // console.log(ret);
       return ret;
       // FIXME: real data here.
-      // $http.get('api/transaction/'+tranId)
+      // $http.get('api/deal/'+tranId)
       //   .success(successCallback(data))
-      //   .error(function(){console.log("transaction GET error ");});
+      //   .error(function(){console.log("deal GET error ");});
     }
   }
 }).call(this);
