@@ -5,10 +5,10 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('newEmpty', {
+      .state('makeLock', {
         url: '/makeLock',
-        templateUrl: 'scripts/states/newEmpty/newEmpty.html',
-        controller: 'NewEmptyController'
+        templateUrl: 'scripts/states/makeLock/makeLock.html',
+        controller: 'MakeLockController'
       });
     }
 }).call(this);

@@ -11,11 +11,11 @@
           Anyone can deposit money or read the balance.
           Withdrawing money requires both keys.
           <div class="panel-body">
-            <form ng-submit="doNewEmpty()">
-              <label>Other user</label> <input ng-model="newEmpty.otherUsername" class="form-control" type="text"><br>
-              <label>Amount BTC</label> <input ng-model="newEmpty.btc" class="form-control" type="text"><br>
-              <label>Memo</label><textarea ng-model="newEmpty.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
-              <label>Greeting</label> <textarea ng-model="newEmpty.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
+            <form ng-submit="doMakeLock()">
+              <label>Other user</label> <input ng-model="makeLock.otherUsername" class="form-control" type="text"><br>
+              <label>Amount BTC</label> <input ng-model="makeLock.btc" class="form-control" type="text"><br>
+              <label>Memo</label><textarea ng-model="makeLock.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
+              <label>Greeting</label> <textarea ng-model="makeLock.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
               <button class="btn btn-primary" type="submit" ng-click="createTrans()">Create Empty Deal</button>
               <button class="btn btn-primary" type="submit" ng-click="returnToDash()">Cancel</button>
             </form>
