@@ -1,10 +1,10 @@
 var path = require('path');
-var User = require('./config/models/user.model.js');
-var Transaction = require('./config/models/transaction.model.js');
 var express = require('express');
 var Q = require('q');
 var jwt = require('jwt-simple');
 var btcUtil = require('./bitcoinUtilities.js');
+var User = require('./config/models/user.js');
+var Transaction = require('./config/models/transaction.model.js');
 
 module.exports = function(app) {
 var router = express.Router();
@@ -164,13 +164,6 @@ var router = express.Router();
       });
     });
 
-
-
-
-
-
-
-    
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
