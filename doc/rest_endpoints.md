@@ -1,22 +1,22 @@
-Endpoint                    | GET     | POST     | PUT     | DELETE
---------------------------- | ------- | -------- | ------- | ------
-login                       |         | login    |         |
-logout                      |         | logout   |         |
-user                        | index   | signup   |         |
-user/new                    | new     |          |         |
-user/:user\_id              | show    |          | update  | destroy
-user/:user\_id/edit         | edit    |          |         |
-deal                        | index   |          |         |
-deal/:user\_id              | index   |          |         |
-deal/:buyer\_id/:seller\_id | index   | create   |         |
-deal/:deal\_id              | show    |          | update  | destroy
-deal/:deal\_id/edit         | edit    |          |         |
-deal/:deal\_id/offer        |         | offer    |         |
-deal/:deal\_id/cancel       |         | cancel   |         |
-deal/:deal\_id/decline      |         | decline  |         |
-deal/:deal\_id/accept       |         | accept   |         |
-deal/:deal\_id/settle       |         | settle   |         |
-deal/:deal\_id/pay_buyer    |         | (settle) |         |
-deal/:deal\_id/pay_seller   |         | (settle) |         |
+Endpoint                      | GET     | POST     | PUT     | DELETE
+----------------------------- | ------- | -------- | ------- | ------
+login                         |         | login    |         |
+logout                        |         | logout   |         |
+users                         | index   | signup   |         |
+users/new                     | new     |          |         |
+users/:name                   | show    |          | update  | destroy
+users/:name/edit              | edit    |          |         |
+deals                         | index   |          |         |
+deals/users/:name             | index   |          |         |
+deals/pair/:buyer/:seller     | index   | create   |         |
+deals/:deal                   | show    |          | update  | destroy
+deals/:deal/edit              | edit    |          |         |
+deals/:deal/offer             |         | offer    |         |
+deals/:deal/cancel            |         | cancel   |         |
+deals/:deal/decline           |         | decline  |         |
+deals/:deal/accept            |         | accept   |         |
+deals/:deal/settle            |         | settle   |         |
+(deals/:deal/pay_buyer)       |         | (settle) |         |
+(deals/:deal/pay_seller)      |         | (settle) |         |
 
-Not all shown routes are intended to actually be provided for a while, if ever.
+Not all routes shown are intended to actually be provided for a while, if ever.
