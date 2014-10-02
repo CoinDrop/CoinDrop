@@ -4,11 +4,19 @@
     .module('coindropApp')
     .controller('DealController', DealController);
     /* @inject */
-    function DealController($scope, DealService){
-      $scope.deal = {};
-      $scope.getDeal = function(){
-        DealService.getDeal($scope.deal);
+    function DealController($scope, userService, $stateParams){
+      var id = $stateParams.id;
+
+      $scope.deal = function(id) {
+        userService.getOneDeal(id)
+        .then(function (deal) {
+      console.log('ID INSIDE DEAL CONTROLLER:', deal);
+          $scope.deal = deal.data;
+        })
+        .catch(function(err) {
+          console.log('error in deal controller:', err);
+        });
       };
-      $scope.deal = DealService.getDeal();
+      $scope.deal(id);
     }
 }).call(this);

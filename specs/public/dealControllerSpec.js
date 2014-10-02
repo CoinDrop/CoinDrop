@@ -23,7 +23,7 @@ describe('dealController', function() {
     expect('DealController').to.exist;
   });
   it('should have a getDeal method', function() {
-    expect($scope.getDeal).to.be.a('function');
+    expect($scope.deal).to.be.a('function');
   });
 
 });

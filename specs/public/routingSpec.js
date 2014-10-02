@@ -21,7 +21,7 @@ describe('Routing', function() {
   });
   it('Should have /user route', function () {
     // expect($state.href('')).to.equal('#/user');
-    expect($state.href('user')).to.equal('/user');
+    expect($state.href('user')).to.equal('/user/');
   });
   it('Should have /makeLock route', function () {
     expect($state.href('makeLock')).to.equal('/makeLock');

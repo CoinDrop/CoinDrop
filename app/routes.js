@@ -3,11 +3,38 @@ var express = require('express');
 var Q = require('q');
 var jwt = require('jwt-simple');
 var btcUtil = require('./bitcoinUtilities.js');
-var User = require('./config/models/user.js');
-var Transaction = require('./config/models/transaction.model.js');
+var User = require('./config/models/user.model.js');
+var Deal = require('./config/models/deal.model.js');
+var passport = require('passport');
+var session = require('express-sessions');
+var basicAuth = require('basic-auth');
+// var mongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
+var secret = 'Base-Secret';
+
+
 
 module.exports = function(app) {
-var router = express.Router();
+
+  var router = express.Router();
+
+  var sessions = {
+    '542c90331a86eb6b59ca4893': '542c90331a86eb6b59ca4893'
+  };
+
+  var sessionStorage = {
+    get: function(key) {
+      var token = sessions[key];
+      if(token) {
+        return sessions[key]; 
+      }
+      return false;
+    },
+    set: function(value) {
+      sessions[value] = app.get('sessionToken');
+      return sessions[value];
+    }
+  };
 
   router.use(function(req, res, next) {
     console.log('ROUTING IN PROGRESS.');//this will happen everytime a request is sent to the api
@@ -15,6 +42,29 @@ var router = express.Router();
   });
 
   //server routes here
+  router.use(function(req, res, next){
+    console.log(req.path);
+    if(req.path === '/signup' || req.path === '/login') return next();
+    console.log( "FROM SIGNUP", req.headers.authorization);
+    if(sessionStorage.get(req.headers.authorization)){
+      User.findById(req.headers.authorization, function(err, userObj){
+        req.user = userObj;
+        next();
+      });
+    } else {
+      res.status(404);
+      res.send('Not allowed');
+    }
+  });
+
+  // router.route('/me')
+  // .get(function(req, res) {
+  //   console.log("INSIDE STUFF", req.user);
+  //   res.json(req.user);
+  //   // console.log('POST REQUEST HERE:', req);
+  //   console.log('POST REQUEST HERE:', req.headers.authorization);
+  // });
+
   router.route('/signup')
     .post(function(req, res) {
       var username = req.body.username;
@@ -22,29 +72,35 @@ var router = express.Router();
       var email = req.body.email;
       var create;
       var newUser;
-      console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
+      // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       var findOne = Q.nbind(User.findOne, User);
       findOne({username: username})
-        .then(function(user) {
-          if(user) {
-            next(new Error('User already exists!'));
+        .then(function(err, user) {
+          if(err) {
+            return res.json(new Error('User already exists!', err));
           } else {
-            create = Q.nbind(User.create, User);
+            //create = Q.nbind(User.create, User);
             newUser = {
               username: username,
               password: password,
               email: email
             };
-            return create(newUser);
+            User.create(newUser, function(err, createdUser) {
+              if(err) {
+                return res.json(new Error('User already exists!', err));
+              }               
+              var token = createdUser._id;
+              console.log( "FROM SIGNUP", token);
+              sessionStorage.set(token);
+              console.log('0398459023849032:', token);
+              res.json({user: createdUser, token: token});
+              
+            });
           }
         })
-        .then(function (user) {
-          // var token = jwt.encode(user, 'secret');
-          res.json({message: 'SIGNING UP NEW USER'});
-        })
-        .fail(function (error) {
-          next(error);
+        .catch(function (error) {
+          res.json(error);
         });
     })
 
@@ -62,61 +118,62 @@ var router = express.Router();
       var username = req.body.username;
       var password = req.body.password;
 
-      console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
+      // console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
+      //creates a promise returning function
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
       .then(function (user) {
         if(!user) {
+          // console.log('inside NO USER FOUND');
+          //if no user, hand it off to the next route handler
           next(new Error('User does not exist'));
         } else {
           console.log('inside find user');
           return user.comparePasswords(password);
         }
       })
-      .then(function (foundUser) {
-        if(foundUser) {
-          // var token = jwt.encode(foundUser, 'secret');
-          // res.json({token: token});
-          console.log('FOUND USER');
-          res.json({message: 'USER FOUND'});
+      .then(function (userObj) {
+        if(userObj) {
+          var token = jwt.encode(userObj, 'put secret here');
+          res.json({token: token});
         }
       })
-      .fail(function (error) {
-        next(error);
+      .catch(function (error) {
+        res.json(error);
       });
     });
 
-  router.route('/transactions')
+  router.route('/deal/new')
     .get(function(req, res) {
       console.log('GET ALL SERVER SIDE');
-      Transaction.find(function(err, transactions) {
+      Deal.find(function(err, deals) {
         if(err) {
           res.send(err);
         }
-        res.json(transactions);
+        res.json(deals);
       });
     })
+
     .post(function(req, res) {
+      var buyer = req.body.buyer;
+      var seller = req.body.seller;
       var greeting = req.body.greeting;
-      var otherUsername = req.body.otherUsername;
       var btc = req.body.btc;
       var memo = req.body.memo;
-      var me = req.body.me;
       var create;
-      var newTransaction;
 
-      var findTransaction = Q.nbind(Transaction.findOne, Transaction);
+      var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
 
-      findTransaction({ otherUsername: otherUsername, memo: memo, greeting: greeting, btc: btc, me: me})
-        .then(function(transaction) {
+      findDeal({ buyer: buyer, seller: seller, memo: memo, greeting: greeting, btc: btc})
+        .then(function(deal) {
         var wallet = btcUtil.makeWallet();
-          if(transaction) {
-            next(new Error('Transaction already Exists'));
+          if(deal) {
+            next(new Error('Deal already Exists'));
           } else {
-            var deal = new Transaction({
-              otherUsername: otherUsername,
-              me: me,
+            var newDeal = new Deal({
+              seller: seller,
+              buyer: buyer,//me
               memo: memo,
               greeting: greeting,
               btc: btc,
@@ -124,17 +181,17 @@ var router = express.Router();
               key1: wallet.privateKey1,
               key2: 'n/a'
             });
-            console.log('inside find transaction *******:', deal);
-            deal.save();
-            findUser({otherUsername: otherUsername})
+            newDeal.save();
+            findUser({username: seller})
               .then(function(user) {
-                if(found) {
-                  var otherUserDeal  = new Transaction({
+                if(user) {
+            console.log('inside find deal *******:', user);
+                  var otherUserDeal  = new Deal({
+                    seller: seller,
+                    buyer: buyer,
                     memo: memo,
-                    greeting: greeting,
+                    greeting: greeting,//me
                     btc: btc,
-                    me: otherUsername,
-                    otherUsername: me,
                     address: wallet.addres,
                     key1: 'n/a',
                     key2: wallet.privateKey2
@@ -144,25 +201,37 @@ var router = express.Router();
               });
           }
         })
-        .then(function(transaction) {
+        .then(function(deal) {
           res.json({message: 'NEW TRANSACTION IS CREATED'});
         })
-        .fail(function(error) {
-          next(error);
+        .catch(function(error) {
+          res.json(error);
         });
       });
 
-  router.route('/transactions/:_id')
+  router.route('/deals/user/:id')
     .get(function(req, res) {
-      console.log('INSIDE SERVER FOR TRANS ID:', req.params);
-      Transaction.findById(req.params._id, function(err, transaction) {
+      console.log('INSIDE SERVER FOR deal ID:', req.params);
+      Deal.findById(req.params.id, function(err, deal) {
         if(err) {
           res.send(err);
         } else {
-          res.json(transaction);
+          res.json(deal);
         }
       });
     });
+
+  // router.route('/deals/users/:username')
+  //   .get(function(req, res) {
+  //     console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
+  //     Deal.find({$or : [{buyer: req.params.username}, {seller: req.params.username}]}, function(err, deals) {
+  //       if(err) {
+  //         res.send(err);
+  //       } else {
+  //         res.json(deals);
+  //       }
+  //     });
+  //   });
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
@@ -170,5 +239,27 @@ var router = express.Router();
 
   app.use('/api', router);
 };
+
+
+// router.post(function(err, data){
+//   buyerid = body.buyer // id
+//   sellerid = body.seller //id
+  
+//   deal.create({buyer:buyerid, seller:sellerid}, function(err, data){
+//     deal.findById(data._id).populate('seller').populate('buyer').exec(function(err, thisdeal){
+//       thisdeal.buyer.buying.push(thisdeal._id)
+//       thisdeal.seller.selling.push(thisdeal._id)
+//       thisdeal.seller.save()
+//       thisdeal.buyer.save()
+//     })
+//   })
+
+
+// });
+
+
+
+
+
 
 

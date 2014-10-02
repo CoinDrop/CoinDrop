@@ -5,11 +5,14 @@
     .module('coindropApp')
     .controller('AuthController', AuthController);
     /* @inject */
-    function AuthController ($scope, $window, $state, authService) {
+    function AuthController ($scope, $window, $state, authService, $storage, $http) {
+      // $storage.set('me', {hello:'Joel Cox'})
+      // $http.get('http://localhost:8000/api/me', function(data) {
+      //   console.log(data);
+      // });
       $scope.user = {};
 
-      $scope.login = function () {
-        console.log('INSIDE CLIENT LOGIN:', $scope.user);
+      $scope.login = function (username) {
         authService.login($scope.user)
         .then(function (resp) {
           // $window.localStorage.setItem('com.coindrop', token);
@@ -20,12 +23,12 @@
         });
       };
       
-      $scope.signup = function() {
+      $scope.signup = function(username) {
         console.log('INSIDE SIGNUP: ', $scope.user);
         authService.signup($scope.user)
-        .then(function (token) {
+        .then(function (resp) {
           // $window.localStorage.setItem('com.coindrop', token);
-          $state.go('user');
+          $state.go('user', {username: username});
         })
         .catch(function (error) {
           console.log('Error During Signup: ', error);

@@ -2,9 +2,9 @@
   'use strict';
   angular
     .module('coindropApp')
-    .factory('MakeLockService', MakeLockService);
+    .factory('makeLockService', makeLockService);
   /* @inject */
-  function MakeLockService($http){
+  function makeLockService($http){
     return {
       doMakeLock:doMakeLock
     };
@@ -16,6 +16,9 @@
       })
       .then(function(resp){
         return resp;
+      })
+      .catch(function(err) {
+        console.log(err);
       });
     }
   }

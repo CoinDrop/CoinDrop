@@ -4,6 +4,22 @@ var Schema = mongoose.Schema;
 var Q = require('q');
 var SALT_WORK_FACTOR = 10;
 
+// var UserSchema = new Schema({
+//   username: {
+//     type: String,
+//     required: true,
+//     unique: true
+//   },
+//   password: {
+//     type: String,
+//     required: true
+//   },
+//   email: {
+//     type: String,
+//     required: true
+//   }
+// });
+
 var UserSchema = new Schema({
   username: {
     type: String,
@@ -19,6 +35,7 @@ var UserSchema = new Schema({
     required: true
   }
 });
+
 
 /*
 UserSchema.methods.comparePasswords = function (userPassword) {

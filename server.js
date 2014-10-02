@@ -8,7 +8,7 @@ var cors = require('cors');
 var partials = require('express-partials');
 
 var db = require('./app/config/db');
-var User = require('./app/config/models/user');
+var User = require('./app/config/models/user.model');
 var handler = require('./app/request-handler');
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -33,18 +33,19 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
+app.set('sessionToken', '12345');
 require('./app/routes')(app); //configure routes
 
 
-app.post('/signup', handler.signupUser);
+// app.post('/signup', handler.signupUser);
 
-app.post('/login', handler.loginUser);
+// app.post('/login', handler.loginUser);
 
-app.post('/create', handler.createTransaction);
+// app.post('/create', handler.createTransaction);
 
-app.post('/release', handler.releaseKey);
+// app.post('/release', handler.releaseKey);
 
-app.post('/transactions', handler.getTransactions);
+// app.post('/transactions', handler.getTransactions);
 
 
 app.listen(port);

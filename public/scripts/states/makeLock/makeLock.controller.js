@@ -4,11 +4,15 @@
     .module('coindropApp')
     .controller('MakeLockController', MakeLockController);
     /* @inject */
-    function MakeLockController($scope, MakeLockService){
+    function MakeLockController($scope, makeLockService, $state, $stateParams) {
       $scope.makeLock = {};
-      $scope.doMakeLock = function(){
-        console.log($scope.makeLock);
-        MakeLockService.doMakeLock($scope.makeLock);
+      var username = $stateParams;
+
+      $scope.doMakeLock = function(username){
+        makeLockService.doMakeLock($scope.makeLock)
+        .then(function(resp) {
+          $state.go('user', {username: username});
+        });
       };
     }
 }).call(this);

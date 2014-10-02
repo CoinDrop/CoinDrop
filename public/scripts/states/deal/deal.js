@@ -5,7 +5,7 @@
 
   function configuration($stateProvider, $stateParams) {
     $stateProvider
-      .state('deal', {
+      .state('user.deal', {
         url: '/deal/:id',
         templateUrl: 'scripts/states/deal/deal.html',
         controller: 'DealController'

@@ -103,8 +103,8 @@ gulp.task('browser-sync', ['styles'], function() {
 
 //without this our server will not start up automatically
 gulp.task('serve', function() {
-    // return nodemon({ script: './server.js' });
-    require('./server.js');
+    return nodemon({ script: './server.js' });
+    // require('./server.js');
 });
 
 gulp.task('copy-bower-components', function () {

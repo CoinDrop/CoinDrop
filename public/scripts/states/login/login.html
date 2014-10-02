@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="col-md-4 col-md-offset-4">
         <div class="panel panel-default">
-        <form class="form" name="form" ng-submit="login()" novalidate>
+        <form class="form" name="form" ng-submit="login(user.username)" novalidate>
           <div class="panel-heading">
             Login
           </div>
@@ -12,7 +12,7 @@
               <input ng-model="user.username" class="form-control" type="text"><br>
               
               <label>Password</label>
-              <input ng-model="user.password" class="form-control" type="text"><br>
+              <input ng-model="user.password" class="form-control" type="password"><br>
 
               <button class="btn btn-primary" type="submit">Login</button>
           </div>

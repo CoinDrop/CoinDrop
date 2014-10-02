@@ -4,13 +4,14 @@
     .module('coindropApp')
     .factory('authService', authService);
     /* @inject */
-    function authService ($http, $state, $window) {
+    function authService ($http, $state, $window, $storage) {
       return {
         signup: signup,
         login: login,
         isAuth: isAuth,
         signout: signout
       };
+      
 
       function signup (user) {
         return $http({
@@ -19,8 +20,10 @@
           data: user
         })
         .then(function (resp) {
-          console.log('RESP.DATA HERE: ', resp.data);
-          return resp.data;
+          $storage.set("current_user", resp.data.user);
+          $storage.set("token", resp.data.token);
+          console.log('RESP.DATA HERE: ', resp);
+          return resp;
         });
       }
 
@@ -31,8 +34,8 @@
           data: user
         })
         .then(function (resp) {
-          // $storage.set('token', resp.data.token);
-          return resp.data;
+          $storage.set('current_user', resp.token);
+          console.log(resp.token);
         });
       }
 
