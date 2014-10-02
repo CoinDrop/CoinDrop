@@ -29,7 +29,7 @@
         });
       }
 
-      function login (user) {
+      function login (user, callback) {
         return $http({
           method: 'POST',
           url: '/api/login',
@@ -37,8 +37,9 @@
         })
         .then(function (resp) {
           console.log('TOKEN RESPONSE LOGIN SERVICE:', resp);
-          // $storage.set('current_user', resp.data.user);
+          $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
+
         })
         .catch(function(err) {
           return err;

@@ -14,7 +14,6 @@
   /* @inject */
   .factory('authInterceptor', authInterceptor).run(function($http) {
   /* @inject */
-    $http.defaults.headers.common.Authorization = 'login YmVlcDpi';
   });
   
   function configuration($urlRouterProvider, $stateProvider, $httpProvider) {
@@ -25,9 +24,15 @@
 
   function Storage() {
     this.get = function(key) {
+      return localStorage.getItem(key);
+    };
+    this.getObject = function(key) {
       return JSON.parse(localStorage.getItem(key));
     };
     this.set = function(key, val) {
+      localStorage.setItem(key, val);
+    };
+    this.setObject = function(key, val) {
       var store = JSON.stringify(val);
       localStorage.setItem(key, store);
     };

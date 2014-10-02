@@ -21,15 +21,16 @@ module.exports = function(app) {
 
 
   app.use(session({
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     secret: 'secret',
     store: new mongoStore({
       db: 'test',
-    })
+    }),
+    genid: function(req) {
+      return jwt.encode({id: req.user_id}, secret);
+    }
   }));
-
-
 
   //server routes here
   router.use(function(req, res, next){
@@ -100,25 +101,23 @@ module.exports = function(app) {
     .post(function(req, res) {
       var username = req.body.username;
       var password = req.body.password;
-      console.log('REQ SESSION HERE:', req.session);
+      console.log('REQ SESSION HERE:', req.sessionID);
 
       // console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
       //creates a promise returning function
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
       .then(function (user) {
-        if(user) {
           //if no user, hand it off to the next route handler
-          var authed = user.comparePasswords(password);
-          if(authed) {
-            var token = user._id;
-            // sessionStorage.set(token);
-            console.log('inside find user:', token);
-            res.json({token: token});
+          if(user.comparePasswords(password)) {
+            req.user_id = user._id;
+            req.session.regenerate(function (err) {
+              //returns jwt token string : req.sessionID
+              console.log('REQ SESSION ID:', req.sessionID);
+              console.log('REQ SESSION decoded:', jwt.decode(req.sessionID, secret));
+              res.json({user: user, token: req.sessionID});
+            });
           }
-        } else {
-          next(new Error('User does not exist'));
-        }
       })
       .catch(function (error) {
         res.json(error);
