@@ -1,14 +1,15 @@
 var path = require('path');
 var express = require('express');
 var Q = require('q');
+var app = require('../server.js');
 var jwt = require('jwt-simple');
 var btcUtil = require('./bitcoinUtilities.js');
 var User = require('./config/models/user.model.js');
 var Deal = require('./config/models/deal.model.js');
 var passport = require('passport');
-var session = require('express-sessions');
+var session = require('express-session');
+var mongoStore = require('connect-mongo')(session);
 var basicAuth = require('basic-auth');
-// var mongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var secret = 'Base-Secret';
 
@@ -18,29 +19,17 @@ module.exports = function(app) {
 
   var router = express.Router();
 
-  var sessions = {
-    '542c90331a86eb6b59ca4893': '542c90331a86eb6b59ca4893'
-  };
 
-  var sessionStorage = {
-    get: function(key) {
-      var token = sessions[key];
-      if(token) {
-        return sessions[key]; 
-      }
-      return false;
-    },
-    set: function(value) {
-      sessions[value] = app.get('sessionToken');
+  app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'secret',
+    store: new mongoStore({
+      db: 'test',
+    })
+  }));
 
-      return sessions[value];
-    }
-  };
 
-  router.use(function(req, res, next) {
-    console.log('ROUTING IN PROGRESS.');//this will happen everytime a request is sent to the api
-    next();//make sure we go to the next routes and don't stop here
-  });
 
   //server routes here
   router.use(function(req, res, next){
@@ -58,14 +47,6 @@ module.exports = function(app) {
     }
   });
 
-  // router.route('/me')
-  // .get(function(req, res) {
-  //   console.log("INSIDE STUFF", req.user);
-  //   res.json(req.user);
-  //   // console.log('POST REQUEST HERE:', req);
-  //   console.log('POST REQUEST HERE:', req.headers.authorization);
-  // });
-
   router.route('/signup')
     .post(function(req, res) {
       var username = req.body.username;
@@ -76,6 +57,7 @@ module.exports = function(app) {
       // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       var findOne = Q.nbind(User.findOne, User);
+      console.log('REQ SESSION HERE:', req.session);
       findOne({username: username})
         .then(function(err, user) {
           if(err) {
@@ -118,6 +100,7 @@ module.exports = function(app) {
     .post(function(req, res) {
       var username = req.body.username;
       var password = req.body.password;
+      console.log('REQ SESSION HERE:', req.session);
 
       // console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
       //creates a promise returning function

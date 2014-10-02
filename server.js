@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cors = require('cors');
+var cookieParser = require('cookie-parser');
 var partials = require('express-partials');
-
 var db = require('./app/config/db');
 var User = require('./app/config/models/user.model');
 var handler = require('./app/request-handler');
@@ -21,6 +21,7 @@ var port = process.env.PORT || 8000;
 app.use(partials());
 app.use(cors());
 app.use(bodyParser.json()); // app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
@@ -33,7 +34,7 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-app.set('sessionToken', '12345');
+// app.set('sessionToken', '12345');
 require('./app/routes')(app); //configure routes
 
 
