@@ -1,13 +1,30 @@
 // Utilities for bitcoin logic stored here
 var Bitcoin = require('bitcoinjs-lib');
 
-module.exports.makeWallet = function(){
-  var BTCWallet = new Bitcoin.Wallet(null, Bitcoin.networks.testnet);
-  var privateKey = BTCWallet.getPrivateKey(0).toWIF();
+module.exports.makeWallet = function(n, m){
+
+  // create m private keys
+  // store m private keys and pub key hexes
+  // redeem script from n
+  // use redeem script for building wallet
+
+  var privateKeys = [];
+
+  for( var i = 0; i < m; i++ ){
+    privateKeys.push(Bitcoin.ECKey.makeRandom());
+  }
+
+  var publicKeys = privateKeys.map(function(key){ return key.pub });
+
+  var redeemScript = Bitcoin.scripts.multisigOutput(n, publicKeys);
+  var scriptPublicKey = Bitcoin.scripts.scriptHashOutput(redeemScript.getHash());
+
   var wallet = {
-    address: BTCWallet.generateAddress(),
-    privateKey1: privateKey.slice(0, 26),
-    privateKey2: privateKey.slice(26, 52)
-  };
+    address: Bitcoin.Address.fromOutputScript(scriptPublicKey, Bitcoin.networks.testnet).toString(),
+    privateKeys: privateKeys.map(function(key){ return key.toWIF(Bitcoin.networks.testnet) }),
+    publicHexes: publicKeys.map(function(pubKey){ return pubKey.toHex() }),
+    n: n
+  }
+
   return wallet;
 };
