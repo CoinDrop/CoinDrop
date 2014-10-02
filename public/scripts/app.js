@@ -9,8 +9,11 @@
     // 'ngTouch'
   ])
   .service('$storage', Storage)
+  /* @inject */
   .config(['$urlRouterProvider', '$stateProvider','$httpProvider', configuration])
+  /* @inject */
   .factory('authInterceptor', authInterceptor).run(function($http) {
+  /* @inject */
     $http.defaults.headers.common.Authorization = 'login YmVlcDpi';
   });
   
@@ -29,7 +32,7 @@
       localStorage.setItem(key, store);
     };
     this.remove = function(key) {
-      delete localStorage.getItem(key);
+      localStorage.removeItem(key);
     };
   }
 

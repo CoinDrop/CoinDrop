@@ -20,10 +20,12 @@
           data: user
         })
         .then(function (resp) {
-          $storage.set("current_user", resp.data.user);
-          $storage.set("token", resp.data.token);
+          $storage.set('current_user', resp.data.user);
+          $storage.set('token', resp.data.token);
           console.log('RESP.DATA HERE: ', resp);
-          return resp;
+        })
+        .catch(function(err) {
+          return err;
         });
       }
 
@@ -34,8 +36,12 @@
           data: user
         })
         .then(function (resp) {
-          $storage.set('current_user', resp.token);
-          console.log(resp.token);
+          console.log('TOKEN RESPONSE LOGIN SERVICE:', resp);
+          // $storage.set('current_user', resp.data.user);
+          $storage.set('token', resp.data.token);
+        })
+        .catch(function(err) {
+          return err;
         });
       }
 

@@ -15,7 +15,6 @@
       $scope.login = function (username) {
         authService.login($scope.user)
         .then(function (resp) {
-          // $window.localStorage.setItem('com.coindrop', token);
           $state.go('user');
         })
         .catch(function (error) {
@@ -24,11 +23,10 @@
       };
       
       $scope.signup = function(username) {
-        console.log('INSIDE SIGNUP: ', $scope.user);
+        console.log('INSIDE SIGNUP CONTROLLER: ', $scope.user);
         authService.signup($scope.user)
         .then(function (resp) {
-          // $window.localStorage.setItem('com.coindrop', token);
-          $state.go('user', {username: username});
+          $state.go('user');
         })
         .catch(function (error) {
           console.log('Error During Signup: ', error);
