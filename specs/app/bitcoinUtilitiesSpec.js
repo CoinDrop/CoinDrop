@@ -4,6 +4,10 @@ var path = require('path');
 var expect = require('chai').expect;
 var base58check = require(path.resolve(__dirname, '..', '..', 'node_modules/bitcoinjs-lib/node_modules/bs58check/src/bs58check.js'));
 var Bitcoin = require('bitcoinjs-lib');
+var helloblock = require('helloblock-js')({
+  network: 'testnet',
+  debug: true
+});
 
 var Utilities = require(path.resolve(__dirname, '..', '..', 'app/bitcoinUtilities.js'));
 
@@ -17,8 +21,12 @@ describe('Utilities', function(){
     expect(Utilities.makeWallet).to.be.a('function');
   });
 
+  it('should have a withdraw method', function(){
+    expect(Utilities.withdraw).to.be.a('function');
+  });
 
-  describe('makeWallet()', function(){
+
+  describe('makeWallet(n, m)', function(){
     var wallet;
     beforeEach(function(){
       wallet = Utilities.makeWallet(2, 3);
@@ -95,5 +103,33 @@ describe('Utilities', function(){
 
   });
 
+  describe('withdraw()', function(){
+    var wallet;
+    var oldBalance;
+    this.enableTimeouts(false);
+    beforeEach(function(done){
+      // adds funds to wallet before calling withdraw function
+      wallet = Utilities.makeWallet(2, 3);
+
+      helloblock.faucet.withdraw(wallet.address, 1000000, function(){
+        helloblock.addresses.get('2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', function(error, response, walletData){
+          
+          oldBalance = walletData.balance;
+          Utilities.withdraw(wallet.n, wallet.privateKeys, wallet.publicHexes, '2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', 100000);
+          done();
+          
+        });
+      });
+
+    });
+
+    it('should remove all funds from a given wallet to a specified destination address', function(){
+      helloblock.addresses.get(wallet.address, function(error, response, walletData){
+        expect(error).to.equal(null);
+        expect(walletData.balance).to.not.equal(oldBalance);
+      });
+    });
+
+  });
 
 });
