@@ -6,10 +6,10 @@
     /* @inject */
     function DealNewController($scope, dealNewService, $state, $stateParams) {
       $scope.dealNew = {};
-
-      $scope.makeDeal = function(){
-        console.log('MAKING A NEW DEAL HERE:', $scope.dealNew);
-        dealNewService.makeDeal($scope.dealNew)
+      $scope.createDeal = function(){
+        console.log('CREATING AN EMPTY DEAL:', $scope.dealNew);
+        // dealNewService.makeDeal($scope.dealNew)
+        dealNewService.createDeal($scope.createDeal)
         .then(function(resp) {
           $state.go('user');
         });

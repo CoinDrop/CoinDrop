@@ -5,7 +5,7 @@
 
   function configuration($stateProvider) {
     $stateProvider
-      .state('newDeal', {
+      .state('dealNew', {
         url: '/deals/new',
         templateUrl: 'scripts/states/dealNew/dealNew.html',
         controller: 'DealNewController'

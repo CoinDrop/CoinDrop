@@ -23,8 +23,7 @@ module.exports.makeWallet = function(n, m){
     privateKeys: privateKeys.map(function(key){ return key.toWIF(Bitcoin.networks.testnet) }),
     publicHexes: publicKeys.map(function(pubKey){ return pubKey.toHex() }),
     n: n
-  }
-
+  };
   return wallet;
 };
 
