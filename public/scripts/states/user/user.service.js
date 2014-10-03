@@ -31,10 +31,10 @@
           return err;
         });
       }
-      function getOneDeal(transactionId) {
+      function getOneDeal(dealId) {
         return $http({
           method: 'GET',
-          url: 'api/deals/' + transactionId
+          url: 'api/deals/' + dealId
         })
         .then(function (resp) {
           return resp;

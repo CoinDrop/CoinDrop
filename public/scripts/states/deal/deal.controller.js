@@ -10,11 +10,9 @@
       $scope.deal = function(id) {
         userService.getOneDeal(id)
         .then(function (deal) {
-      console.log('ID INSIDE DEAL CONTROLLER:', deal);
           $scope.deal = deal.data;
         })
         .catch(function(err) {
-          console.log('error in deal controller:', err);
         });
       };
       $scope.deal(id);

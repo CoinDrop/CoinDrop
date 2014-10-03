@@ -181,10 +181,8 @@ module.exports = function(app) {
               sellerUser.save();
               User.findOne({_id: buyerId}, function (err, buyerUser) {
                 if(err) {
-                  console.log('EROROROROROROROROORR', err);
                   res.json(err);
                 } else {
-                  console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
                   buyerUser.buying.push(deal._id);
                   buyerUser.save();
                 }

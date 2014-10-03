@@ -12,7 +12,7 @@
     <th>Memo</th>
  		<th>Greeting</th>
  	</tr>
- 	<tr ng-repeat='deal in data.deals' ng-click="chooseThisDeal(deal._id)">
+ 	<tr ng-repeat='deal in data.buying' ng-click="chooseThisDeal(deal._id)">
 		<td>{{ deal.buyer }}</td>
     <td>{{ deal.seller }}</td>
     <td>{{ deal.memo }}</td>
@@ -22,6 +22,23 @@
 </table>
 </div>
 
+<div class="table-responsive">
+<table ng-table class="table">
+  <tr>
+    <th>Buyer</th>
+    <th>Seller</th>
+    <th>Memo</th>
+    <th>Greeting</th>
+  </tr>
+  <tr ng-repeat='deal in data.selling' ng-click="chooseThisDeal(deal._id)">
+    <td>{{ deal.buyer }}</td>
+    <td>{{ deal.seller }}</td>
+    <td>{{ deal.memo }}</td>
+    <td>{{ deal.greeting}}</td>
+  </tr>
+
+</table>
+</div>
 
 
 <!-- Modal -->

@@ -11,6 +11,7 @@
 
       $scope.chooseThisDeal = function (id) {
         // userService.chooseThisDeal(this.deal)
+        console.log('CHOOSE THIS DEAL ID:', id);
         $state.go('user.deal', {id: id});
       };
 
@@ -18,7 +19,8 @@
       $scope.getAllDeals = function(userId) {
         userService.getAllDeals(userId)
         .then(function(deals) {
-          $scope.data.deals = deals.data;
+          $scope.data.buying = deals.data.buying;
+          $scope.data.selling = deals.data.selling;
         });
       };
       $scope.getAllDeals(userId);
