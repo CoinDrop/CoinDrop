@@ -40,6 +40,7 @@ module.exports = function(app) {
     if(req.headers.authorization){
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
+          console.log('USER IN HEADERS AUTH:', user);
           next();
         }
       });
@@ -54,7 +55,6 @@ module.exports = function(app) {
       var username = req.body.username;
       var password = req.body.password;
       var email = req.body.email;
-      var create;
       var newUser;
       // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
@@ -70,7 +70,6 @@ module.exports = function(app) {
               password: password,
               email: email
             };
-            // create = Q.nbind(User.create, User);
             User.create(newUser, function(err, user) {
               if(err) {
                 return res.json(new Error('Error creating user!', err));
@@ -146,58 +145,60 @@ module.exports = function(app) {
     })
 
     .post(function(req, res) {
+      var buyerId = jwt.decode(req.headers.authorization, secret).id;
+      console.log('&&&&&&&&&&@*#&@#*&$#*@$@#&*$#@$#@$@#$#@$#@$:');
       var buyer = req.body.buyer;
       var seller = req.body.seller;
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
-      var create;
+      var newDeal;
+
 
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
 
-      findDeal({ buyer: buyer, seller: seller, memo: memo, greeting: greeting, btc: btc})
-        .then(function(deal) {
-        var wallet = btcUtil.makeWallet();
-          if(deal) {
-            next(new Error('Deal already Exists'));
-          } else {
-            var newDeal = new Deal({
-              seller: seller,
-              buyer: buyer,//me
-              memo: memo,
-              greeting: greeting,
-              btc: btc,
-              address: wallet.address,
-              key1: wallet.privateKey1,
-              key2: 'n/a'
-            });
-            newDeal.save();
-            findUser({username: seller})
-              .then(function(user) {
-                if(user) {
-            console.log('inside find deal *******:', user);
-                  var otherUserDeal  = new Deal({
-                    seller: seller,
-                    buyer: buyer,
-                    memo: memo,
-                    greeting: greeting,//me
-                    btc: btc,
-                    address: wallet.addres,
-                    key1: 'n/a',
-                    key2: wallet.privateKey2
-                  });
-                  otherUserDeal.save();
-                }
-              });
-          }
-        })
-        .then(function(deal) {
-          res.json({message: 'NEW TRANSACTION IS CREATED'});
-        })
-        .catch(function(error) {
-          res.json(error);
-        });
+      // findUser({username: buyer})
+      // .then(function(err, buyer) {
+      //   var buyerId = buyer._id;
+      // findUser({username: seller})
+      // .then(function(err, seller) {
+      //     var sellerId = seller._id;
+      // }
+      // })
+
+      // User.find({ $or: [{'username': buyer}, {'username': seller}]}, function(err, users) {
+      //   if(err) {
+      //     throw err;
+      //   } else {
+      //     console.log('USERS ARE HERE FROM FIND:', users);
+      //   }
+      // });
+        //     newDeal = {
+        //       seller: seller,
+        //       buyer: buyer,
+        //       memo: memo,
+        //       greeting: greeting,
+        //       btc: btc,
+        //       address: wallet.address,
+        //       buyerKey: wallet.privateKey1,
+        //       sellerKey: wallet.privateKey2
+        //     };
+        //     Deal.create(newDeal, function(err, deal) {
+        //       if(err) {
+        //         res.json(err);
+        //       } else {
+        //         res.json(deal);
+        //       }
+        //     })
+        //   }
+        // })
+        // .then(function(deal) {
+        //   res.json({message: 'NEW TRANSACTION IS CREATED'});
+        // })
+        // .catch(function(error) {
+        //   res.json(error);
+        // });
       });
 
 

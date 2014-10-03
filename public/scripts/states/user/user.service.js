@@ -4,7 +4,7 @@
     .module('coindropApp')
     .factory('userService', userService);
     /* @inject */
-    function userService ($http){
+    function userService ($http, $storage){
 
       return {
         chooseThisDeal: chooseThisDeal,

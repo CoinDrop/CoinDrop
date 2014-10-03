@@ -7,7 +7,7 @@
     $stateProvider
       .state('newDeal', {
         url: '/deals/new',
-        templateUrl: 'scripts/states/makeLock/makeLock.html',
+        templateUrl: 'scripts/states/dealNew/dealNew.html',
         controller: 'DealNewController'
       });
     }

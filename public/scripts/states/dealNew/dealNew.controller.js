@@ -6,12 +6,11 @@
     /* @inject */
     function DealNewController($scope, dealNewService, $state, $stateParams) {
       $scope.dealNew = {};
-      var username = $stateParams;
 
-      $scope.makeDeal = function(username){
-        dealNewService.makeDeal($scope.makeDeal)
+      $scope.makeDeal = function(){
+        dealNewService.makeDeal($scope.dealNew)
         .then(function(resp) {
-          $state.go('user', {username: username});
+          $state.go('user');
         });
       };
     }

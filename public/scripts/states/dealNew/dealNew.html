@@ -12,11 +12,11 @@
           Withdrawing money requires both keys.
           <div class="panel-body">
             <form ng-submit="makeDeal()">
-              <label>Buyer</label> <input ng-model="newDeal.buyer" class="form-control" type="text"><br>
-              <label>Seller</label> <input ng-model="newDeal.seller" class="form-control" type="text"><br>
-              <label>Amount BTC</label> <input ng-model="newDeal.btc" class="form-control" type="text"><br>
-              <label>Memo</label><textarea ng-model="newDeal.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
-              <label>Greeting</label> <textarea ng-model="newDeal.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
+              <label>Buyer</label> <input ng-model="dealNew.buyer" class="form-control" type="text"><br>
+              <label>Seller</label> <input ng-model="dealNew.seller" class="form-control" type="text"><br>
+              <label>Amount BTC</label> <input ng-model="dealNew.btc" class="form-control" type="text"><br>
+              <label>Memo</label><textarea ng-model="dealNew.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
+              <label>Greeting</label> <textarea ng-model="dealNew.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
               <button class="btn btn-primary" ui-sref='user' type="submit">Create Empty Deal</button>
               <button class="btn btn-primary" type="submit" ui-sref='user'>Cancel</button>
             </form>
