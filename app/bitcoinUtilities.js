@@ -13,15 +13,15 @@ module.exports.makeWallet = function(n, m){
     privateKeys.push(Bitcoin.ECKey.makeRandom());
   }
 
-  var publicKeys = privateKeys.map(function(key){ return key.pub });
+  var publicKeys = privateKeys.map(function(key){ return key.pub; });
 
   var redeemScript = Bitcoin.scripts.multisigOutput(n, publicKeys);
   var scriptPublicKey = Bitcoin.scripts.scriptHashOutput(redeemScript.getHash());
 
   var wallet = {
     address: Bitcoin.Address.fromOutputScript(scriptPublicKey, Bitcoin.networks.testnet).toString(),
-    privateKeys: privateKeys.map(function(key){ return key.toWIF(Bitcoin.networks.testnet) }),
-    publicHexes: publicKeys.map(function(pubKey){ return pubKey.toHex() }),
+    privateKeys: privateKeys.map(function(key){ return key.toWIF(Bitcoin.networks.testnet); }),
+    publicHexes: publicKeys.map(function(pubKey){ return pubKey.toHex(); }),
     n: n
   };
   return wallet;
@@ -30,8 +30,8 @@ module.exports.makeWallet = function(n, m){
 module.exports.withdraw = function(n, userKeys, publicHexes, destination, amount, fee){
 
   fee = fee || 10000;
-  var publicKeys = publicHexes.map(function(hex){ return new Bitcoin.ECPubKey.fromHex(hex) });
-  var privateKeys = userKeys.map(function(key){ return new Bitcoin.ECKey.fromWIF(key) });
+  var publicKeys = publicHexes.map(function(hex){ return new Bitcoin.ECPubKey.fromHex(hex); });
+  var privateKeys = userKeys.map(function(key){ return new Bitcoin.ECKey.fromWIF(key); });
 
   var redeemScript = Bitcoin.scripts.multisigOutput(n, publicKeys);
   var scriptPublicKey = Bitcoin.scripts.scriptHashOutput(redeemScript.getHash());
