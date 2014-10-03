@@ -1,6 +1,6 @@
 /*jshint expr:true */
 
-describe('MakeLockController', function() {
+describe('DealNewController', function() {
   var createController;
   var $scope;
   var $rootScope;
@@ -12,18 +12,18 @@ describe('MakeLockController', function() {
 
     var $controller = $injector.get('$controller');
     createController = function() {
-      return $controller('MakeLockController', {
+      return $controller('DealNewController', {
         $scope: $scope
       });
     };
     createController();
   }));
 
-  it('should have MakeLockController', function() {
-    expect('MakeLockController').to.exist;
+  it('should have DealNewController', function() {
+    expect('DealNewController').to.exist;
   });
-  it('should have a doMakeLock method', function() {
-    expect($scope.doMakeLock).to.be.a('function');
+  it('should have a makeDeal method', function() {
+    expect($scope.makeDeal).to.be.a('function');
   });
 
 });

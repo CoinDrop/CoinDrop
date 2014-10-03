@@ -1,51 +1,44 @@
 
-<button type="button" class="btn btn-default btn-lg" ui-sref="makeLock" style="margin:auto; display:block">
+<button type="button" class="btn btn-default btn-lg" ui-sref="newDeal" 
+                                      style="margin:auto; display:block">
   <span class="fa fa-btc"></span> Create 
 </button>
 
 <div class="table-responsive">
 <table ng-table class="table">
  	<tr>
- 		<th>Description</th>
- 		<th>Date</th>
- 		<th>Progress</th>
+ 		<th>Buyer</th>
+    <th>Seller</th>
+    <th>Memo</th>
+ 		<th>Greeting</th>
  	</tr>
-<!--  	<div ng-init="deals=[
- 	{Deal: '1', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '2', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '3', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '4', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '5', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '6', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'},
- 	{Deal: '7', Description: 'THIS IS A DESCRIPTION', Date: '9/1/2014', Progress: 'Pending'}]">
- 	</div> -->
-
-<!-- <tr ng-repeat="deal in data.deals" ng-click="chooseThisDeal(deal)"> -->
- 	<tr ng-repeat='deal in data.deals' ng-click="chooseThisDeal(deal)">
-     <!-- <td>{{ deal.id }}</td> -->
-		<td>{{ deal.memo }}</td>
-		<td>{{ deal.activity.create }}</td>
-		<td>{{ deal.status }}</td>
+ 	<tr ng-repeat='deal in data.buying' ng-click="chooseThisDeal(deal._id)">
+		<td>{{ deal.buyer }}</td>
+    <td>{{ deal.seller }}</td>
+    <td>{{ deal.memo }}</td>
+    <td>{{ deal.greeting}}</td>
 	</tr>
-<!-- =======
-    <th>ID</th>
-     <th>Other User</th>
-     <th>Memo</th>
-     <th>Greeting</th>
-     <th>Btc</th>
-   </tr>
-  <tr ng-repeat='transaction in data.transactions'
-      ng-click="chooseThisTrans(transaction._id)" data-toggle="modal" data-target="#myModal">
-    <td>{{ transaction._id }}</td>
-    <td>{{ transaction.otherUsername }}</td>
-    <td>{{ transaction.memo }}</td>
-    <td>{{ transaction.greeting }}</td>
-    <td>{{ transaction.btc }}</td>
-  </tr>
->>>>>>> ed42efefb7477d86a53528c3799f33200c220660 -->
+
 </table>
 </div>
 
+<div class="table-responsive">
+<table ng-table class="table">
+  <tr>
+    <th>Buyer</th>
+    <th>Seller</th>
+    <th>Memo</th>
+    <th>Greeting</th>
+  </tr>
+  <tr ng-repeat='deal in data.selling' ng-click="chooseThisDeal(deal._id)">
+    <td>{{ deal.buyer }}</td>
+    <td>{{ deal.seller }}</td>
+    <td>{{ deal.memo }}</td>
+    <td>{{ deal.greeting}}</td>
+  </tr>
+
+</table>
+</div>
 
 
 <!-- Modal -->
@@ -65,7 +58,6 @@
     </div>
   </div>
 </div>
-
 
 
 

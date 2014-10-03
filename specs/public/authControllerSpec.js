@@ -31,11 +31,11 @@ describe('AuthController', function() {
     createController();
   }));
 
-  afterEach(function() {
-    $httpBackend.verifyNoOutstandingExpectation;
-    $httpBackend.verifyNoOutstandingRequest();
-    $window.localStorage.removeItem('com.coindrop');
-  });
+  // afterEach(function() {
+  //   $httpBackend.verifyNoOutstandingExpectation;
+  //   $httpBackend.verifyNoOutstandingRequest();
+  //   $window.localStorage.removeItem('com.coindrop');
+  // });
 
   it('should have an auth controller', function() {
     expect('AuthController').to.exist;

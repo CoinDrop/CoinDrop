@@ -1,7 +1,7 @@
 //db is the exported mongo database
 var db = require('./config/db');
 //User is the exported mongoose schema for users.
-var User = require('./config/models/user');
+var User = require('./config/models/user.model');
 var BTCUtilities = require('./bitcoinUtilities.js');
 
 //Signup User creates and stores a user mongoose document

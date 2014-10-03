@@ -5,36 +5,26 @@
     .module('coindropApp')
     .controller('UserController', UserController);
     /* @inject */
-    function UserController ($scope, userService, $state) {
+    function UserController ($scope, userService, $state, $storage) {
       $scope.data = {};
+      var userId = $storage.getObject('current_user')._id;
 
-      // $scope.transactions = userService.getData();
-      
-      $scope.chooseThisDeal = function () {
-        userService.chooseThisDeal(this.deal);
+      $scope.chooseThisDeal = function (id) {
+        // userService.chooseThisDeal(this.deal)
+        console.log('CHOOSE THIS DEAL ID:', id);
+        $state.go('user.deal', {id: id});
       };
 
-      ($scope.getAllDeals = function() {
-        userService.getAllDeals()
-        .success(function(deals) {
-          $scope.data.deals = deals;
-        })();
-      });
-// =======
-//       $scope.chooseThisTrans = function (id) {
-//         console.log('CHOSE THIS ID IN USER CONTROLLER:', id);
-//         $state.go('user.transaction', {id: id});
-//         // userService.chooseThisTrans(this.transaction); dont need now
-//       };
-//
-//       ($scope.getAllTransactions = function() {
-//         userService.getAllTransactions()
-//         .then(function(transactions) {
-//           $scope.data.transactions = transactions.data;
-//         });
-//       })();
-//
-// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
+      //immediately get all deals of a specific user upon signup or login
+      $scope.getAllDeals = function(userId) {
+        userService.getAllDeals(userId)
+        .then(function(deals) {
+          $scope.data.buying = deals.data.buying;
+          $scope.data.selling = deals.data.selling;
+        });
+      };
+      $scope.getAllDeals(userId);
+
     }
 
 }).call(this);

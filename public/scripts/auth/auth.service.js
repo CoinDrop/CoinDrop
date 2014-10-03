@@ -4,35 +4,45 @@
     .module('coindropApp')
     .factory('authService', authService);
     /* @inject */
-    function authService ($http, $state, $window) {
+    function authService ($http, $state, $window, $storage) {
       return {
         signup: signup,
         login: login,
         isAuth: isAuth,
         signout: signout
       };
+      
 
-      function signup (user) {
+      function signup (user, callback) {
         return $http({
           method: 'POST',
           url: '/api/signup',
           data: user
         })
         .then(function (resp) {
-          console.log('RESP.DATA HERE: ', resp.data);
-          return resp.data;
+          $storage.setObject('current_user', resp.data.user);
+          $storage.set('token', resp.data.token);
+          console.log('SIGNUP RESPONSE SERVICE:', resp.data.user);
+          callback(resp.data.user);
+        })
+        .catch(function(err) {
+          return err;
         });
       }
 
-      function login (user) {
+      function login (user, callback) {
         return $http({
           method: 'POST',
           url: '/api/login',
           data: user
         })
         .then(function (resp) {
-          // $storage.set('token', resp.data.token);
-          return resp.data;
+          $storage.setObject('current_user', resp.data.user);
+          $storage.set('token', resp.data.token);
+          callback(resp.data.user);
+        })
+        .catch(function(err) {
+          return err;
         });
       }
 
@@ -44,7 +54,7 @@
       }
 
       function signout () {
-        // $window.localStorage.removeItem('com.coindrop');
+        $storage.remove('token');
         $state.go('signin');
       }
     }

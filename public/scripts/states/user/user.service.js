@@ -4,51 +4,40 @@
     .module('coindropApp')
     .factory('userService', userService);
     /* @inject */
-    function userService ($http){
+    function userService ($http, $storage){
 
       return {
         chooseThisDeal: chooseThisDeal,
-        getAllDeals: getAllDeals
-// =======
-//         chooseThisTrans: chooseThisTrans,
-//         getAllTransactions: getAllTransactions,
-//         getOneTrans: getOneTrans,
-//         findData: findData
-// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
+        getAllDeals: getAllDeals,
+        getOneDeal: getOneDeal,
+        findData: findData
       };
       function chooseThisDeal (deal) {
         return $http({
           method: 'GET',
           url: '/deals'
-// =======
-//           url: 'api/transactions'
-// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
         })
         .then(function (resp) {
           return resp;
         });
       }
 
-      function getAllDeals () {
+      function getAllDeals (userId) {
         return $http({
           method: 'GET',
-          url: '/deals'
-// =======
-//           url: 'api/transactions'
-//         })
-//         .then(function(resp) {
-//           console.log('INSIDE GET ALL TRANS');
-//           return resp;
-//         });
-//       }
-//       function getOneTrans(transactionId) {
-//         return $http({
-//           method: 'GET',
-//           url: 'api/transactions/'+transactionId
-//         })
-//         .then(function (resp) {
-//           return resp;
-// >>>>>>> ed42efefb7477d86a53528c3799f33200c220660
+          url: 'api/users/' + userId + '/deals'
+        })
+        .catch(function(err) {
+          return err;
+        });
+      }
+      function getOneDeal(dealId) {
+        return $http({
+          method: 'GET',
+          url: 'api/deals/' + dealId
+        })
+        .then(function (resp) {
+          return resp;
         });
       }
 
