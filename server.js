@@ -37,5 +37,6 @@ require('./app/routes')(app); //configure routes
 
 app.listen(port);
 console.log('app listening in on port ', port);
-exports = module.exports = app; //expose app
+
+module.exports = app; //expose app
 
