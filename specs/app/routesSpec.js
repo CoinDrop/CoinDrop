@@ -69,12 +69,8 @@ describe('Database', function() {
     .send({
       'username': 'satoshi',
       'password': 'yelpsucks' })
-    .expect(function() {
-      User.find({'username': 'satoshi'},function (err, users) {
-        if (err) return console.error(err);
-        expect(users[0].password).to.equal('yelpsucks');
-      });
-    }).end(done);
+    .expect(304)
+    .end(done);
   });
 
   it('should create a bitcoin wallet and store the address', function(done) {
