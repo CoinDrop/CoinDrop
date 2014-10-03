@@ -9,7 +9,6 @@
       $scope.data = {};
       var userId = $storage.getObject('current_user')._id;
 
-      
       $scope.chooseThisDeal = function (id) {
         // userService.chooseThisDeal(this.deal)
         $state.go('user.deal', {id: id});

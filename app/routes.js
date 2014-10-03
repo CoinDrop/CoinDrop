@@ -121,12 +121,12 @@ module.exports = function(app) {
 
   router.route('/users/:id/deals')
     .get(function(req, res) {
-      console.log('INSIDE SERVER FOR deal ID:', req.params.id);
       User.findById(req.params.id)
       .populate('buying selling').exec(function(err, data) {
         if(err) {
           res.json(err);
         } else {
+          console.log('GETTING ALL BUYING AND SELLING SERVER:', data);
           res.json(data);
         }
       });
@@ -135,7 +135,6 @@ module.exports = function(app) {
 
   router.route('/deals/new')
     .get(function(req, res) {
-      console.log('GET ALL SERVER SIDE');
       Deal.find(function(err, deals) {
         if(err) {
           res.send(err);
@@ -146,9 +145,9 @@ module.exports = function(app) {
 
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
-      console.log('&&&&&&&&&&@*#&@#*&$#*@$@#&*$#@$#@$@#$#@$#@$:');
-      var buyer = req.body.buyer;
-      var seller = req.body.seller;
+      var sellerId = '';
+      var buyerName = req.body.buyer;
+      var sellerName = req.body.seller;
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
@@ -158,47 +157,43 @@ module.exports = function(app) {
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
 
-      // findUser({username: buyer})
-      // .then(function(err, buyer) {
-      //   var buyerId = buyer._id;
-      // findUser({username: seller})
-      // .then(function(err, seller) {
-      //     var sellerId = seller._id;
-      // }
-      // })
 
-      // User.find({ $or: [{'username': buyer}, {'username': seller}]}, function(err, users) {
-      //   if(err) {
-      //     throw err;
-      //   } else {
-      //     console.log('USERS ARE HERE FROM FIND:', users);
-      //   }
-      // });
-        //     newDeal = {
-        //       seller: seller,
-        //       buyer: buyer,
-        //       memo: memo,
-        //       greeting: greeting,
-        //       btc: btc,
-        //       address: wallet.address,
-        //       buyerKey: wallet.privateKey1,
-        //       sellerKey: wallet.privateKey2
-        //     };
-        //     Deal.create(newDeal, function(err, deal) {
-        //       if(err) {
-        //         res.json(err);
-        //       } else {
-        //         res.json(deal);
-        //       }
-        //     })
-        //   }
-        // })
-        // .then(function(deal) {
-        //   res.json({message: 'NEW TRANSACTION IS CREATED'});
-        // })
-        // .catch(function(error) {
-        //   res.json(error);
-        // });
+      findUser({username: sellerName})
+      .then(function (sellerUser) {
+        if(sellerUser) {
+          var wallet = btcUtil.makeWallet();
+          sellerId = sellerUser._id;
+          var newDeal = {
+            buyer: buyerId,
+            seller: sellerId,
+            greeting: greeting,
+            memo: memo,
+            btc: btc,
+            address: wallet.address,
+            buyerKey: wallet.privateKey1,
+            sellerKey: wallet.privateKey2
+          };
+          Deal.create(newDeal, function (err, deal) {
+            if(err) {
+              res.json(err);
+            } else {
+              sellerUser.selling.push(deal._id);
+              sellerUser.save();
+              User.findOne({_id: buyerId}, function (err, buyerUser) {
+                if(err) {
+                  console.log('EROROROROROROROROORR', err);
+                  res.json(err);
+                } else {
+                  console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
+                  buyerUser.buying.push(deal._id);
+                  buyerUser.save();
+                }
+              });
+            }
+          });
+        }
+      });
+      return res.json('hello');
       });
 
 

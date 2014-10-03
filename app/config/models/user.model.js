@@ -37,8 +37,7 @@ var UserSchema = new Schema({
     required: true
   },
   selling: [{type:objectId, ref: 'Deal'}],
-  buying: [{type:objectId, ref: 'Deal'}],
-  token: String
+  buying: [{type:objectId, ref: 'Deal'}]
 });
 
 
