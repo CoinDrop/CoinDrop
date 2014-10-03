@@ -20,8 +20,7 @@ var port = process.env.PORT || 8000;
 
 app.use(partials());
 app.use(cors());
-app.use(bodyParser.json()); // app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-// app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
@@ -34,20 +33,7 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-// app.set('sessionToken', '12345');
 require('./app/routes')(app); //configure routes
-
-
-// app.post('/signup', handler.signupUser);
-
-// app.post('/login', handler.loginUser);
-
-// app.post('/create', handler.createTransaction);
-
-// app.post('/release', handler.releaseKey);
-
-// app.post('/transactions', handler.getTransactions);
-
 
 app.listen(port);
 console.log('app listening in on port ', port);

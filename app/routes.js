@@ -190,8 +190,10 @@ module.exports = function(app) {
             }
           });
         }
+      })
+      .catch(function(err) {
+        res.json(err);
       });
-      return res.json('hello');
       });
 
 
@@ -213,27 +215,3 @@ module.exports = function(app) {
 
   app.use('/api', router);
 };
-
-
-// router.post(function(err, data){
-//   buyerid = body.buyer // id
-//   sellerid = body.seller //id
-  
-//   deal.create({buyer:buyerid, seller:sellerid}, function(err, data){
-//     deal.findById(data._id).populate('seller').populate('buyer').exec(function(err, thisdeal){
-//       thisdeal.buyer.buying.push(thisdeal._id)
-//       thisdeal.seller.selling.push(thisdeal._id)
-//       thisdeal.seller.save()
-//       thisdeal.buyer.save()
-//     })
-//   })
-
-
-// });
-
-
-
-
-
-
-
