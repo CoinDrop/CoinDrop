@@ -7,7 +7,7 @@
   function configuration($stateProvider, authService, $stateParams) {
     $stateProvider
       .state('user', {
-        url: '/user/:username',
+        url: '/user/:id',
         templateUrl: 'scripts/states/user/user.html',
         controller: 'UserController'
       });

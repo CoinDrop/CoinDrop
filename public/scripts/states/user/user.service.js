@@ -22,13 +22,10 @@
         });
       }
 
-      function getAllDeals (username) {
+      function getAllDeals (userId) {
         return $http({
           method: 'GET',
-          url: 'api/deals/users/' + username
-        })
-        .then(function(resp) {
-          return resp;
+          url: 'api/users/' + userId + '/deals'
         })
         .catch(function(err) {
           return err;

@@ -13,16 +13,17 @@
       };
       
 
-      function signup (user) {
+      function signup (user, callback) {
         return $http({
           method: 'POST',
           url: '/api/signup',
           data: user
         })
         .then(function (resp) {
-          $storage.set('current_user', resp.data.user);
+          $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
-          console.log('RESP.DATA HERE: ', resp);
+          console.log('SIGNUP RESPONSE SERVICE:', resp.data.user);
+          callback(resp.data.user);
         })
         .catch(function(err) {
           return err;
@@ -36,10 +37,9 @@
           data: user
         })
         .then(function (resp) {
-          console.log('TOKEN RESPONSE LOGIN SERVICE:', resp);
           $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
-
+          callback(resp.data.user);
         })
         .catch(function(err) {
           return err;
@@ -54,7 +54,7 @@
       }
 
       function signout () {
-        // $window.localStorage.removeItem('com.coindrop');
+        $storage.remove('token');
         $state.go('signin');
       }
     }

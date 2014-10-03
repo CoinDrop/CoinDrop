@@ -34,13 +34,14 @@ module.exports = function(app) {
 
   //server routes here
   router.use(function(req, res, next){
-    console.log(req.path);
-    if(req.path === '/signup' || req.path === '/login') return next();
-    console.log( "FROM SIGNUP", req.headers.authorization);
-    if(sessionStorage.get(req.headers.authorization)){
-      User.findById(req.headers.authorization, function(err, userObj){
-        req.user = userObj;
-        next();
+    if(req.path === '/signup' || req.path === '/login') {
+      return next();
+    }
+    if(req.headers.authorization){
+      User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
+        if(user) {
+          next();
+        }
       });
     } else {
       res.status(404);
@@ -58,28 +59,26 @@ module.exports = function(app) {
       // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       var findOne = Q.nbind(User.findOne, User);
-      console.log('REQ SESSION HERE:', req.session);
+      // console.log('REQ SESSION HERE:', req.session);
       findOne({username: username})
         .then(function(err, user) {
-          if(err) {
+          if(user) {
             return res.json(new Error('User already exists!', err));
           } else {
-            //create = Q.nbind(User.create, User);
             newUser = {
               username: username,
               password: password,
               email: email
             };
-            User.create(newUser, function(err, createdUser) {
+            // create = Q.nbind(User.create, User);
+            User.create(newUser, function(err, user) {
               if(err) {
-                return res.json(new Error('User already exists!', err));
-              }               
-              var token = createdUser._id;
-              console.log( "FROM SIGNUP", token);
-              // sessionStorage.set(token);
-              // console.log('THIS IS THE TOKEN:', token);
-              res.json({token: token});
-              
+                return res.json(new Error('Error creating user!', err));
+              }
+              req.user_id = user._id;
+              req.session.regenerate(function (err) {
+                res.json({user: user, token: req.sessionID});
+              });
             });
           }
         })
@@ -101,9 +100,7 @@ module.exports = function(app) {
     .post(function(req, res) {
       var username = req.body.username;
       var password = req.body.password;
-      console.log('REQ SESSION HERE:', req.sessionID);
 
-      // console.log('INSIDE SERVER ROUTES FOR /LOGIN: ', req.body);
       //creates a promise returning function
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
@@ -113,8 +110,6 @@ module.exports = function(app) {
             req.user_id = user._id;
             req.session.regenerate(function (err) {
               //returns jwt token string : req.sessionID
-              console.log('REQ SESSION ID:', req.sessionID);
-              console.log('REQ SESSION decoded:', jwt.decode(req.sessionID, secret));
               res.json({user: user, token: req.sessionID});
             });
           }
@@ -125,7 +120,21 @@ module.exports = function(app) {
     });
 
 
-  router.route('/deal/new')
+  router.route('/users/:id/deals')
+    .get(function(req, res) {
+      console.log('INSIDE SERVER FOR deal ID:', req.params.id);
+      User.findById(req.params.id)
+      .populate('buying selling').exec(function(err, data) {
+        if(err) {
+          res.json(err);
+        } else {
+          res.json(data);
+        }
+      });
+    });
+
+
+  router.route('/deals/new')
     .get(function(req, res) {
       console.log('GET ALL SERVER SIDE');
       Deal.find(function(err, deals) {
@@ -191,29 +200,18 @@ module.exports = function(app) {
         });
       });
 
-  // router.route('/deals/user/:id')
-  //   .get(function(req, res) {
-  //     console.log('INSIDE SERVER FOR deal ID:', req.params);
-  //     Deal.findById(req.params.id, function(err, deal) {
-  //       if(err) {
-  //         res.send(err);
-  //       } else {
-  //         res.json(deal);
-  //       }
-  //     });
-  //   });
 
-  // router.route('/deals/users/:username')
-  //   .get(function(req, res) {
-  //     console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
-  //     Deal.find({$or : [{buyer: req.params.username}, {seller: req.params.username}]}, function(err, deals) {
-  //       if(err) {
-  //         res.send(err);
-  //       } else {
-  //         res.json(deals);
-  //       }
-  //     });
-  //   });
+  router.route('/deals/users/:username')
+    .get(function(req, res) {
+      console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
+      Deal.find({$or : [{buyer: req.params.username}, {seller: req.params.username}]}, function(err, deals) {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(deals);
+        }
+      });
+    });
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
