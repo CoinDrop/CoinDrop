@@ -40,13 +40,13 @@ module.exports = function(app) {
     if(req.headers.authorization){
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
-          console.log('USER IN HEADERS AUTH:', user);
           next();
         }
       });
     } else {
       res.status(404);
       res.send('Not allowed');
+      res.end('not allowed');
     }
   });
 
@@ -126,7 +126,6 @@ module.exports = function(app) {
         if(err) {
           res.json(err);
         } else {
-          console.log('GETTING ALL BUYING AND SELLING SERVER:', data);
           res.json(data);
         }
       });
@@ -194,17 +193,16 @@ module.exports = function(app) {
       .catch(function(err) {
         res.json(err);
       });
-      });
+    });
 
 
-  router.route('/deals/users/:username')
+  router.route('/deals/:dealId')
     .get(function(req, res) {
-      console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
-      Deal.find({$or : [{buyer: req.params.username}, {seller: req.params.username}]}, function(err, deals) {
+      Deal.find({_id: req.params.dealId}, function(err, deal) {
         if(err) {
           res.send(err);
         } else {
-          res.json(deals);
+          res.json(deal);
         }
       });
     });

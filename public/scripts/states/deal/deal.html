@@ -8,104 +8,35 @@
   <div class="panel-body">
     <dl>
       <dt>Me</dt>
-        <dd>{{ deal.buyer }}</dd></dt>
+        <dd>{{ deal.buyer }}</dd>
       <dt>Other User</dt>
-        <dd>{{ deal.seller }}</dd></dt>
+        <dd>{{ deal.seller }}</dd>
       <dt>memo</dt>
-        <dd>{{ deal.memo }}</dd></dt>
+        <dd>{{ deal.memo }}</dd>
       <dt>status</dt>
         <dd>{{ deal.status }}</dd>
       <dt>address</dt>
         <dd>{{ deal.address }}</dd>
-      <dt>key 1</dt>
-        <dd>{{ deal.key1 }}</dd>
-      <dt>key 2</dt>
-        <dd>{{ deal.key2 }}</dd>
+      <dt>Buyer Key</dt>
+        <dd>{{ deal.buyerKey }}</dd>
+      <dt>Seller Key</dt>
+        <dd>{{ deal.sellerKey }}</dd>
       <dt>activity</dt>
-        <dd>
+
+<!--         <dd>
           <div ng-show="transaction.activity.create" >{{transaction.activity.create }} created container</div>
           <div ng-show="transaction.activity.offer"  >{{transaction.activity.offer  }} made an offer</div>
           <div ng-show="transaction.activity.decline">{{transaction.activity.decline}} offer declined</div>
           <div ng-show="transaction.activity.escrow" >{{transaction.activity.escrow }} entered escrow</div>
           <div ng-show="transaction.activity.give"   >{{transaction.activity.give   }} finalized payment</div>
           <div ng-show="transaction.activity.take"   >{{transaction.activity.take   }} received refund</div>
-        </dd>
+        </dd> -->
       <dt>greeting</dt>
         <dd>{{ deal.greeting }}</dd>
     </dl>
-  </div>
-</div>
-
-
-
-
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            {{deal.id}} <strong>{{ deal.btc }}</strong>
-          </div>
-          <div class="panel-body">
-            <dl>
-              <dt>memo</dt>
-                <dd>{{ deal.memo }}</dd></dt>
-              <dt>status</dt>
-                <dd>{{ deal.status }}</dd>
-              <dt>activity</dt>
-                <dd>
-                  <div ng-show="deal.activity.create" >{{deal.activity.create }} created container</div>
-                  <div ng-show="deal.activity.offer"  >{{deal.activity.offer  }} made an offer</div>
-                  <div ng-show="deal.activity.decline">{{deal.activity.decline}} offer declined</div>
-                  <div ng-show="deal.activity.escrow" >{{deal.activity.escrow }} entered escrow</div>
-                  <div ng-show="deal.activity.give"   >{{deal.activity.give   }} finalized payment</div>
-                  <div ng-show="deal.activity.take"   >{{deal.activity.take   }} received refund</div>
-                </dd>
-              <dt>greeting</dt>
-                <dd>{{ deal.greeting }}</dd>
-            </dl>
-          </div>
-        </div>
-      </div>
     </div>
-
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Transaction {{transaction._id}} <br>
-    <strong>{{ transaction.btc }} btc</strong>
-  </div>
-  <div class="panel-body">
-    <dl>
-      <dt>Me</dt>
-        <dd>{{ transaction.me }}</dd></dt>
-      <dt>Other User</dt>
-        <dd>{{ transaction.otherUsername }}</dd></dt>
-      <dt>memo</dt>
-        <dd>{{ transaction.memo }}</dd></dt>
-      <dt>status</dt>
-        <dd>{{ transaction.status }}</dd>
-      <dt>address</dt>
-        <dd>{{ transaction.address }}</dd>
-      <dt>key 1</dt>
-        <dd>{{ transaction.key1 }}</dd>
-      <dt>key 2</dt>
-        <dd>{{ transaction.key2 }}</dd>
-      <dt>activity</dt>
-        <dd>
-          <div ng-show="transaction.activity.create" >{{transaction.activity.create }} created container</div>
-          <div ng-show="transaction.activity.offer"  >{{transaction.activity.offer  }} made an offer</div>
-          <div ng-show="transaction.activity.decline">{{transaction.activity.decline}} offer declined</div>
-          <div ng-show="transaction.activity.escrow" >{{transaction.activity.escrow }} entered escrow</div>
-          <div ng-show="transaction.activity.give"   >{{transaction.activity.give   }} finalized payment</div>
-          <div ng-show="transaction.activity.take"   >{{transaction.activity.take   }} received refund</div>
-        </dd>
-      <dt>greeting</dt>
-        <dd>{{ transaction.greeting }}</dd>
-    </dl>
-
-
-  </div>
 </div>
- -->
+
+
+
+
