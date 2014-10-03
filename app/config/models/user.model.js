@@ -12,6 +12,7 @@ var UserSchema = new Schema({
   email:    {type:String, required:true},
   selling:  [{type:objectId, ref:'Deal'}],
   buying:   [{type:objectId, ref:'Deal'}],
+  
 //token:    String
 });
 

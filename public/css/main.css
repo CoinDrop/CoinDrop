@@ -34,3 +34,9 @@
     color: #ffffff;
     text-align: right;
 }
+
+.main-logo {
+    margin-top: 40%;
+    top: 80%;
+    position: relative;
+}

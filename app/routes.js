@@ -169,7 +169,10 @@ module.exports = function(app) {
       console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
       Deal.find({$or: [{buyer:req.params.username}, {seller:req.params.username}]}, function(err, deals) {
         if (err) res.send(err);
-        else res.json(deals);
+        else {
+          
+          res.json(deals);
+        }
       });
     });
 
