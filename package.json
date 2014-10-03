@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha ./specs/app/routesSpec.js",
+    "test": "mocha ./specs/app/*.js",
     "start": "node server.js"
   },
   "repository": {
@@ -49,6 +49,7 @@
     "gulp-sass": "^0.7.3",
     "gulp-shell": "^0.2.9",
     "gulp-uglify": "^1.0.1",
+    "helloblock-js": "^0.2.5",
     "jwt-simple": "*",
     "karma": "^0.12.23",
     "karma-mocha": "^0.1.9",
