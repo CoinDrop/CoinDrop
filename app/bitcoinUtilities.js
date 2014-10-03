@@ -5,9 +5,10 @@ module.exports.makeWallet = function(){
   var BTCWallet = new Bitcoin.Wallet(null, Bitcoin.networks.testnet);
   var privateKey = BTCWallet.getPrivateKey(0).toWIF();
   var wallet = {
-    address: BTCWallet.generateAddress(),
-    privateKey1: privateKey.slice(0, 26),
-    privateKey2: privateKey.slice(26, 52)
+    address: Bitcoin.Address.fromOutputScript(scriptPublicKey, Bitcoin.networks.testnet).toString(),
+    privateKeys: privateKeys.map(function(key){ return key.toWIF(Bitcoin.networks.testnet) }),
+    publicHexes: publicKeys.map(function(pubKey){ return pubKey.toHex() }),
+    n: n
   };
   return wallet;
 };
