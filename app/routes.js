@@ -13,12 +13,9 @@ var basicAuth = require('basic-auth');
 var mongoose = require('mongoose');
 var secret = 'Base-Secret';
 
-
-
 module.exports = function(app) {
 
   var router = express.Router();
-
 
   app.use(session({
     resave: true,
@@ -44,6 +41,8 @@ module.exports = function(app) {
       });
     } else {
       res.status(404);
+      // res.send('Not allowed');
+      // res.end('not allowed');
     }
   });
 
@@ -203,21 +202,17 @@ module.exports = function(app) {
       });
     });
 
-
   router.route('/deals/:dealId')
     .get(function(req, res) {
       Deal.find({_id: req.params.dealId}, function(err, deal) {
-        if(err) {
-          res.send(err);
-        } else {
-          res.json(deal);
-        }
+        if(err) res.send(err);
+        else res.json(deal);
       });
     });
 
-  router.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-  });
+  // router.get('*', function(req, res) {
+  //   res.sendFile(path.join(__dirname, './public/index.html'));
+  // });
 
   app.use('/api', router);
 };

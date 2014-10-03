@@ -59,11 +59,15 @@ module.exports.withdraw = function(n, userKeys, publicHexes, destination, amount
         }
       });
 
+      // console.log('inside withdraw - helloblock get unspents -redeemScript\t', redeemScript);
+
       var tx = txb.build();
       var hash = tx.toHex();
 
       helloblock.transactions.propagate(hash, function(error, response, transaction){
         if( !error ){
+          // console.log('tx propagated!');
+          // console.log('\nreponse:\t', response);
         }
       });
 
