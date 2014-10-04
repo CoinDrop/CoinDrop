@@ -28,7 +28,7 @@ describe('Database', function() {
 
   it('should be able to sign up a User', function(done) {
     request(app)
-      .post('/signup')
+      .post('#/signup')
       .expect(200)
       .send({
         username: 'btc',
@@ -45,9 +45,9 @@ describe('Database', function() {
       .end(done);
   });
 
-  it('should be able to authenticate and sign in a User', function(done) {
+  it('should be able to authenticate and log in a User', function(done) {
     request(app)
-      .post('/login')
+      .post('#/login')
       .expect(200)
       .send({
         'username': 'btc',
@@ -65,7 +65,7 @@ describe('Database', function() {
 
   it('should be able to create another User', function(done) {
     request(app)
-    .post('/signup')
+    .post('#/signup')
     .send({
       'username': 'satoshi',
       'password': 'yelpsucks' })
@@ -73,12 +73,16 @@ describe('Database', function() {
     .end(done);
   });
 
-  it('should create a bitcoin wallet and store the address', function(done) {
-    request(app).post('/create')
+  it('should create a new deal', function(done) {
+    request(app).post('/deal/new')
       .expect(302)
       .send({
-        'username': 'btc',
-        'otherUser': 'satoshi'})
+        buyer: 'btc',
+        seller: 'satoshi',
+        greeting: 'what\'s the greeting for?',
+        memo: 'trading btc for something',
+        btc: 0.001
+      })
       .expect(function() {
         User.find(function (err, users) {
           if (err) return console.error(err);
@@ -86,9 +90,9 @@ describe('Database', function() {
       }).end(done);
   });
 
-  it('should be able to retrieve a list of updating transactions', function(done) {
+  it('should be able to retrieve a list of deals for a given user', function(done) {
     request(app)
-      .post('/transactions')
+      .post('#/users/:id/deals')
       .expect(200)
       .send({ username: 'btc' })
       .expect(function(res) {
@@ -99,7 +103,7 @@ describe('Database', function() {
 
   it('should be able to release the key to the other user', function(done) {
     request(app)
-    .post('/release')
+    .post('#/release')
     .expect(302)
     .send({
       'username': 'btc',
@@ -110,6 +114,21 @@ describe('Database', function() {
 
       });
     }).end(done);
+  });
+
+  it('should be able to withdraw btc from a wallet', function(){
+    request(app)
+      .post('#/withdraw')
+      .send({
+        // deal_id
+        // destination:
+        // amount:
+        // (fee:)
+        // what else is needed? deal id?
+      })
+      .expect(302, function(){
+        // more tests here
+      });
   });
 
 });
