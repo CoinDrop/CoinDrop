@@ -4,11 +4,12 @@
     .module('coindropApp')
     .factory('dealNewService', dealNewService);
   /* @inject */
-  function dealNewService($http){
+  function dealNewService($http) {
     return {
-      makeDeal: makeDeal
+      createDeal:createDeal
     };
-    function makeDeal(dealNew) {
+
+    function createDeal(dealNew) {
       return $http({
         method: 'POST',
         url: 'api/deals/new',
