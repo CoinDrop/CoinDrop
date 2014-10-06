@@ -6,7 +6,7 @@ var base58check = require(path.resolve(__dirname, '..', '..', 'node_modules/bitc
 var Bitcoin = require('bitcoinjs-lib');
 var helloblock = require('helloblock-js')({
   network: 'testnet',
-  debug: true
+  debug: false
 });
 
 var Utilities = require(path.resolve(__dirname, '..', '..', 'app/bitcoinUtilities.js'));

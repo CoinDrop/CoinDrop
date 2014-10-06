@@ -3,7 +3,7 @@ var express = require('express');
 var Q = require('q');
 var app = require('../server.js');
 var jwt = require('jwt-simple');
-var btcUtil = require('./bitcoinUtilities.js');
+var BTCUtilities = require('./bitcoinUtilities.js');
 var User = require('./config/models/user.model.js');
 var Deal = require('./config/models/deal.model.js');
 var passport = require('passport');
@@ -114,7 +114,7 @@ module.exports = function(app) {
     })
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
-      var sellerId = '';
+      var sellerId;
       var buyerName = req.body.buyer;
       var sellerName = req.body.seller;
       var greeting = req.body.greeting;
@@ -124,44 +124,41 @@ module.exports = function(app) {
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: sellerName})
-        .then(function (sellerUser) {
-          if(sellerUser) {
-            var wallet = btcUtil.makeWallet();
-            sellerId = sellerUser._id;
-            var newDeal = {
-              buyer: buyerId,
-              seller: sellerId,
-              greeting: greeting,
-              memo: memo,
-              btc: btc,
-              address: wallet.address,
-              buyerKey: wallet.privateKey1,
-              sellerKey: wallet.privateKey2
-            };
-            Deal.create(newDeal, function (err, deal) {
-              if(err) {
-                res.json(err);
-              } else {
-                sellerUser.selling.push(deal._id);
-                sellerUser.save();
-                User.findOne({_id: buyerId}, function (err, buyerUser) {
-                  if(err) {
-                    console.log('EROROROROROROROROORR', err);
-                    res.json(err);
-                  } else {
-                    console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
-                    buyerUser.buying.push(deal._id);
-                    buyerUser.save();
-                  }
-                });
-              }
-            });
-          }
-        })
-        .catch(function(err) {
-          res.json(err);
+      .then(function (sellerUser) {
+        if(sellerUser) {
+          var wallet = BTCUtilities.makeWallet(2, 3);
+          sellerId = sellerUser._id;
+          var newDeal = {
+            buyer: buyerId,
+            seller: sellerId,
+            greeting: greeting,
+            memo: memo,
+            btc: btc,
+            address: wallet.address,
+            buyerKey: wallet.privateKeys[0],
+            sellerKey: wallet.privateKeys[1],
+            thirdKey: wallet.privateKeys[2],
+            publicHexes: wallet.publicHexes,
+            n: wallet.n
+          };
+          Deal.create(newDeal, function (err, deal) {
+            if(err) {
+              res.json(err);
+            } else {
+              sellerUser.selling.push(deal._id);
+              sellerUser.save();
+              User.findOne({_id: buyerId}, function (err, buyerUser) {
+                if(err) {
+                  res.json(err);
+                } else {
+                  buyerUser.buying.push(deal._id);
+                  buyerUser.save();
+                }
+              });
+            }
+          });
         }
-      );
+      });
     });
 
   router.route('/deals/users/:username') // FIXME: username?
@@ -175,6 +172,7 @@ module.exports = function(app) {
         }
       });
     });
+
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
