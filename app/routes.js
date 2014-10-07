@@ -37,7 +37,6 @@ module.exports = function(app) {
       return next();
     }
     if(req.headers.authorization){
-      console.log(req);
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
           next();
@@ -68,6 +67,7 @@ module.exports = function(app) {
               password: password,
               email: email
             };
+            // create = Q.nbind(User.create, User);
             User.create(newUser, function(err, user) {
               if(err) {
                 return res.json(new Error('Error creating user!', err));
@@ -102,14 +102,22 @@ module.exports = function(app) {
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
       .then(function (user) {
-          //if no user, hand it off to the next route handler
-          if(user.comparePasswords(password)) {
+        if(!user) {
+          throw new Error('ERROROROR');
+        }
+        //if user found
+        user.comparePasswords(password).then(function (isMatch) {
+        console.log('COMPARING THE PASSWORD HERE:', isMatch);
+          if(isMatch) {
             req.user_id = user._id;
             req.session.regenerate(function (err) {
-              //returns jwt token string : req.sessionID
               res.json({user: user, token: req.sessionID});
             });
           }
+          else {
+            throw new Erorr('MISMATCHED PASSWORD');
+          }
+        });
       })
       .catch(function (error) {
         res.json(error);
@@ -142,13 +150,15 @@ module.exports = function(app) {
 
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
-      var sellerId = '';
+      var sellerId;
       var buyerName = req.body.buyer;
       var sellerName = req.body.seller;
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
+
       var newDeal;
+      console.log('NEW DEAL IN SERVER FIRST FIRST FIRST:', req.body);
 
 
       var findDeal = Q.nbind(Deal.findOne, Deal);
@@ -174,6 +184,7 @@ module.exports = function(app) {
             publicHexes: wallet.publicHexes,
             n: wallet.n
           };
+          console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {
             if(err) {
               res.json(err);
@@ -186,6 +197,7 @@ module.exports = function(app) {
                 } else {
                   buyerUser.buying.push(deal._id);
                   buyerUser.save();
+                  res.status(200).end();
                 }
               });
             }
