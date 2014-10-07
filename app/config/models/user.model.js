@@ -7,21 +7,11 @@ var objectId = mongoose.Schema.Types.ObjectId;
 var deal = require('./deal.model.js');
 
 var UserSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  selling: [{type:objectId, ref: 'Deal'}],
-  buying: [{type:objectId, ref: 'Deal'}]
+  username: { type:String, required:true, unique:true },
+  password: { type:String, required:true},
+  email: { type:String, required:true },
+  selling: [{ type:objectId, ref:'Deal' }],
+  buying: [{ type:objectId, ref:'Deal' }]
 });
 
 

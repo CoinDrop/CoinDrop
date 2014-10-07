@@ -10,14 +10,14 @@ var DealSchema = new Schema({
   buyer: {type:objectId,ref:'User'},
   buyerKey: String,
   sellerKey: String,
-  
   memo: String,
-  btc: {
-    type: String,
-    required: true
-  },
+  btc: { type:String, required:true },
   greeting: String,
-  address: String
+  address: String,
+  thirdKey: String,
+  publicHexes: [{type: String}],
+  n: Number,
+  createdAt: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Deal', DealSchema);
