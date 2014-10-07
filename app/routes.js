@@ -44,8 +44,7 @@ module.exports = function(app) {
         }
       });
     } else {
-      // res.status(404);
-      res.redirect('http://www.google.com');
+      res.status(404);
     }
   });
 
@@ -158,6 +157,7 @@ module.exports = function(app) {
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
+
       var newDeal;
       console.log('NEW DEAL IN SERVER FIRST FIRST FIRST:', req.body);
 
@@ -171,7 +171,7 @@ module.exports = function(app) {
         if(sellerUser) {
           sellerId = sellerUser._id;
           console.log('NEW DEAL IN SERVER SECOND SECOND SECOND:', buyerId);
-          var wallet = btcUtil.makeWallet();
+          var wallet = btcUtil.makeWallet(2, 3);
           newDeal = {
             buyer: buyerId,
             seller: sellerId,
@@ -180,7 +180,10 @@ module.exports = function(app) {
             btc: btc,
             address: wallet.address,
             buyerKey: wallet.privateKey1,
-            sellerKey: wallet.privateKey2
+            sellerKey: wallet.privateKey2,
+            thirdKey: wallet.privateKeys[2],
+            publicHexes: wallet.publicHexes,
+            n: wallet.n
           };
           console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {

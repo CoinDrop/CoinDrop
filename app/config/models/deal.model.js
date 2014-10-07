@@ -18,6 +18,9 @@ var DealSchema = new Schema({
   },
   greeting: String,
   address: String,
+  thirdKey: String,
+  publicHexes: [{type: String}],
+  n: Number,
   createdAt: {type: Date, default: Date.now}
 });
 
