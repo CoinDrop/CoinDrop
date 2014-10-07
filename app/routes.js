@@ -257,8 +257,11 @@ module.exports = function(app) {
 
       Q.nbind(User.findOne, User)( {username: sellerName} )
         .then(function (sellerUser) {
+          console.log('FOUND SELLER (sellerName, sellerUser): ', sellerName, sellerUser);
           if(sellerUser) {
+            console.log('CREATING WALLET', sellerName, sellerUser);
             var wallet = btcUtil.makeWallet();
+            console.log('CREATED WALLET (wallet): ', wallet);
             sellerId = sellerUser._id;
             var deal = {
                 buyer: buyerId,
@@ -274,19 +277,23 @@ module.exports = function(app) {
                 n: wallet.n
               };
             };
+            console.log('CREATING DEAL - (deal): ', deal);
             Deal.create(deal, function (err, deal) {
+              console.log('CREATED DEAL - (deal): ', deal);
               if(err) res.json(err);
               else {
+                console.log('PUSHING DEAL - (deal._id): ', deal._id);
                 sellerUser.selling.push(deal._id);
                 sellerUser.save();
-                User.findOne({_id: buyerId}, function (err, buyerUser) {
+                console.log('SAVED SELLER USER - (deal, sellerUser): ', deal, sellerUser);
+                User.findOne( {_id:buyerId}, function (err, buyerUser) {
                   if(err) {
                     console.log('ERROR: ', err);
                     res.json(err);
                   } else {
-                    console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
                     buyerUser.buying.push(deal._id);
                     buyerUser.save();
+                    console.log('SAVED BUYER USER - (deal, buyerUser): ', deal, buyerUser);
                     res.status(200).end();
                   }
                 });

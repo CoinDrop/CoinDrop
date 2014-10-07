@@ -6,10 +6,11 @@
   /* @inject */
   function dealNewService($http) {
     return {
-      createDeal:createDeal
+      makeDeal:makeDeal
     };
 
-    function createDeal(dealNew) {
+    function makeDeal(dealNew) {
+      console.log("BEGIN MAKEDEAL - (dealNew): ", dealNew);
       return $http({
         method: 'POST',
         url: 'api/deals/new',

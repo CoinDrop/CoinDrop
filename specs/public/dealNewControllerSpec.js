@@ -22,8 +22,8 @@ describe('DealNewController', function() {
   it('should have DealNewController', function() {
     expect('DealNewController').to.exist;
   });
-  it('should have a createDeal method', function() {
-    expect($scope.createDeal).to.be.a('function');
+  it('should have a makeDeal method', function() {
+    expect($scope.makeDeal).to.be.a('function');
   });
 
 });

@@ -30,6 +30,21 @@ module.exports.makeWallet = function(){
   return wallet;
 };
 
+// FIXME: Use the real function above instead of overwriting the fake one below.
+/* Stub ******************* /
+module.exports.makeWallet = function(){
+  var BTCWallet = new Bitcoin.Wallet(null, Bitcoin.networks.testnet);
+  var privateKey = BTCWallet.getPrivateKey(0).toWIF();
+  var wallet = {
+    address: BTCWallet.generateAddress(),
+    privateKey1: privateKey.slice(0, 26),
+    privateKey2: privateKey.slice(26, 52)
+  };
+  return wallet;
+};
+/* Stub *******************/
+
+
 module.exports.withdraw = function(n, userKeys, publicHexes, destination, amount, fee){
 
   fee = fee || 10000;
