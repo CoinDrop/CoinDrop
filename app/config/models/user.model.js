@@ -44,20 +44,20 @@ UserSchema.pre('save', function (next) {
     if(!user.isModified('password')) {
       return next();
     }
+    //generate a salt
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
       if(err) {
         return next(err);
       }
-
-    bcrypt.hash(user.password, salt, function(err, hash) {
-      if(err) {
-        return next(err);
-      }
-      user.password = hash;
-      user.salt = salt;
-      next();
+      bcrypt.hash(user.password, salt, function(err, hash) {
+        if(err) {
+          return next(err);
+        }
+        user.password = hash;
+        user.salt = salt;
+        next();
+      });
     });
-  });
 });
 
 module.exports = User = mongoose.model('User', UserSchema);

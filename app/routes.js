@@ -70,6 +70,7 @@ module.exports = function(app) {
               password: password,
               email: email
             };
+            // create = Q.nbind(User.create, User);
             User.create(newUser, function(err, user) {
               if(err) {
                 return res.json(new Error('Error creating user!', err));
@@ -104,14 +105,22 @@ module.exports = function(app) {
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
       .then(function (user) {
-          //if no user, hand it off to the next route handler
-          if(user.comparePasswords(password)) {
+        if(!user) {
+          throw new Error('ERROROROR');
+        }
+        //if user found
+        user.comparePasswords(password).then(function (isMatch) {
+        console.log('COMPARING THE PASSWORD HERE:', isMatch);
+          if(isMatch) {
             req.user_id = user._id;
             req.session.regenerate(function (err) {
-              //returns jwt token string : req.sessionID
               res.json({user: user, token: req.sessionID});
             });
           }
+          else {
+            throw new Erorr('MISMATCHED PASSWORD');
+          }
+        });
       })
       .catch(function (error) {
         res.json(error);
@@ -126,6 +135,7 @@ module.exports = function(app) {
         if(err) {
           res.json(err);
         } else {
+          console.log('I AM IN HERE NOW !!!!!!!!!!!!', data);
           res.json(data);
         }
       });
@@ -144,13 +154,14 @@ module.exports = function(app) {
 
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
-      var sellerId = '';
+      var sellerId;
       var buyerName = req.body.buyer;
       var sellerName = req.body.seller;
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
       var newDeal;
+      console.log('NEW DEAL IN SERVER FIRST FIRST FIRST:', req.body);
 
 
       var findDeal = Q.nbind(Deal.findOne, Deal);
@@ -160,9 +171,10 @@ module.exports = function(app) {
       findUser({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
-          var wallet = btcUtil.makeWallet();
           sellerId = sellerUser._id;
-          var newDeal = {
+          console.log('NEW DEAL IN SERVER SECOND SECOND SECOND:', buyerId);
+          var wallet = btcUtil.makeWallet();
+          newDeal = {
             buyer: buyerId,
             seller: sellerId,
             greeting: greeting,
@@ -172,6 +184,7 @@ module.exports = function(app) {
             buyerKey: wallet.privateKey1,
             sellerKey: wallet.privateKey2
           };
+          console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {
             if(err) {
               res.json(err);
@@ -184,6 +197,7 @@ module.exports = function(app) {
                 } else {
                   buyerUser.buying.push(deal._id);
                   buyerUser.save();
+                  res.status(200).end();
                 }
               });
             }

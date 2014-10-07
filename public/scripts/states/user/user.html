@@ -5,15 +5,13 @@
 </button>
 
 <div class="table-responsive">
-<table ng-table class="table"> <caption>Buying</caption>
+<table class="table table-striped table-hover "> <caption><h3>Buying</h3></caption>
  	<tr>
- 		<th>Buyer</th>
     <th>Seller</th>
     <th>Memo</th>
     <th>Amount</th>
  	</tr>
  	<tr ng-repeat='deal in data.buying' ng-click="chooseThisDeal(deal._id)" data-toggle="modal" data-target="#myModal">
-		<td>{{ deal.buyer }}</td>
     <td>{{ deal.seller }}</td>
     <td>{{ deal.memo }}</td>
     <td>{{ deal.btc }}</td>
@@ -22,15 +20,13 @@
 </table>
 </div>
 <div class="table-responsive">
-<table ng-table class="table"> <caption>Selling</caption>
+<table ng-table class="table"> <caption><h3>Selling</h3></caption>
   <tr>
-    <th>Seller</th>
     <th>Buyer</th>
     <th>Greeting</th>
     <th>Amount</th>
   </tr>
   <tr ng-repeat='deal in data.selling' ng-click="chooseThisDeal(deal._id)" data-toggle="modal" data-target="#myModal">
-    <td>{{ deal.seller }}</td>
     <td>{{ deal.buyer }}</td>
     <td>{{ deal.greeting}}</td>
     <td>{{ deal.btc }}</td>
@@ -53,7 +49,7 @@
         <div ui-view></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+<!--         <button type="button" class="btn btn-primary" data-dismiss="modal" ui-sref='user.deal.withdraw'>Withdraw Funds</button> -->
       </div>
     </div>
   </div>

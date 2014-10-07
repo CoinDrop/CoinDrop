@@ -71,7 +71,7 @@ describe('Utilities', function(){
       it('should be an array with proper length', function(){
         expect(wallet.publicHexes).to.be.an('Array');
         expect(wallet.publicHexes.length).to.equal(3);
-      })
+      });
 
       it('should contain hex strings that correspond to the wallet address', function(){
         wallet.publicHexes.forEach(function(hex){

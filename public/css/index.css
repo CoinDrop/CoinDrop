@@ -1,7 +1,7 @@
 body {
   background: url('../images/splashDark.jpg') no-repeat;
   background-size: cover;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .main-container.ng-enter {
@@ -17,4 +17,8 @@ body {
 
 .main-container.ng-enter-active {
   opacity: 1;
+}
+
+.title {
+  margin-top: 10px;
 }

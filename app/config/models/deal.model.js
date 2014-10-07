@@ -17,7 +17,8 @@ var DealSchema = new Schema({
     required: true
   },
   greeting: String,
-  address: String
+  address: String,
+  createdAt: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Deal', DealSchema);
