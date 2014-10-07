@@ -143,8 +143,9 @@ module.exports = function(app) {
       Deal.find(function(err, deals) {
         if(err) {
           res.send(err);
+        } else {
+          res.json(deals);
         }
-        res.json(deals);
       });
     })
 
