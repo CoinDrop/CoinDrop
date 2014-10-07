@@ -16,6 +16,7 @@
 
       $scope.signup = function() {
         authService.signup($scope.user, function(user) {
+          console.log("In signup():", user);
           $state.go('user', {id: user._id});
         });
       };

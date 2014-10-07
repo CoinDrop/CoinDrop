@@ -13,6 +13,32 @@ var basicAuth = require('basic-auth');
 var mongoose = require('mongoose');
 var secret = 'Base-Secret';
 
+// Given a user object, redact all double-underscore properties, replacing
+// them with undecorated properties this user is authorized to see.
+var sanitizeUser = function(user) {
+  // Hide all seller keys from this user's buys unless this user has been refunded.
+  var ar = user.buying;
+  var i;
+  for (i = 0 ; i < ar.length ; i++) {
+    ar[i].buyerKey = ar[i].__kBuyer;
+    if (ar[i].status === 'to buyer') {
+      ar[i].sellerKey = ar[i].__kSeller;
+    }
+    delete ar[i].__kBuyer;
+    delete ar[i].__kSeller;
+  }
+  // Hide all buyer keys from this user's sells unless this user has been paid.
+  for (i = 0 ; i < ar.length ; i++) {
+    ar[i].sellerKey = ar[i].__kSeller;
+    if (ar[i].status === 'to seller') {
+      ar[i].buyerKey = ar[i].__kBuyer;
+    }
+    delete ar[i].__kBuyer;
+    delete ar[i].__kSeller;
+  }
+  return user;
+};
+
 module.exports = function(app) {
 
   var router = express.Router();
@@ -52,7 +78,7 @@ module.exports = function(app) {
       var password = req.body.password;
       var email = req.body.email;
       var newUser;
-      // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
+      console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       var findOne = Q.nbind(User.findOne, User);
       // console.log('REQ SESSION HERE:', req.session);
@@ -69,8 +95,9 @@ module.exports = function(app) {
             });
           }
         })
-        .catch(function (error) {
-          res.json(error);
+        .catch(function (err) {
+          console.log('ERROR IN /SIGNUP ROUTE: ', err);
+          res.json(err);
         });
     })
     .get(function(req, res) {
@@ -90,52 +117,58 @@ module.exports = function(app) {
       //creates a promise returning function
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: username})
-      .then(function (user) {
-        if(!user) {
-          throw new Error('ERROROROR');
-        }
-        //if user found
-        user.comparePasswords(password).then(function (isMatch) {
-        console.log('COMPARING THE PASSWORD HERE:', isMatch);
-          if(isMatch) {
-            req.user_id = user._id;
-            req.session.regenerate(function (err) {
-              res.json({user: user, token: req.sessionID});
-            });
+        .then(function (user) {
+          if(!user) {
+            throw new Error('ERROROROR');
           }
-          else {
-            throw new Erorr('MISMATCHED PASSWORD');
-          }
+          //if user found
+          user.comparePasswords(password).then(function (isMatch) {
+          console.log('COMPARING THE PASSWORD HERE:', isMatch);
+            if(isMatch) {
+              req.user_id = user._id;
+              req.session.regenerate(function (err) {
+                res.json({user: user, token: req.sessionID});
+              });
+            }
+            else {
+              throw new Erorr('MISMATCHED PASSWORD');
+            }
+          });
+        })
+        .catch(function (error) {
+          res.json(error);
         });
-// =======
+//       console.log('INSIDE /LOGIN ROUTE - (username): ', username);
 //       //creates a promise-returning function
-//       Q.nbind(User.findOne, User)({username: username})
-//       .then(function(user) {
-//         if(user.comparePasswords(password)) {
-//           req.user_id = user._id;
-//           req.session.regenerate(function (err) {
-//           //returns jwt token string : req.sessionID
-//           res.json({user: user, token: req.sessionID});
+//       Q.nbind(User.findOne, User)( {username:username} )
+//         .then(function(user) {
+//           if (!user) throw new Error('Username not found.');
+//           user.pwComparePromise(password).then(function(isMatch) {
+//             if (isMatch) { // Password is approved.
+//               req.user_id = user._id;
+//               req.session.regenerate(function (err) {
+//                 res.json({user:user, token:req.sessionID});
+//               });
+//             } else {
+//               console.log('PASSWORD MISMATCH - (user.username): ', user.username);
+//             }
 //           });
-//         }
-// >>>>>>> (cleanup) rewrites back end code to be more concise
-      })
-      .catch(function (error) {
-        res.json(error);
-      });
+//         })
+//         .catch(function (error) {
+//           console.log('ERROR IN /LOGIN ROUTE: ', err);
+//           res.json(error);
+//         });
     });
 
 
   router.route('/users/:id/deals')
     .get(function(req, res) {
       User.findById(req.params.id)
-      .populate('buying selling').exec(function(err, data) {
-        if(err) {
-          res.json(err);
-        } else {
-          res.json(data);
-        }
-      });
+        .populate('buying selling').exec(function(err, user) {
+          user = sanitizeUser(user);
+          console.log('GETTING ALL BUYS AND SELLS:', err || user);
+          res.json(err || user);
+        });
     });
 
 
@@ -198,6 +231,43 @@ module.exports = function(app) {
               });
             }
           });
+// =======
+//         .then(function (sellerUser) {
+//           if(sellerUser) {
+//             var wallet = btcUtil.makeWallet();
+//             sellerId = sellerUser._id;
+//             var deal = {
+//               buyer: buyerId,
+//               seller: sellerId,
+//               greeting: greeting,
+//               memo: memo,
+//               btc: btc,
+//               address: wallet.address,
+//               buyerKey: wallet.privateKey1,
+//               sellerKey: wallet.privateKey2
+//             };
+//             Deal.create(deal, function (err, deal) {
+//               if(err) res.json(err);
+//               else {
+//                 sellerUser.selling.push(deal._id);
+//                 sellerUser.save();
+//                 User.findOne({_id: buyerId}, function (err, buyerUser) {
+//                   if(err) {
+//                     console.log('ERROR: ', err);
+//                     res.json(err);
+//                   } else {
+//                     console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
+//                     buyerUser.buying.push(deal._id);
+//                     buyerUser.save();
+//                   }
+//                 });
+//               }
+//             });
+//           }
+//         })
+//         .catch(function(err) {
+//           res.json(err);
+// >>>>>>> (graphic) adds new logo and makes user login correctly gatekeep
         }
       })
       .catch(function(err) {
@@ -266,6 +336,12 @@ module.exports = function(app) {
 //           res.json(deals);
 //         }
 // >>>>>>> (graphic) adds coindrop logo. still work on color and design
+// =======
+//       console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
+//       Deal.find({$or: [{buyer:req.params.username}, {seller:req.params.username}]}, function(err, deals) {
+//         if (err) res.send(err);
+//         else res.json(deals);
+// >>>>>>> (graphic) adds new logo and makes user login correctly gatekeep
       });
     });
 

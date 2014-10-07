@@ -14,16 +14,12 @@ var UserSchema = new Schema({
   buying: [{ type:objectId, ref:'Deal' }]
 });
 
-
-UserSchema.methods.comparePasswords = function (userPassword) {
+UserSchema.methods.pwComparePromise = function(attemptedPassword){
   var defer = Q.defer();
-  var savedPassword = this.password;
-  bcrypt.compare(userPassword, savedPassword, function (err, isMatch) {
-    if(err) {
-      defer.reject(err);
-    } else {
-      defer.resolve(isMatch);
-    }
+  bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
+    console.log('INSIDE BCRYPT.COMPARE CALLBACK - (isMatch, err): ', isMatch, err);
+    if (err) defer.reject(err);
+    else defer.resolve(isMatch);
   });
   return defer.promise;
 };

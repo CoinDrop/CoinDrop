@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 var Q = require('q');
 var objectId = mongoose.Schema.Types.ObjectId;
 
+// Sensitive secrets get a double-underscore prefix
 var DealSchema = new Schema({
   
   seller:       { type:objectId , ref:'User' },

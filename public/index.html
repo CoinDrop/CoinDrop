@@ -15,18 +15,17 @@
   <link rel='stylesheet' href='css/index.css'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/user.css'>
-
 </head>
 
 <body>
+  <header ng-include="'views/navbar.html'"></header>  
 
-  <header ng-include="'views/navbar.html'"></header>
-  
   <div ui-view class='main-container'>
-
   </div>
   
   <!-- VENDOR -->
+  <!-- // <script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script> -->
+  <!--   // <script src='lib/angular-ui-router/release/angular-ui-router.min.js' type="text/javascript" charset="utf-8"></script> -->
   <script src='lib/angular/angular.min.js' type="text/javascript" charset="utf-8"></script>
   <script src='lib/jquery/dist/jquery.js'></script>
   <script src='lib/lodash/dist/lodash.js'></script>
@@ -48,10 +47,7 @@
   <script src="scripts/auth/auth.service.js"></script>
   <script src="scripts/states/deal/deal.controller.js"></script>
   <script src="scripts/states/deal/deal.js"></script>
-<<<<<<< HEAD
   <script src="scripts/states/deal/deal.service.js"></script>
-=======
->>>>>>> (graphic) adds coindrop logo. still work on color and design
   <script src="scripts/states/dealNew/dealNew.controller.js"></script>
   <script src="scripts/states/dealNew/dealNew.js"></script>
   <script src="scripts/states/dealNew/dealNew.service.js"></script>
@@ -63,10 +59,5 @@
   <script src="scripts/states/user/user.js"></script>
   <script src="scripts/states/user/user.service.js"></script>
   <!-- endinject -->
-<<<<<<< HEAD
-
-=======
->>>>>>> (graphic) adds coindrop logo. still work on color and design
-
 </body>
 </html>

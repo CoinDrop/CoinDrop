@@ -37,6 +37,8 @@
 
 .main-logo {
     margin-top: 40%;
+    margin-right:8%;
     top: 80%;
-    position: relative;
+/*    position: relative;*/
+    float: right;
 }
