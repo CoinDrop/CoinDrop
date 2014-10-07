@@ -9,7 +9,7 @@
         signup: signup,
         login: login,
         isAuth: isAuth,
-        signout: signout
+        logout: logout
       };
       
 
@@ -37,6 +37,7 @@
           data: user
         })
         .then(function (resp) {
+          console.log('USER RESPONSE BACK HERE:', resp.data.user);
           $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
           callback(resp.data.user);
@@ -53,9 +54,8 @@
         });
       }
 
-      function signout () {
-        $storage.remove('token');
-        $state.go('signin');
+      function logout () {
+        $storage.remove();
       }
     }
 }).call(this);

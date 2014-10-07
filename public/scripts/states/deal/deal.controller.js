@@ -5,10 +5,14 @@
     .controller('DealController', DealController);
     
     /* @inject */
-    function DealController($scope, userService, $stateParams) {
+    function DealController($scope, userService, $stateParams, $state) {
       var dealId = $stateParams.dealId;
 
-      $scope.deal = function(dealId) {
+      $scope.releaseKey = function () {
+        console.log(dealId);
+      };
+
+      $scope.deal = function() {
         userService.getOneDeal(dealId)
         .then(function (deal) {
           $scope.deal = deal.data[0];
