@@ -32,21 +32,20 @@ module.exports = function(app) {
     }
   }));
 
-  //server routes here
   router.use(function(req, res, next){
     if(req.path === '/signup' || req.path === '/login') {
       return next();
     }
     if(req.headers.authorization){
+      console.log(req);
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
           next();
         }
       });
     } else {
-      res.status(404);
-      res.send('Not allowed');
-      res.end('not allowed');
+      // res.status(404);
+      res.redirect('http://www.google.com');
     }
   });
 
@@ -135,7 +134,6 @@ module.exports = function(app) {
         if(err) {
           res.json(err);
         } else {
-          console.log('I AM IN HERE NOW !!!!!!!!!!!!', data);
           res.json(data);
         }
       });

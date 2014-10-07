@@ -55,8 +55,7 @@
       }
 
       function logout () {
-        $storage.remove('token');
-        $state.go('signin');
+        $storage.remove();
       }
     }
 }).call(this);

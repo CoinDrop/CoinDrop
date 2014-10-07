@@ -1,4 +1,4 @@
-<nav class='navbar navbar-default navbar-fixed-top'>
+<nav class='navbar navbar-default navbar-fixed-top' ng-controller='NavbarController'>
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed">
@@ -12,13 +12,6 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class='nav navbar-nav navbar-right'>
-
-        <li>
-          <a ui-sref='home'>
-            <i class='fa fa-home fa-2x'></i>
-            <span class="visible-xs">home</span>
-          </a>
-        </li>
 
         <li>
           <a ui-sref='login'>
@@ -38,10 +31,10 @@
           </a>
         </li>
 
-        <li>
-          <a ui-sref='login'>
-            <i class="fa fa-sign-out fa-2x" ng-click='logout()'></i>
-          </a>
+        <li ng-click="logout()">
+          <a href='#/login'>
+            <i class="fa fa-sign-out fa-2x"></i>
+        </a>
         </li>
 
       </ul>

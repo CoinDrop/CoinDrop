@@ -4,12 +4,8 @@
       <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Create an empty wallet locked by two keys.
+            <strong>Create A New Wallet</strong>
           </div>
-          You will get the address of the wallet and one of the two keys.
-          The other user will get the address and the other key.
-          Anyone can deposit money or read the balance.
-          Withdrawing money requires both keys.
           <div class="panel-body">
             <form ng-submit="makeDeal()">
               <label>Buyer</label> <input ng-model="dealNew.buyer" class="form-control" type="text"><br>
@@ -18,7 +14,7 @@
               <label>Memo</label><textarea ng-model="dealNew.memo" class="form-control" type="text" placeholder="(description for your own records)"></textarea><br>
               <label>Greeting</label> <textarea ng-model="dealNew.greeting" class="form-control" type="text" placeholder="(description for the other party)"></textarea><br>
               <button class="btn btn-primary" type="submit">Create Empty Deal</button>
-              <button class="btn btn-primary" type="submit" ui-sref='user'>Cancel</button>
+              <button class="btn btn-primary" ui-sref='user'>Cancel</button>
             </form>
           </div>
         </div>

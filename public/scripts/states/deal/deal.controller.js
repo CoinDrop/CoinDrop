@@ -10,7 +10,7 @@
 
       $scope.releaseKey = function () {
         console.log(dealId);
-      }
+      };
 
       $scope.deal = function() {
         userService.getOneDeal(dealId)
