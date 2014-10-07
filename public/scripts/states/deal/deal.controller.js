@@ -10,11 +10,7 @@
 
       $scope.releaseKey = function () {
         console.log(dealId);
-<<<<<<< HEAD
       };
-=======
-      }
->>>>>>> (adds) adds bookstrap material design, adds withdraw view, adds setup for release key
 
       $scope.deal = function() {
         userService.getOneDeal(dealId)
