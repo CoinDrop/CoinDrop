@@ -157,13 +157,25 @@ module.exports = function(app) {
       var btc = req.body.btc;
       var memo = req.body.memo;
       var newDeal;
+<<<<<<< HEAD
+=======
+      console.log('NEW DEAL IN SERVER FIRST FIRST FIRST:', req.body);
+
+>>>>>>> (adds) adds bookstrap material design, adds withdraw view, adds setup for release key
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
+<<<<<<< HEAD
           sellerId = sellerUser._id;
           var wallet = btcUtil.makeWallet(2, 3);
+=======
+          // var wallet = BTCUtilities.makeWallet(2, 3);
+          sellerId = sellerUser._id;
+          console.log('NEW DEAL IN SERVER SECOND SECOND SECOND:', buyerId);
+          var wallet = btcUtil.makeWallet();
+>>>>>>> (adds) adds bookstrap material design, adds withdraw view, adds setup for release key
           newDeal = {
             buyer: buyerId,
             seller: sellerId,
@@ -177,6 +189,7 @@ module.exports = function(app) {
             publicHexes: wallet.publicHexes,
             n: wallet.n
           };
+          console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {
             console.log('REQUEST HERE', newDeal);
             if(err) {

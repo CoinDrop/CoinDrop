@@ -14,9 +14,6 @@
         method: 'POST',
         url: 'api/deals/new',
         data: dealNew
-      })
-      .catch(function(err) {
-        console.log(err);
       });
     }
   }
