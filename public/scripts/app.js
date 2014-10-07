@@ -12,7 +12,7 @@
   /* @inject */
   .config(['$urlRouterProvider', '$stateProvider','$httpProvider', configuration])
   /* @inject */
-  .factory('authInterceptor', authInterceptor).run(function($http) {
+  .factory('authInterceptor', authInterceptor).run(function() {
   /* @inject */
   });
   

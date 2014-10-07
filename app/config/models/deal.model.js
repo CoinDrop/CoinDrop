@@ -17,11 +17,7 @@ var DealSchema = new Schema({
     required: true
   },
   greeting: String,
-  address: String,
-  thirdKey: String,
-  publicHexes: [{type: String}],
-  n: Number,
-  createdAt: {type: Date, default: Date.now}
+  address: String
 });
 
 module.exports = mongoose.model('Deal', DealSchema);
