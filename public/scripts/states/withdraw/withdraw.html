@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>Withdraw</h1>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="withdraw()">
+    <label>n</label> <input ng-model="withdrawInfo.n" class="form-control" type="number"><br>
+    <label>m</label> <input ng-model="withdrawInfo.m" class="form-control" type="number"><br>
+    <label>privateKeys</label> <input ng-model="withdrawInfo.privateKeys" class="form-control" type="text"><br>
+    <label>publicHexes</label> <input ng-model="withdrawInfo.publicHexes" class="form-control" type="text"><br>
+    <label>destination</label> <input ng-model="withdrawInfo.destination" class="form-control" type="text"><br>
+    <label>amount</label> <input ng-model="withdrawInfo.amount" class="form-control" type="text"><br>
+    <button class="btn btn-primary" type="submit">Withdraw</button>
+  </div>
+</div>
