@@ -13,7 +13,7 @@
       };
       
       function signup (user, callback) {
-        console.log('SIGNUP', user, callback);
+        console.log('SIGNUP - (user, callback): ', user, callback);
         return $http({
           method: 'POST',
           url: '/api/signup',
@@ -32,6 +32,7 @@
       }
 
       function login (user, callback) {
+        console.log('LOGIN - (user, callback): ', user, callback);
         return $http({
           method: 'POST',
           url: '/api/login',
