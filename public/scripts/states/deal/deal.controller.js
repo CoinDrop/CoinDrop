@@ -5,12 +5,12 @@
     .controller('DealController', DealController);
     
     /* @inject */
-    function DealController($scope, userService, $stateParams, $state) {
+    function DealController($scope, dealService, $stateParams, $state, $storage) {
       var dealInfo = JSON.parse($stateParams.dealId);
-      console.log('DEAL INFO INSIDE DEAL CONTROLLER:', dealInfo);
+      var userId = $storage.getObject('current_user')._id;
 
       $scope.releaseKey = function () {
-        console.log(dealId);
+        dealService.releaseKey(dealInfo._id, userId);
       };
 
       $scope.deal = function(dealInfo) {

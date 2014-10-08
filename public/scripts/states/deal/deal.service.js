@@ -8,11 +8,14 @@
     return {
       releaseKey: releaseKey
     };
-    function releaseKey(dealId) {
+    function releaseKey(dealId, userId) {
       return $http({
         method: 'POST',
-        url: 'api/release/:dealId',
-        data: dealId
+        url: 'api/release/'+ dealId,
+        data: {userId: userId}
+      })
+      .catch(function(err) {
+        return err;
       });
     }
   }
