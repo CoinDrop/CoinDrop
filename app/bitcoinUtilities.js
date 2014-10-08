@@ -28,7 +28,7 @@ module.exports.makeWallet = function(n, m){
   return wallet;
 };
 
-module.exports.withdraw = function(n, userKeys, publicHexes, destination, amount, fee){
+module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, amount, fee){
 
   fee = fee || 10000;
   var publicKeys = publicHexes.map(function(hex){ return new Bitcoin.ECPubKey.fromHex(hex); });
@@ -63,10 +63,11 @@ module.exports.withdraw = function(n, userKeys, publicHexes, destination, amount
       var hash = tx.toHex();
 
       helloblock.transactions.propagate(hash, function(error, response, transaction){
-        if( !error ){
-        }
+        res.json(error || response);
       });
 
+    } else {
+      res.json(error || response);
     }
 
   });

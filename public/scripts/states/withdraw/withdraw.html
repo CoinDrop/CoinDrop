@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1>{{ withdrawInfo.test }}</h1>
+  </div>
+  <div class="panel-body">
+    <form ng-submit="withdraw()">
+    <label>privateKey 1</label> <input ng-model="withdrawInfo.privateKeys[0]" class="form-control" type="text"><br>
+    <label>privateKey 2</label> <input ng-model="withdrawInfo.privateKeys[1]" class="form-control" type="text"><br>
+    <label>publicHex 1</label> <input ng-model="withdrawInfo.publicHexes[0]" class="form-control" type="text"><br>
+    <label>publicHex 2</label> <input ng-model="withdrawInfo.publicHexes[1]" class="form-control" type="text"><br>
+    <label>publicHex 3</label> <input ng-model="withdrawInfo.publicHexes[2]" class="form-control" type="text"><br>
+    <label>destination</label> <input ng-model="withdrawInfo.destination" class="form-control" type="text"><br>
+    <label>amount</label> <input ng-model="withdrawInfo.amount" class="form-control" type="text"><br>
+    <button class="btn btn-primary" type="submit">Withdraw</button>
+  </div>
+</div>

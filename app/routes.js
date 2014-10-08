@@ -244,7 +244,19 @@ module.exports = function(app) {
       });
     });
 
+  router.route('/withdraw')
+    .post(function(req, res){
+      console.log('withdrawing from wallet\n', req.body);
+      var n = req.body.privateKeys.length;
+      var enteredKeys = req.body.privateKeys;
+      var publicHexes = req.body.publicHexes;
+      var destination = req.body.destination;
+      var amount = req.body.amount;
+      var fee = req.fee || 10000;
 
+      btcUtil.withdraw(res, n, enteredKeys, publicHexes, destination, amount, fee);
+
+    });
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
