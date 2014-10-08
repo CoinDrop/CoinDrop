@@ -8,7 +8,7 @@
     function AuthController ($scope, $state, authService) {
       $scope.user = {};
 
-      $scope.login = function () {
+      $scope.login = function() {
         authService.login($scope.user, function(user) {
           $state.go('user', {id: user._id});
         });

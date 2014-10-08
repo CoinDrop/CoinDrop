@@ -37,9 +37,6 @@ module.exports = function(app) {
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
           next();
-        // if(err)
-        //   res.status(404);
-        //   return res.send('Not allowed');
         }
       });
     } else {
@@ -56,13 +53,6 @@ module.exports = function(app) {
       console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       Q.nbind(User.findOne, User)({username:username})
-=======
-      // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
-
-      var findOne = Q.nbind(User.findOne, User);
-      // console.log('REQ SESSION HERE:', req.session);
-      findOne({username: username})
->>>>>>> (inc) incomplete fix of merge issues
         .then(function(err, user) {
           if(user) {
             return res.json(new Error('User already exists!', err));
@@ -104,14 +94,13 @@ module.exports = function(app) {
       var password = req.body.password;
 
       //creates a promise returning function
-      var findUser = Q.nbind(User.findOne, User);
-      findUser({username: username})
+      Q.nbind(User.findOne, User)({username: username})
       .then(function (user) {
         if(!user) {
           throw new Error('ERROROROR');
         }
         //if user found
-        user.comparePasswords(password).then(function (isMatch) {
+        user.pwComparePromise(password).then(function (isMatch) {
         console.log('COMPARING THE PASSWORD HERE:', isMatch);
           if(isMatch) {
             req.user_id = user._id;
@@ -162,11 +151,9 @@ module.exports = function(app) {
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
-
       var newDeal;
-      var findDeal = Q.nbind(Deal.findOne, Deal);
-      var findUser = Q.nbind(User.findOne, User);
-      findUser({username: sellerName})
+      // var findDeal = Q.nbind(Deal.findOne, Deal);
+      Q.nbind(User.findOne, User)({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
           sellerId = sellerUser._id;
@@ -184,7 +171,6 @@ module.exports = function(app) {
             publicHexes: wallet.publicHexes,
             n:           wallet.n
           };
-          console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {
             console.log('REQUEST HERE', newDeal);
             if(err) {
@@ -203,6 +189,32 @@ module.exports = function(app) {
               });
             }
           });
+        }
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+    });
+
+
+  router.route('/deals/:dealId')
+    .get(function(req, res) {
+      Deal.find({_id: req.params.dealId}, function(err, deal) {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(deal);
+        }
+      });
+    });
+
+  // router.get('*', function(req, res) {
+  //   res.sendFile(path.join(__dirname, './public/index.html'));
+  // });
+
+  app.use('/api', router);
+};
+
 //         .then(function (sellerUser) {
 //           if(sellerUser) {
 //             var wallet = btcUtil.makeWallet();
@@ -238,28 +250,3 @@ module.exports = function(app) {
 //         })
 //         .catch(function(err) {
 //           res.json(err);
-        }
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-    });
-
-
-  router.route('/deals/:dealId')
-    .get(function(req, res) {
-      Deal.find({_id: req.params.dealId}, function(err, deal) {
-        if(err) {
-          res.send(err);
-        } else {
-          res.json(deal);
-        }
-      });
-    });
-
-  router.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-  });
-
-  app.use('/api', router);
-};

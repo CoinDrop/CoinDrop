@@ -5,7 +5,6 @@
     .module('coindropApp')
     .controller('NavbarController', NavbarController);
     /* @inject */
-<<<<<<< HEAD
     function NavbarController ($scope, authService, $state, $storage) {
 
       $scope.isActive = function(route) {
@@ -18,14 +17,3 @@
       }
     }
 }).call(this);
-
-=======
-    function NavbarController ($scope, authService) {
-      $scope.logout = function() {
-        authService.logout()
-    }
-
-}).call(this);
-
-//user controller sets the transaction
->>>>>>> (adds) adds bookstrap material design, adds withdraw view, adds setup for release key
