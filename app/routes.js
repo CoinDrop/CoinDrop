@@ -220,13 +220,11 @@ module.exports = function(app) {
           if(err) {
             res.send(err);
           } else {
-            if(deal[0].buyer === req.params.userId)
-            {
+            if(deal[0].buyer == req.body.userId) {
              deal[0].keyReleasedTo = 'seller';
              deal[0].save();
             }
-            else if(deal[0].seller === req.params.userId)
-            {
+            if(deal[0].seller == req.body.userId) {
               deal[0].keyReleasedTo = 'buyer';
               deal[0].save();
             }
