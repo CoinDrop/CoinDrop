@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var cors = require('cors');
-// var cookieParser = require('cookie-parser');
 var partials = require('express-partials');
 var db = require('./app/config/db');
 var User = require('./app/config/models/user.model');
@@ -13,7 +12,6 @@ var handler = require('./app/request-handler');
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-  // console.log("Connected to MONGODB!");
 });
 
 var port = process.env.PORT || 8000;

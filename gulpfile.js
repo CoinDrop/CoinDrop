@@ -47,7 +47,7 @@ gulp.task('mocha', ['test'], function () {
 // auto-inject JS scripts into <script> in index.html
 gulp.task('inject', function(){
   var target = gulp.src('./public/index.html');
-  var scripts = gulp.src(['./public/scripts/app.js', './public/scripts/**/*.js'], {read:false});
+  var scripts = gulp.src(['./public/scripts/app.js', './public/scripts/**/*.js', './public/views/*.js'], {read:false});
   return target
     .pipe(g.inject(scripts, {
       name:'AngularFiles',

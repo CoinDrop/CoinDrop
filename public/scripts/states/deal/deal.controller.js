@@ -3,18 +3,21 @@
   angular
     .module('coindropApp')
     .controller('DealController', DealController);
+    
     /* @inject */
-    function DealController($scope, userService, $stateParams){
-      var id = $stateParams.id;
+    function DealController($scope, userService, $stateParams, $state) {
+      var dealId = $stateParams.dealId;
 
-      $scope.deal = function(id) {
-        userService.getOneDeal(id)
+      $scope.releaseKey = function () {
+        console.log(dealId);
+      };
+
+      $scope.deal = function() {
+        userService.getOneDeal(dealId)
         .then(function (deal) {
-          $scope.deal = deal.data;
-        })
-        .catch(function(err) {
+          $scope.deal = deal.data[0];
         });
       };
-      $scope.deal(id);
+      $scope.deal(dealId);
     }
 }).call(this);

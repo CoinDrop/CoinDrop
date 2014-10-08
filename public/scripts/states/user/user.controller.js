@@ -9,16 +9,15 @@
       $scope.data = {};
       var userId = $storage.getObject('current_user')._id;
 
-      $scope.chooseThisDeal = function (id) {
-        // userService.chooseThisDeal(this.deal)
-        console.log('CHOOSE THIS DEAL ID:', id);
-        $state.go('user.deal', {id: id});
+      $scope.chooseThisDeal = function (dealId) {
+        $state.go('user.deal', {dealId: dealId});
       };
 
       //immediately get all deals of a specific user upon signup or login
       $scope.getAllDeals = function(userId) {
         userService.getAllDeals(userId)
         .then(function(deals) {
+          console.log('DEALS IN GET ALL DEALS CTRL:', deals);
           $scope.data.buying = deals.data.buying;
           $scope.data.selling = deals.data.selling;
         });

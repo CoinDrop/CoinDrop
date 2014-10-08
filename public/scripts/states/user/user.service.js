@@ -7,20 +7,9 @@
     function userService ($http, $storage){
 
       return {
-        chooseThisDeal: chooseThisDeal,
         getAllDeals: getAllDeals,
-        getOneDeal: getOneDeal,
-        findData: findData
+        getOneDeal: getOneDeal
       };
-      function chooseThisDeal (deal) {
-        return $http({
-          method: 'GET',
-          url: '/deals'
-        })
-        .then(function (resp) {
-          return resp;
-        });
-      }
 
       function getAllDeals (userId) {
         return $http({
@@ -36,15 +25,10 @@
           method: 'GET',
           url: 'api/deals/' + dealId
         })
-        .then(function (resp) {
-          return resp;
+        .catch(function(err) {
+          return err;
         });
       }
-
-      function findData(id){
-        return _.find(data, {_id: id});
-      }
-
     }
 
 }).call(this);

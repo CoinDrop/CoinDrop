@@ -12,12 +12,11 @@
   /* @inject */
   .config(['$urlRouterProvider', '$stateProvider','$httpProvider', configuration])
   /* @inject */
-  .factory('authInterceptor', authInterceptor).run(function($http) {
+  .factory('authInterceptor', authInterceptor).run(function() {
   /* @inject */
   });
   
   function configuration($urlRouterProvider, $stateProvider, $httpProvider) {
-    // console.log('app.config loaded!');
     $urlRouterProvider.otherwise('/');
     $httpProvider.interceptors.push('authInterceptor');
   }
@@ -36,8 +35,8 @@
       var store = JSON.stringify(val);
       localStorage.setItem(key, store);
     };
-    this.remove = function(key) {
-      localStorage.removeItem(key);
+    this.remove = function() {
+      localStorage.clear();
     };
   }
 

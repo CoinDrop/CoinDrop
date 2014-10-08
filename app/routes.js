@@ -3,7 +3,7 @@ var express = require('express');
 var Q = require('q');
 var app = require('../server.js');
 var jwt = require('jwt-simple');
-var BTCUtilities = require('./bitcoinUtilities.js');
+var btcUtil = require('./bitcoinUtilities.js');
 var User = require('./config/models/user.model.js');
 var Deal = require('./config/models/deal.model.js');
 var passport = require('passport');
@@ -13,32 +13,37 @@ var basicAuth = require('basic-auth');
 var mongoose = require('mongoose');
 var secret = 'Base-Secret';
 
+
+
 module.exports = function(app) {
+
   var router = express.Router();
+
 
   app.use(session({
     resave: true,
     saveUninitialized: false,
     secret: 'secret',
-    store: new mongoStore( {db:'test'} ),
+    store: new mongoStore({
+      db: 'test',
+    }),
     genid: function(req) {
       return jwt.encode({id: req.user_id}, secret);
     }
   }));
 
-  //server routes here
-  router.use(function(req, res, next) {
-    if(req.path === '/signup') return next();
-    if(req.path === '/login')  return next();
+  router.use(function(req, res, next){
+    if(req.path === '/signup' || req.path === '/login') {
+      return next();
+    }
     if(req.headers.authorization){
-      User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user) {
+      User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
-          console.log('USER IN HEADERS AUTH:', user);
           next();
         }
       });
+    } else {
       res.status(404);
-      res.send('Not allowed');
     }
   });
 
@@ -52,27 +57,39 @@ module.exports = function(app) {
 
       var findOne = Q.nbind(User.findOne, User);
       // console.log('REQ SESSION HERE:', req.session);
-      findOne({username:username})
+      findOne({username: username})
         .then(function(err, user) {
-          if(user) return res.json(new Error('User already exists.', err));
-          newUser = {username:username, password:password, email:email};
-          // create = Q.nbind(User.create, User);
-          User.create(newUser, function(err, user) {
-            if(err) return res.json(new Error('Error creating user!', err));
-            req.user_id = user._id;
-            req.session.regenerate(function (err) {
-              res.json({user:user, token:req.sessionID});
+          if(user) {
+            return res.json(new Error('User already exists!', err));
+          } else {
+            newUser = {
+              username: username,
+              password: password,
+              email: email
+            };
+            // create = Q.nbind(User.create, User);
+            User.create(newUser, function(err, user) {
+              if(err) {
+                return res.json(new Error('Error creating user!', err));
+              }
+              req.user_id = user._id;
+              req.session.regenerate(function (err) {
+                res.json({user: user, token: req.sessionID});
+              });
             });
-          });
+          }
         })
         .catch(function (error) {
           res.json(error);
         });
     })
+
     .get(function(req, res) {
       User.find(function(err, users) {
-        if (err) res.send(err);
-        else res.json(users);
+        if(err) {
+          res.send(err);
+        }
+        res.json(users);
       });
     });
 
@@ -80,38 +97,58 @@ module.exports = function(app) {
     .post(function(req, res) {
       var username = req.body.username;
       var password = req.body.password;
-      //creates a promise-returning function
-      Q.nbind(User.findOne, User)({username: username})
-      .then(function(user) {
-        if(user.comparePasswords(password)) {
-          req.user_id = user._id;
-          req.session.regenerate(function (err) {
-          //returns jwt token string : req.sessionID
-          res.json({user: user, token: req.sessionID});
-          });
+
+      //creates a promise returning function
+      var findUser = Q.nbind(User.findOne, User);
+      findUser({username: username})
+      .then(function (user) {
+        if(!user) {
+          throw new Error('ERROROROR');
         }
+        //if user found
+        user.comparePasswords(password).then(function (isMatch) {
+        console.log('COMPARING THE PASSWORD HERE:', isMatch);
+          if(isMatch) {
+            req.user_id = user._id;
+            req.session.regenerate(function (err) {
+              res.json({user: user, token: req.sessionID});
+            });
+          }
+          else {
+            throw new Erorr('MISMATCHED PASSWORD');
+          }
+        });
       })
       .catch(function (error) {
         res.json(error);
       });
     });
 
+
   router.route('/users/:id/deals')
     .get(function(req, res) {
       User.findById(req.params.id)
       .populate('buying selling').exec(function(err, data) {
-        console.log('GETTING ALL BUYING AND SELLING SERVER:', err | data);
-        res.json(err || data);
+        if(err) {
+          res.json(err);
+        } else {
+          res.json(data);
+        }
       });
     });
+
 
   router.route('/deals/new')
     .get(function(req, res) {
       Deal.find(function(err, deals) {
-        if (err) res.send(err);
-        else res.json(deals);
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(deals);
+        }
       });
     })
+
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
       var sellerId;
@@ -120,15 +157,15 @@ module.exports = function(app) {
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
-      var create;
+      var newDeal;
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
       findUser({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
-          var wallet = BTCUtilities.makeWallet(2, 3);
           sellerId = sellerUser._id;
-          var newDeal = {
+          var wallet = btcUtil.makeWallet(2, 3);
+          newDeal = {
             buyer: buyerId,
             seller: sellerId,
             greeting: greeting,
@@ -142,6 +179,7 @@ module.exports = function(app) {
             n: wallet.n
           };
           Deal.create(newDeal, function (err, deal) {
+            console.log('REQUEST HERE', newDeal);
             if(err) {
               res.json(err);
             } else {
@@ -153,26 +191,29 @@ module.exports = function(app) {
                 } else {
                   buyerUser.buying.push(deal._id);
                   buyerUser.save();
+                  res.status(200).end();
                 }
               });
             }
           });
         }
+      })
+      .catch(function(err) {
+        res.json(err);
       });
     });
 
-  router.route('/deals/users/:username') // FIXME: username?
+
+  router.route('/deals/:dealId')
     .get(function(req, res) {
-      console.log('INSIDE SERVER FOR USERNAME SEARCH :', req.params);
-      Deal.find({$or: [{buyer:req.params.username}, {seller:req.params.username}]}, function(err, deals) {
-        if (err) res.send(err);
-        else {
-          
-          res.json(deals);
+      Deal.find({_id: req.params.dealId}, function(err, deal) {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json(deal);
         }
       });
     });
-
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));

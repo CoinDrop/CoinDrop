@@ -20,6 +20,7 @@ dist
 node_modules
 client/bower_components
 public/lib
+public/material
 
 # Logs
 logs
