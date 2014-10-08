@@ -172,9 +172,9 @@ module.exports = function(app) {
             memo: memo,
             btc: btc,
             address: wallet.address,
-            buyerKey: wallet.privateKey[0],
-            sellerKey: wallet.privateKey[1],
-            thirdKey: wallet.privateKey[2],
+            buyerKey: wallet.privateKeys[0],
+            sellerKey: wallet.privateKeys[1],
+            thirdKey: wallet.privateKeys[2],
             publicHexes: wallet.publicHexes,
             n: wallet.n
           };
