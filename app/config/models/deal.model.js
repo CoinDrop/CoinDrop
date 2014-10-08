@@ -17,7 +17,8 @@ var DealSchema = new Schema({
   thirdKey: String,
   publicHexes: [{type: String}],
   n: Number,
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  keyReleasedTo: String
 });
 
 module.exports = mongoose.model('Deal', DealSchema);

@@ -5,19 +5,17 @@
     .controller('DealController', DealController);
     
     /* @inject */
-    function DealController($scope, userService, $stateParams, $state) {
-      var dealId = $stateParams.dealId;
+    function DealController($scope, dealService, $stateParams, $state, $storage) {
+      var dealInfo = JSON.parse($stateParams.dealId);
+      var userId = $storage.getObject('current_user')._id;
 
       $scope.releaseKey = function () {
-        console.log(dealId);
+        dealService.releaseKey(dealInfo._id, userId);
       };
 
-      $scope.deal = function() {
-        userService.getOneDeal(dealId)
-        .then(function (deal) {
-          $scope.deal = deal.data[0];
-        });
+      $scope.deal = function(dealInfo) {
+        $scope.deal = dealInfo;
       };
-      $scope.deal(dealId);
+      $scope.deal(dealInfo);
     }
 }).call(this);
