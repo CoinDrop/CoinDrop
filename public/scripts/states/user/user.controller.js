@@ -17,6 +17,7 @@
       $scope.getAllDeals = function(userId) {
         userService.getAllDeals(userId)
         .then(function(deals) {
+          console.log('DEALS IN GET ALL DEALS CTRL:', deals);
           $scope.data.buying = deals.data.buying;
           $scope.data.selling = deals.data.selling;
         });

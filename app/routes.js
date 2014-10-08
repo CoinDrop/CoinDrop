@@ -157,20 +157,13 @@ module.exports = function(app) {
       var greeting = req.body.greeting;
       var btc = req.body.btc;
       var memo = req.body.memo;
-
       var newDeal;
-      console.log('NEW DEAL IN SERVER FIRST FIRST FIRST:', req.body);
-
-
       var findDeal = Q.nbind(Deal.findOne, Deal);
       var findUser = Q.nbind(User.findOne, User);
-
-
       findUser({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
           sellerId = sellerUser._id;
-          console.log('NEW DEAL IN SERVER SECOND SECOND SECOND:', buyerId);
           var wallet = btcUtil.makeWallet(2, 3);
           newDeal = {
             buyer: buyerId,
@@ -179,14 +172,14 @@ module.exports = function(app) {
             memo: memo,
             btc: btc,
             address: wallet.address,
-            buyerKey: wallet.privateKey1,
-            sellerKey: wallet.privateKey2,
-            thirdKey: wallet.privateKeys[2],
+            buyerKey: wallet.privateKey[0],
+            sellerKey: wallet.privateKey[1],
+            thirdKey: wallet.privateKey[2],
             publicHexes: wallet.publicHexes,
             n: wallet.n
           };
-          console.log('NEW DEAL IN SERVER THIRD THIRD THIRD:', newDeal);
           Deal.create(newDeal, function (err, deal) {
+            console.log('REQUEST HERE', newDeal);
             if(err) {
               res.json(err);
             } else {

@@ -4,11 +4,11 @@
     .module('coindropApp')
     .controller('DealNewController', DealNewController);
     /* @inject */
-    function DealNewController($scope, dealNewService, $state, $stateParams) {
+    function DealNewController($scope, dealNewService, $state, $stateParams, $storage) {
       $scope.dealNew = {};
 
-      $scope.makeDeal = function(){
-        dealNewService.makeDeal($scope.dealNew)
+      $scope.createDeal = function(){
+        dealNewService.createDeal($scope.dealNew)
         .then(function(resp) {
         console.log('MAKING A NEW DEAL HERE:', resp);
           $state.go('user');
