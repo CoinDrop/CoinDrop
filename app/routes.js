@@ -101,7 +101,6 @@ module.exports = function(app) {
         }
         //if user found
         user.pwComparePromise(password).then(function (isMatch) {
-        console.log('COMPARING THE PASSWORD HERE:', isMatch);
           if(isMatch) {
             req.user_id = user._id;
             req.session.regenerate(function (err) {
@@ -126,6 +125,24 @@ module.exports = function(app) {
         if(err) {
           res.json(err);
         } else {
+          for(var i = 0 ; i < data.buying.length; i++) {
+            var temp1 = data.buying[i].sellerKey;
+            data.buying[i].sellerKey = '';
+            data.buying[i].thirdKey = '';
+            if(data.buying[i].keyReleasedTo === 'buyer')
+            {
+              data.buying[i].sellerKey = temp;
+            }
+          }
+          for(var j =0; j < data.selling.length; j++) {
+            var temp2 = data.selling[j].buyerKey;
+            data.selling[j].buyerKey = '';
+            data.buying[j].thirdKey = '';
+            if(data.selling[j].keyReleasedTo === 'seller')
+            {
+              data.selling[j].buyerKey = temp;
+            }
+          }
           res.json(data);
         }
       });
@@ -142,6 +159,7 @@ module.exports = function(app) {
         }
       });
     })
+
 
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
@@ -172,7 +190,6 @@ module.exports = function(app) {
             n:           wallet.n
           };
           Deal.create(newDeal, function (err, deal) {
-            console.log('REQUEST HERE', newDeal);
             if(err) {
               res.json(err);
             } else {
@@ -208,45 +225,9 @@ module.exports = function(app) {
       });
     });
 
-  // router.get('*', function(req, res) {
-  //   res.sendFile(path.join(__dirname, './public/index.html'));
-  // });
+  router.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
 
   app.use('/api', router);
 };
-
-//         .then(function (sellerUser) {
-//           if(sellerUser) {
-//             var wallet = btcUtil.makeWallet();
-//             sellerId = sellerUser._id;
-//             var deal = {
-//               buyer: buyerId,
-//               seller: sellerId,
-//               greeting: greeting,
-//               memo: memo,
-//               btc: btc,
-//               address: wallet.address,
-//               buyerKey: wallet.privateKey1,
-//               sellerKey: wallet.privateKey2
-//             };
-//             Deal.create(deal, function (err, deal) {
-//               if(err) res.json(err);
-//               else {
-//                 sellerUser.selling.push(deal._id);
-//                 sellerUser.save();
-//                 User.findOne({_id: buyerId}, function (err, buyerUser) {
-//                   if(err) {
-//                     console.log('ERROR: ', err);
-//                     res.json(err);
-//                   } else {
-//                     console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
-//                     buyerUser.buying.push(deal._id);
-//                     buyerUser.save();
-//                   }
-//                 });
-//               }
-//             });
-//           }
-//         })
-//         .catch(function(err) {
-//           res.json(err);

@@ -10,8 +10,8 @@
     };
     function releaseKey(dealId) {
       return $http({
-        method: 'PUT',
-        url: 'api/deals/new',
+        method: 'POST',
+        url: 'api/release/:dealId',
         data: dealId
       });
     }
