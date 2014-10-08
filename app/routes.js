@@ -107,7 +107,6 @@ module.exports = function(app) {
         }
         //if user found
         user.comparePasswords(password).then(function (isMatch) {
-        console.log('COMPARING THE PASSWORD HERE:', isMatch);
           if(isMatch) {
             req.user_id = user._id;
             req.session.regenerate(function (err) {
@@ -132,6 +131,24 @@ module.exports = function(app) {
         if(err) {
           res.json(err);
         } else {
+          for(var i = 0 ; i < data.buying.length; i++) {
+            var temp1 = data.buying[i].sellerKey;
+            data.buying[i].sellerKey = '';
+            data.buying[i].thirdKey = '';
+            if(data.buying[i].keyReleasedTo === 'buyer')
+            {
+              data.buying[i].sellerKey = temp;
+            }
+          }
+          for(var j =0; j < data.selling.length; j++) {
+            var temp2 = data.selling[j].buyerKey;
+            data.selling[j].buyerKey = '';
+            data.buying[j].thirdKey = '';
+            if(data.selling[j].keyReleasedTo === 'seller')
+            {
+              data.selling[j].buyerKey = temp;
+            }
+          }
           res.json(data);
         }
       });
@@ -148,6 +165,7 @@ module.exports = function(app) {
         }
       });
     })
+
 
     .post(function(req, res) {
       var buyerId = jwt.decode(req.headers.authorization, secret).id;
@@ -179,7 +197,6 @@ module.exports = function(app) {
             n: wallet.n
           };
           Deal.create(newDeal, function (err, deal) {
-            console.log('REQUEST HERE', newDeal);
             if(err) {
               res.json(err);
             } else {
