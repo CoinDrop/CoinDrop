@@ -15,19 +15,17 @@
   <link rel='stylesheet' href='css/index.css'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/user.css'>
-
-
 </head>
 
 <body>
+  <header ng-include="'views/navbar.html'"></header>  
 
-  <header ng-include="'views/navbar.html'"></header>
-  
   <div ui-view class='main-container'>
-
   </div>
   
   <!-- VENDOR -->
+  <!-- // <script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script> -->
+  <!--   // <script src='lib/angular-ui-router/release/angular-ui-router.min.js' type="text/javascript" charset="utf-8"></script> -->
   <script src='lib/angular/angular.min.js' type="text/javascript" charset="utf-8"></script>
   <script src='lib/jquery/dist/jquery.js'></script>
   <script src='lib/lodash/dist/lodash.js'></script>
@@ -42,26 +40,28 @@
   <!-- APP -->
   <!-- // <script src='scripts/app.js' type="text/javascript" charset="utf-8"></script> -->
 
-<!-- AngularFiles:js -->
-<script src="scripts/app.js"></script>
-<script src="scripts/appRoutes.js"></script>
-<script src="scripts/auth/auth.controller.js"></script>
-<script src="scripts/auth/auth.service.js"></script>
-<script src="scripts/states/deal/deal.controller.js"></script>
-<script src="scripts/states/deal/deal.js"></script>
-<script src="scripts/states/deal/deal.service.js"></script>
-<script src="scripts/states/dealNew/dealNew.controller.js"></script>
-<script src="scripts/states/dealNew/dealNew.js"></script>
-<script src="scripts/states/dealNew/dealNew.service.js"></script>
-<script src="scripts/states/home/home.controller.js"></script>
-<script src="scripts/states/home/home.js"></script>
-<script src="scripts/states/login/login.js"></script>
-<script src="scripts/states/signup/signup.js"></script>
-<script src="scripts/states/user/user.controller.js"></script>
-<script src="scripts/states/user/user.js"></script>
-<script src="scripts/states/user/user.service.js"></script>
-<script src="views/navbar.controller.js"></script>
-<!-- endinject -->
-
+  <!-- AngularFiles:js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/appRoutes.js"></script>
+  <script src="scripts/auth/auth.controller.js"></script>
+  <script src="scripts/auth/auth.service.js"></script>
+  <script src="scripts/states/deal/deal.controller.js"></script>
+  <script src="scripts/states/deal/deal.js"></script>
+  <script src="scripts/states/deal/deal.service.js"></script>
+  <script src="scripts/states/dealNew/dealNew.controller.js"></script>
+  <script src="scripts/states/dealNew/dealNew.js"></script>
+  <script src="scripts/states/dealNew/dealNew.service.js"></script>
+  <script src="scripts/states/home/home.controller.js"></script>
+  <script src="scripts/states/home/home.js"></script>
+  <script src="scripts/states/login/login.js"></script>
+  <script src="scripts/states/signup/signup.js"></script>
+  <script src="scripts/states/user/user.controller.js"></script>
+  <script src="scripts/states/user/user.js"></script>
+  <script src="scripts/states/user/user.service.js"></script>
+  <script src="scripts/states/withdraw/withdraw.controller.js"></script>
+  <script src="scripts/states/withdraw/withdraw.js"></script>
+  <script src="views/navbar.controller.js"></script>
+  <script src="views/navbar.js"></script>
+  <!-- endinject -->
 </body>
 </html>

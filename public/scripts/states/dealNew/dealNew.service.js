@@ -10,13 +10,11 @@
     };
 
     function createDeal(dealNew) {
+      console.log("BEGIN MAKEDEAL - (dealNew): ", dealNew);
       return $http({
         method: 'POST',
         url: 'api/deals/new',
         data: dealNew
-      })
-      .catch(function(err) {
-        console.log(err);
       });
     }
   }

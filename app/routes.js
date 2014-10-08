@@ -13,12 +13,9 @@ var basicAuth = require('basic-auth');
 var mongoose = require('mongoose');
 var secret = 'Base-Secret';
 
-
-
 module.exports = function(app) {
 
   var router = express.Router();
-
 
   app.use(session({
     resave: true,
@@ -53,11 +50,9 @@ module.exports = function(app) {
       var password = req.body.password;
       var email = req.body.email;
       var newUser;
-      // console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
+      console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
-      var findOne = Q.nbind(User.findOne, User);
-      // console.log('REQ SESSION HERE:', req.session);
-      findOne({username: username})
+      Q.nbind(User.findOne, User)({username:username})
         .then(function(err, user) {
           if(user) {
             return res.json(new Error('User already exists!', err));
@@ -99,14 +94,13 @@ module.exports = function(app) {
       var password = req.body.password;
 
       //creates a promise returning function
-      var findUser = Q.nbind(User.findOne, User);
-      findUser({username: username})
+      Q.nbind(User.findOne, User)({username: username})
       .then(function (user) {
         if(!user) {
           throw new Error('ERROROROR');
         }
         //if user found
-        user.comparePasswords(password).then(function (isMatch) {
+        user.pwComparePromise(password).then(function (isMatch) {
         console.log('COMPARING THE PASSWORD HERE:', isMatch);
           if(isMatch) {
             req.user_id = user._id;
@@ -158,25 +152,24 @@ module.exports = function(app) {
       var btc = req.body.btc;
       var memo = req.body.memo;
       var newDeal;
-      var findDeal = Q.nbind(Deal.findOne, Deal);
-      var findUser = Q.nbind(User.findOne, User);
-      findUser({username: sellerName})
+      // var findDeal = Q.nbind(Deal.findOne, Deal);
+      Q.nbind(User.findOne, User)({username: sellerName})
       .then(function (sellerUser) {
         if(sellerUser) {
           sellerId = sellerUser._id;
           var wallet = btcUtil.makeWallet(2, 3);
           newDeal = {
-            buyer: buyerId,
-            seller: sellerId,
-            greeting: greeting,
-            memo: memo,
-            btc: btc,
-            address: wallet.address,
-            buyerKey: wallet.privateKeys[0],
-            sellerKey: wallet.privateKeys[1],
-            thirdKey: wallet.privateKeys[2],
+            buyer:       buyerId,
+            seller:      sellerId,
+            greeting:    greeting,
+            memo:        memo,
+            btc:         btc,
+            address:     wallet.address,
+            buyerKey:    wallet.privateKeys[0],
+            sellerKey:   wallet.privateKeys[1],
+            thirdKey:    wallet.privateKeys[2],
             publicHexes: wallet.publicHexes,
-            n: wallet.n
+            n:           wallet.n
           };
           Deal.create(newDeal, function (err, deal) {
             console.log('REQUEST HERE', newDeal);
@@ -215,9 +208,45 @@ module.exports = function(app) {
       });
     });
 
-  router.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-  });
+  // router.get('*', function(req, res) {
+  //   res.sendFile(path.join(__dirname, './public/index.html'));
+  // });
 
   app.use('/api', router);
 };
+
+//         .then(function (sellerUser) {
+//           if(sellerUser) {
+//             var wallet = btcUtil.makeWallet();
+//             sellerId = sellerUser._id;
+//             var deal = {
+//               buyer: buyerId,
+//               seller: sellerId,
+//               greeting: greeting,
+//               memo: memo,
+//               btc: btc,
+//               address: wallet.address,
+//               buyerKey: wallet.privateKey1,
+//               sellerKey: wallet.privateKey2
+//             };
+//             Deal.create(deal, function (err, deal) {
+//               if(err) res.json(err);
+//               else {
+//                 sellerUser.selling.push(deal._id);
+//                 sellerUser.save();
+//                 User.findOne({_id: buyerId}, function (err, buyerUser) {
+//                   if(err) {
+//                     console.log('ERROR: ', err);
+//                     res.json(err);
+//                   } else {
+//                     console.log('INSIDE SAVING BUYING FOR BUYER:', buyerUser);
+//                     buyerUser.buying.push(deal._id);
+//                     buyerUser.save();
+//                   }
+//                 });
+//               }
+//             });
+//           }
+//         })
+//         .catch(function(err) {
+//           res.json(err);

@@ -87,18 +87,14 @@ describe('Utilities', function(){
         var address = Bitcoin.Address.fromOutputScript(scriptPublicKey, Bitcoin.networks.testnet).toString();
 
         expect(wallet.address).to.equal(address);
-
       });
-
     });
 
     describe('.n', function(){
-      
       it('should be number of unique signatures needed for a valid transaction', function(){
         expect(wallet.n).to.be.a('number');
         expect(wallet.n).to.be.below(wallet.privateKeys.length);
       });
-
     });
 
   });
@@ -107,20 +103,24 @@ describe('Utilities', function(){
     var wallet;
     var oldBalance;
     this.enableTimeouts(false);
+
     beforeEach(function(done){
       // adds funds to wallet before calling withdraw function
       wallet = Utilities.makeWallet(2, 3);
-
       helloblock.faucet.withdraw(wallet.address, 1000000, function(){
         helloblock.addresses.get('2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', function(error, response, walletData){
-          
           oldBalance = walletData.balance;
           Utilities.withdraw(wallet.n, wallet.privateKeys, wallet.publicHexes, '2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', 100000);
-          done();
-          
+          done(); 
         });
       });
+    });
 
+    it('should remove all funds from a given wallet to a specified destination address', function(){
+      helloblock.addresses.get(wallet.address, function(error, response, walletData){
+        expect(error).to.equal(null);
+        expect(walletData.balance).to.not.equal(oldBalance);
+      });
     });
 
     it('should remove all funds from a given wallet to a specified destination address', function(){
