@@ -66,6 +66,8 @@ module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, a
         res.json(error || response);
       });
 
+    } else {
+      res.json(error || response);
     }
 
   });
