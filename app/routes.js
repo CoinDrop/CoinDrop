@@ -131,16 +131,16 @@ module.exports = function(app) {
             data.buying[i].thirdKey = '';
             if(data.buying[i].keyReleasedTo === 'buyer')
             {
-              data.buying[i].sellerKey = temp;
+              data.buying[i].sellerKey = temp1;
             }
           }
           for(var j =0; j < data.selling.length; j++) {
             var temp2 = data.selling[j].buyerKey;
             data.selling[j].buyerKey = '';
-            data.buying[j].thirdKey = '';
+            data.selling[j].thirdKey = '';
             if(data.selling[j].keyReleasedTo === 'seller')
             {
-              data.selling[j].buyerKey = temp;
+              data.selling[j].buyerKey = temp2;
             }
           }
           res.json(data);
@@ -187,7 +187,8 @@ module.exports = function(app) {
             sellerKey:   wallet.privateKeys[1],
             thirdKey:    wallet.privateKeys[2],
             publicHexes: wallet.publicHexes,
-            n:           wallet.n
+            n:           wallet.n,
+            keyReleasedTo: ''
           };
           Deal.create(newDeal, function (err, deal) {
             if(err) {
@@ -213,6 +214,26 @@ module.exports = function(app) {
       });
     });
 
+  router.route('/release/:dealId')
+      .post(function(req, res) {
+        Deal.find({_id: req.params.dealId}, function(err, deal) {
+          if(err) {
+            res.send(err);
+          } else {
+            if(deal[0].buyer === req.params.userId)
+            {
+             deal[0].keyReleasedTo = 'seller';
+             deal[0].save();
+            }
+            else if(deal[0].seller === req.params.userId)
+            {
+              deal[0].keyReleasedTo = 'buyer';
+              deal[0].save();
+            }
+            res.json(deal);
+          }
+        });
+      });
 
   router.route('/deals/:dealId')
     .get(function(req, res) {
@@ -224,6 +245,8 @@ module.exports = function(app) {
         }
       });
     });
+
+
 
   router.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'));
