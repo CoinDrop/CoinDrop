@@ -4,7 +4,7 @@
     .module('coindropApp')
     .factory('authService', authService);
     /* @inject */
-    function authService ($http, $state, $window) {
+    function authService ($http, $state, $window, $storage) {
       return {
         signup: signup,
         login: login,
