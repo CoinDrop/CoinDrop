@@ -1,23 +1,63 @@
 <div class="container">
 <div class="row">
   <div class="col-md-12">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
       <div class="panel panel-default">
         <div class="panel-heading">
           Signup
         </div>
-        <form class="form" name="form" ng-submit="signup()" novalidate>
+        <form class="form" name="signup_form" ng-submit="signup(form)" novalidate>
           <div class="panel-body">
-            <label>E-mail</label>
-            <input class="form-control" type="email" ng-model="user.email"><br>
+
+            <label>Email</label>
+            <input name="email" class="form-control" ng-model="user.email"
+              type="email"
+              ng-blur="validate_email = true"
+              required><br>
 
             <label>Username</label>
-            <input class="form-control" type="text" ng-model="user.username"><br>
+            <input name="username" class="form-control" ng-model="user.username"
+              type="text"
+              ng-pattern="/^[a-zA-Z0-9]+([\ _]?[a-zA-Z0-9]+)*$/"
+              ng-minlength=3
+              ng-maxlength=18
+              required><br>
 
             <label>Password</label>
-            <input class="form-control" type="password" ng-model="user.password"><br>
+            <input name="password" class="form-control" ng-model="user.password"
+              type="password"
+              ng-minlength=7
+              ng-minlength=40
+              required><br>
 
-            <button class="btn btn-primary" type="submit">Signup</button>
+            <button class="btn btn-default" type="submit"
+              ng-show="signup_form.$dirty && signup_form.$valid">Signup</button>
+
+            <div class="error" ng-show="signup_form.$dirty && signup_form.$invalid">
+
+              <small class="error" ng-show="signup_form.email.$dirty && signup_form.email.$invalid"
+                >Email address is not valid format<br></small>
+              <small class="error" ng-show="signup_form.email.$dirty && signup_form.email.$error.required"
+                >Email address is required<br></small>
+
+              <small class="error" ng-show="signup_form.username.$dirty && signup_form.username.$error.minlength"
+                >Username is too short<br></small>
+              <small class="error" ng-show="signup_form.username.$dirty && signup_form.username.$error.maxlength"
+                >Username is too long<br></small>
+              <small class="error" ng-show="signup_form.username.$dirty && signup_form.username.$error.pattern"
+                >Username is not valid format<br></small>
+              <small class="error" ng-show="signup_form.username.$dirty && signup_form.username.$error.required"
+                >Username is required<br></small>
+              <!-- <small class="error" ng-show="signup_form.username.$error.unique"
+                >That username is already taken</small> -->
+
+              <small class="error" ng-show="signup_form.password.$dirty && signup_form.password.$error.minlength"
+                >Password is too short<br></small>
+              <small class="error" ng-show="signup_form.password.$dirty && signup_form.password.$error.maxlength"
+                >Password is too long<br></small>
+              <small class="error" ng-show="signup_form.password.$dirty && signup_form.password.$error.required"
+                >Password is required<br></small>
+            </div>
           </div>
         </form>
       </div>
