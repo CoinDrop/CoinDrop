@@ -7,7 +7,7 @@
             <strong>Create A New Wallet</strong>
           </div>
           <div class="panel-body">
-            <form ng-submit="createDeal()">
+            <form ng-submit="createDeal()" novalidate>
               <label>Buyer</label> <input ng-model="dealNew.buyer" class="form-control" type="text"><br>
               <label>Seller</label> <input ng-model="dealNew.seller" class="form-control" type="text"><br>
               <label>Amount BTC</label> <input ng-model="dealNew.btc" class="form-control" type="text"><br>
