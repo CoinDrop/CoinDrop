@@ -20,10 +20,8 @@
           data: user
         })
         .then(function (resp) {
-          console.log('SIGNUP RESPONSE SERVICE - resp.data:', resp.data);
           $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
-          console.log('SIGNUP RESPONSE SERVICE - resp.data.user:', resp.data.user);
           callback(resp.data.user);
         })
         .catch(function(err) {
@@ -39,7 +37,6 @@
           data: user
         })
         .then(function (resp) {
-          console.log('USER RESPONSE BACK HERE:', resp.data.user);
           $storage.setObject('current_user', resp.data.user);
           $storage.set('token', resp.data.token);
           callback(resp.data.user);
