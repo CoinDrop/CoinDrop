@@ -110,7 +110,7 @@ describe('Utilities', function(){
       helloblock.faucet.withdraw(wallet.address, 1000000, function(){
         helloblock.addresses.get('2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', function(error, response, walletData){
           oldBalance = walletData.balance;
-          Utilities.withdraw(wallet.n, wallet.privateKeys, wallet.publicHexes, '2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe', 100000);
+          Utilities.withdraw(null, wallet.n, wallet.privateKeys, wallet.publicHexes, '2NCQJS4YcbBwWyTSMv3MmsxksHCaeQ32gZe');
           done(); 
         });
       });
