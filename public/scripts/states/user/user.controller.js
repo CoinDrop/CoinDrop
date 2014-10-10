@@ -11,6 +11,7 @@
       console.log('USER ID IN USER CONTROLLER:', userId);
 
       $scope.chooseThisDeal = function (deal) {
+        $('#myModal').modal('show');
         $state.go('user.deal', {dealId: deal});
       };
 

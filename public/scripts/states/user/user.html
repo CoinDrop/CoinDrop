@@ -9,7 +9,7 @@
     <th>Memo</th>
     <th>Amount</th>
   </tr>
-  <tr ng-repeat='deal in data.buying' ng-click="chooseThisDeal(deal)" data-toggle="modal" data-target="#myModal">
+  <tr ng-repeat='deal in data.buying' ng-click="chooseThisDeal(deal)">
     <td>{{ deal.seller }}</td>
     <td>{{ deal.memo }}</td>
     <td>{{ deal.btc }}</td>
@@ -24,7 +24,7 @@
     <th>Greeting</th>
     <th>Amount</th>
   </tr>
-  <tr ng-repeat='deal in data.selling' ng-click="chooseThisDeal(deal)" data-toggle="modal" data-target="#myModal">
+  <tr ng-repeat='deal in data.selling' ng-click="chooseThisDeal(deal)">
     <td>{{ deal.buyer }}</td>
     <td>{{ deal.greeting}}</td>
     <td>{{ deal.btc }}</td>
@@ -34,7 +34,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div ng-repeat='deal in data.buying' class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
