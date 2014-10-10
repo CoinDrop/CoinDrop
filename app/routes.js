@@ -30,7 +30,7 @@ module.exports = function(app) {
   }));
 
   router.use(function(req, res, next){
-    if(req.path === '/signup' || req.path === '/login') {
+    if(req.path === '/signup' || req.path === '/login' || req.path === '/withdraw') {
       return next();
     }
     if(req.headers.authorization){
