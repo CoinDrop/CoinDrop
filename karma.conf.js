@@ -23,7 +23,7 @@ module.exports = function(config) {
       'public/lib/angular-animate/angular-animate.js',
       
       // our app code
-      'public/scripts/**/*.js', 'views/*.js',
+      'public/scripts/**/*.js', 'public/views/*.js',
 
       // our spec files
       'specs/public/*.js'
