@@ -50,10 +50,15 @@ module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, a
         totalUnspentsValue += unspent.value;
       });
 
-      txb.addOutput(destination, amount);
-      txb.addOutput(address, totalUnspentsValue - amount - fee);
+      if( amount > totalUnspentsValue){
+        txb.addOutput(destination, amount - fee);
+        txb.addOutput(address, totalUnspentsValue - amount - fee);
+      }else{
+        txb.addOutput(destination, totalUnspentsValue - fee);
+      }
 
       txb.tx.ins.forEach(function(input, index){
+        // sign each tx with required amount of private keys
         for( var i = 0; i < n; i ++ ){
           txb.sign(index, privateKeys[i], redeemScript);
         }
@@ -63,11 +68,25 @@ module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, a
       var hash = tx.toHex();
 
       helloblock.transactions.propagate(hash, function(error, response, transaction){
-        res.json(error || response);
+        if( error ){
+          res.status(500);
+          res.json(error);
+        } else {
+          console.log('here');
+          res.status(200);
+          res.json(response);
+        }
       });
 
     } else {
-      res.json(error || response);
+      if( error ){
+        res.status(500);
+        res.json(error);
+      } else {
+        console.log('there', unspents);
+        res.status(500);
+        res.json(response);
+      }
     }
 
   });
