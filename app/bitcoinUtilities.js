@@ -28,7 +28,7 @@ module.exports.makeWallet = function(n, m){
   return wallet;
 };
 
-module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, amount, fee){
+module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, fee){
 
   fee = fee || 10000;
   var publicKeys = publicHexes.map(function(hex){ return new Bitcoin.ECPubKey.fromHex(hex); });
@@ -50,15 +50,9 @@ module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, a
         totalUnspentsValue += unspent.value;
       });
 
-      if( amount > totalUnspentsValue){
-        txb.addOutput(destination, amount - fee);
-        txb.addOutput(address, totalUnspentsValue - amount - fee);
-      }else{
-        txb.addOutput(destination, totalUnspentsValue - fee);
-      }
+      txb.addOutput(destination, totalUnspentsValue - fee);
 
       txb.tx.ins.forEach(function(input, index){
-        // sign each tx with required amount of private keys
         for( var i = 0; i < n; i ++ ){
           txb.sign(index, privateKeys[i], redeemScript);
         }
@@ -68,25 +62,11 @@ module.exports.withdraw = function(res, n, userKeys, publicHexes, destination, a
       var hash = tx.toHex();
 
       helloblock.transactions.propagate(hash, function(error, response, transaction){
-        if( error ){
-          res.status(500);
-          res.json(error);
-        } else {
-          console.log('here');
-          res.status(200);
-          res.json(response);
-        }
+        if(res){res.json(error || response);}
       });
 
     } else {
-      if( error ){
-        res.status(500);
-        res.json(error);
-      } else {
-        console.log('there', unspents);
-        res.status(500);
-        res.json(response);
-      }
+      if(res){res.json(error || response);}
     }
 
   });
