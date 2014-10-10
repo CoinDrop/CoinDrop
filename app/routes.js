@@ -247,16 +247,15 @@ module.exports = function(app) {
 
   router.route('/withdraw')
     .post(function(req, res){
-      console.log('withdrawing from wallet\n', req.body);
-      var n = req.body.privateKeys.length;
-      var enteredKeys = req.body.privateKeys;
-      var publicHexes = req.body.publicHexes;
+      // var n = req.body.privateKeys.length;
+      console.log('!!!!!!!!!!!!!!!!:', req.body);
+      var n = 2;
+      var enteredKeys = [req.body.dealInfo.buyerKey, req.body.dealInfo.sellerKey];
+      var publicHexes = req.body.dealInfo.publicHexes;
       var destination = req.body.destination;
-      var amount = req.body.amount;
       var fee = req.fee || 10000;
-
-      btcUtil.withdraw(res, n, enteredKeys, publicHexes, destination, amount, fee);
-
+      btcUtil.withdraw(res, n, enteredKeys, publicHexes, destination, fee);
+      res.status(201);
     });
 
   router.get('*', function(req, res) {
