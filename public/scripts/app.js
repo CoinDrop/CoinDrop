@@ -2,6 +2,7 @@
   'use strict';
   angular.module('coindropApp', [
     'ngAnimate',
+    'ui.bootstrap',
     // 'ngCookies',
     // 'ng-Table',
     'ui.router'
