@@ -17,6 +17,7 @@ module.exports = function(app) {
 
   var router = express.Router();
 
+  //middleware used to generate sessions, returning a string from genid
   app.use(session({
     resave: true,
     saveUninitialized: false,
@@ -33,6 +34,7 @@ module.exports = function(app) {
     if(req.path === '/signup' || req.path === '/login' || req.path === '/withdraw') {
       return next();
     }
+    //check for req headers authorization is set. Decode the jwt token for user id
     if(req.headers.authorization){
       User.findById(jwt.decode(req.headers.authorization, secret).id, function(err, user){
         if(user) {
@@ -50,7 +52,6 @@ module.exports = function(app) {
       var password = req.body.password;
       var email = req.body.email;
       var newUser;
-      console.log('INSIDE SERVER /SINGUP ROUTE: ', req.body);
 
       Q.nbind(User.findOne, User)({username:username})
         .then(function(err, user) {
@@ -62,7 +63,6 @@ module.exports = function(app) {
               password: password,
               email: email
             };
-            // create = Q.nbind(User.create, User);
             User.create(newUser, function(err, user) {
               if(err) {
                 return res.json(new Error('Error creating user!', err));
@@ -102,6 +102,7 @@ module.exports = function(app) {
         //if user found
         user.pwComparePromise(password).then(function (isMatch) {
           if(isMatch) {
+              // console.log('REQ SESSION GENERATION', req);
             req.user_id = user._id;
             req.session.regenerate(function (err) {
               res.json({user: user, token: req.sessionID});
@@ -246,16 +247,15 @@ module.exports = function(app) {
 
   router.route('/withdraw')
     .post(function(req, res){
-      console.log('withdrawing from wallet\n', req.body);
-      var n = req.body.privateKeys.length;
-      var enteredKeys = req.body.privateKeys;
-      var publicHexes = req.body.publicHexes;
+      // var n = req.body.privateKeys.length;
+      console.log('!!!!!!!!!!!!!!!!:', req.body);
+      var n = 2;
+      var enteredKeys = [req.body.dealInfo.buyerKey, req.body.dealInfo.sellerKey];
+      var publicHexes = req.body.dealInfo.publicHexes;
       var destination = req.body.destination;
-      var amount = req.body.amount;
       var fee = req.fee || 10000;
-
-      btcUtil.withdraw(res, n, enteredKeys, publicHexes, destination, amount, fee);
-
+      btcUtil.withdraw(res, n, enteredKeys, publicHexes, destination, fee);
+      res.status(201);
     });
 
   router.get('*', function(req, res) {

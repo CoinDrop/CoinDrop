@@ -17,7 +17,6 @@ var UserSchema = new Schema({
 UserSchema.methods.pwComparePromise = function(attemptedPassword){
   var defer = Q.defer();
   bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
-    console.log('INSIDE BCRYPT.COMPARE CALLBACK - (isMatch, err): ', isMatch, err);
     if (err) defer.reject(err);
     else defer.resolve(isMatch);
   });

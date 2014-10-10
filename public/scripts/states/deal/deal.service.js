@@ -6,8 +6,10 @@
   /* @inject */
   function dealService($http){
     return {
-      releaseKey: releaseKey
+      releaseKey: releaseKey,
+      withdraw: withdraw
     };
+
     function releaseKey(dealId, userId) {
       return $http({
         method: 'POST',
@@ -16,6 +18,17 @@
       })
       .catch(function(err) {
         return err;
+      });
+    }
+
+    function withdraw(dealInfo, destination) {
+      return $http({
+        method: 'POST',
+        url: 'api/withdraw',
+        data: { dealInfo: dealInfo, destination: destination}
+      })
+      .catch(function(err) {
+        console.log(err);
       });
     }
   }

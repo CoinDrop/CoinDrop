@@ -8,14 +8,15 @@
     function UserController ($scope, userService, $state, $storage) {
       $scope.data = {};
       var userId = $storage.getObject('current_user')._id;
+      console.log('USER ID IN USER CONTROLLER:', userId);
 
       $scope.chooseThisDeal = function (deal) {
-        var dealInfo = JSON.stringify(deal);
-        $state.go('user.deal', {dealId: dealInfo});
+        $('#myModal').modal('show');
+        $state.go('user.deal', {dealId: deal});
       };
 
       //immediately get all deals of a specific user upon signup or login
-      $scope.getAllDeals = function(userId) {
+      $scope.getAllDeals = function() {
         userService.getAllDeals(userId)
         .then(function(deals) {
           $scope.data.buying = deals.data.buying;

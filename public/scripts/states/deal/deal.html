@@ -14,6 +14,18 @@
       <dt>greeting</dt><dd>{{ deal.greeting }}</dd>
     </dl>
         <button type="button" class="btn btn-primary" ng-click='releaseKey()' data-dismiss="modal">Release Key</button>
-    </div>
+        <button type="button" class="btn btn-primary" ng-show='showbutton' ng-click='withdrawView()'>Withdraw</button>
+        
+        <div ng-show='showform'>
+          <form class="withdrawForm" name="destinationAddresForm">
+          <div class="panel-body">
+            <label>Destination Address</label> 
+            <input ng-model="destination.address" class="form-control" type="text"><br>
+            <button class="btn btn-primary" type="submit" ng-click="withdraw()" >Withdraw</button>
+          </div>
+          </form>
+        </div>
 
+
+    </div>
 </div>

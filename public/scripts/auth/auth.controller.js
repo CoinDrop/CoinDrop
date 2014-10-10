@@ -5,7 +5,7 @@
     .module('coindropApp')
     .controller('AuthController', AuthController);
     /* @inject */
-    function AuthController ($scope, $state, authService) {
+    function AuthController ($scope, $state, authService, $storage) {
       $scope.user = {};
 
       $scope.login = function() {
@@ -16,9 +16,13 @@
 
       $scope.signup = function() {
         authService.signup($scope.user, function(user) {
-          console.log("In signup():", user);
           $state.go('user', {id: user._id});
         });
+      };
+      
+      $scope.logout = function() {
+        console.log('STORAGE IN LOGOUT:', $storage);
+        authService.logout();
       };
     }
 
