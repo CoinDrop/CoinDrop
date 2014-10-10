@@ -6,16 +6,12 @@
     
     /* @inject */
     function DealController($scope, dealService, $stateParams, $state, $storage) {
-      var dealInfo = JSON.parse($stateParams.dealId);
-      var userId = $storage.getObject('current_user')._id;
+      var dealInfo = $stateParams.dealId;
+      var userId = $storage.getObject('current_user');
+      $scope.deal = dealInfo;
 
       $scope.releaseKey = function () {
-        dealService.releaseKey(dealInfo._id, userId);
+        dealService.releaseKey(dealInfo._id, userId._id);
       };
-
-      $scope.deal = function(dealInfo) {
-        $scope.deal = dealInfo;
-      };
-      $scope.deal(dealInfo);
     }
 }).call(this);
