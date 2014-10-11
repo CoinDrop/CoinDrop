@@ -5,16 +5,21 @@
     .controller('DealController', DealController);
     
     /* @inject */
-    function DealController($scope, dealService, $stateParams, $state, $storage) {
+    function DealController($scope, dealService, userService, $stateParams, $state, $storage) {
       $scope.showform = false;
-      $scope.showbutton = true;
       var dealInfo = $stateParams.dealId;
       var userId = $storage.getObject('current_user');
+      var wallet = $stateParams.wallet;
+      console.log(wallet.data.data.address);
       $scope.deal = dealInfo;
       $scope.destination = {};
+      $scope.walletBalance = wallet.data.data.address;
+
+      $scope.getWalletBalance = function() {
+        userService.getWalletBalance();
+      };
 
       $scope.withdrawView = function() {
-        $scope.showbutton = false;
         $scope.showform = true;
       };
 
