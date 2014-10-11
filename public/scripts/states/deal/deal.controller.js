@@ -13,7 +13,7 @@
       console.log(wallet.data.data.address);
       $scope.deal = dealInfo;
       $scope.destination = {};
-      $scope.walletBalance = wallet.data.data.address;
+      $scope.walletBalance = wallet.data.data.address.balance / 100000000;
 
       $scope.getWalletBalance = function() {
         userService.getWalletBalance();
