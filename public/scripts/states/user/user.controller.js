@@ -15,7 +15,7 @@
         userService.setWalletBalance(deal.address)
         .then(function(res) {
           $state.go('user.deal', {dealId: deal, wallet: res});
-        })
+        });
       };
 
       //immediately get all deals of a specific user upon signup or login
