@@ -4,11 +4,14 @@
     .module('coindropApp')
     .factory('userService', userService);
     /* @inject */
-    function userService ($http, $storage){
+    function userService ($http){
+      var walletBalance = {};
 
       return {
         getAllDeals: getAllDeals,
-        getOneDeal: getOneDeal
+        getOneDeal: getOneDeal,
+        setWalletBalance: setWalletBalance,
+        getWalletBalance: getWalletBalance
       };
 
       function getAllDeals (userId) {
@@ -28,6 +31,20 @@
         .catch(function(err) {
           return err;
         });
+      }
+      function setWalletBalance(walletAddress) {
+        return $http({
+          method: 'GET',
+          url: 'https://testnet.helloblock.io/v1/addresses/' + walletAddress
+        })
+
+        .catch(function(err) {
+          return err;
+        });
+      }
+      function getWalletBalance() {
+        // console.log('WALLET BALANCE HERE:', walletBalance[0]);
+        return walletBalance[0];
       }
     }
 

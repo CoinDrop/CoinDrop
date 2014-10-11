@@ -129,24 +129,24 @@ describe('Database', function() {
     });
   });
 
-  it('should be able to withdraw btc from a wallet', function(done){
-    request(app)
-      .post('/api/withdraw')
-      .send({
-        n: 2,
-        privateKeys: [
-          'cMybz18UNUxNBcUhBhkqahqumgefeU13UwTNWKUuX12LQYuoxNKG',
-          'cVmVbTGFqyan55mCBRuhrpZ27RbE2wkL9btiN1JTqu79H2UhXHZV'
-        ],
-        publicHexes: [
-          '0335502830c6f1713d41b0a8378bcd7ccde5ce28df80d0219e2e86ecdb2ddeb365',
-          '021b2c361d5a65fca16164c92096a8678db96ab39dc978b93c5f7c7d19d642cf81',
-          '03ff5b9aff8e881c62f2cb9589d837a332f283b9b413a58ca85ca1861cebf23e15'
-        ],
-        destination: '2NDZbPUm7vYdMd6XZ6hy5ApnfgVEar39tWT',
-        amount: 100000
-      })
-      .expect(200, done);
-  });
+  // it('should be able to withdraw btc from a wallet', function(done){
+  //   request(app)
+  //     .post('/api/withdraw')
+  //     .send({
+  //       n: 2,
+  //       privateKeys: [
+  //         'cMybz18UNUxNBcUhBhkqahqumgefeU13UwTNWKUuX12LQYuoxNKG',
+  //         'cVmVbTGFqyan55mCBRuhrpZ27RbE2wkL9btiN1JTqu79H2UhXHZV'
+  //       ],
+  //       publicHexes: [
+  //         '0335502830c6f1713d41b0a8378bcd7ccde5ce28df80d0219e2e86ecdb2ddeb365',
+  //         '021b2c361d5a65fca16164c92096a8678db96ab39dc978b93c5f7c7d19d642cf81',
+  //         '03ff5b9aff8e881c62f2cb9589d837a332f283b9b413a58ca85ca1861cebf23e15'
+  //       ],
+  //       destination: '2NDZbPUm7vYdMd6XZ6hy5ApnfgVEar39tWT',
+  //       amount: 100000
+  //     })
+  //     .expect(200, done);
+  // });
 
 });

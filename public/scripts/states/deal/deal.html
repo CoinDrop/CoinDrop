@@ -1,20 +1,20 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     Transaction# <strong>{{deal._id}}</strong> <br>
-    <strong>{{ deal.btc }} btc</strong>
+    <strong>Balance In Wallet: <i class="fa fa-btc"></i>{{ walletBalance.balance }}</strong>
   </div>
   <div class="panel-body">
     <dl>
       <dt>Buyer</dt><dd>{{ deal.buyer }}</dd>
       <dt>Seller</dt><dd>{{ deal.seller }}</dd>
-      <dt>address</dt><dd>{{ deal.address }}</dd>
+      <dt>Wallet Address</dt><dd>{{ deal.address }}</dd>
       <dt>Buyer Key</dt><dd>{{ deal.buyerKey }}</dd>
       <dt>Seller Key</dt><dd>{{ deal.sellerKey }}</dd>
       <dt>Memo</dt><dd>{{ deal.memo }}</dd>
-      <dt>greeting</dt><dd>{{ deal.greeting }}</dd>
+      <dt>Greeting</dt><dd>{{ deal.greeting }}</dd>
     </dl>
         <button type="button" class="btn btn-primary" ng-click='releaseKey()' data-dismiss="modal">Release Key</button>
-        <button type="button" class="btn btn-primary" ng-show='showbutton' ng-click='withdrawView()'>Withdraw</button>
+        <button type="button" class="btn btn-primary" ng-hide='showform' ng-click='withdrawView()'>Withdraw</button>
         
         <div ng-show='showform'>
           <form class="withdrawForm" name="destinationAddresForm">
