@@ -1,4 +1,11 @@
-body {
+/*body {
   background: url('../images/splashDark.jpg');
   background-size: cover;
+}
+*/
+.tablewrapper {
+  margin-right: 30px;
+  margin bottom: 30px;
+  margin-left: 30px;
+  background: #F8F8F8;
 }
