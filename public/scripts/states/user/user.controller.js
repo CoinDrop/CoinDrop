@@ -8,7 +8,6 @@
     function UserController ($scope, userService, $state, $storage) {
       $scope.data = {};
       var userId = $storage.getObject('current_user')._id;
-      console.log('USER ID IN USER CONTROLLER:', userId);
 
       $scope.chooseThisDeal = function (deal) {
         $('#myModal').modal('show');

@@ -178,6 +178,8 @@ module.exports = function(app) {
           sellerId = sellerUser._id;
           var wallet = btcUtil.makeWallet(2, 3);
           newDeal = {
+            buyerName: buyerName,
+            sellerName: sellerName,
             buyer:       buyerId,
             seller:      sellerId,
             greeting:    greeting,
@@ -248,7 +250,6 @@ module.exports = function(app) {
   router.route('/withdraw')
     .post(function(req, res){
       // var n = req.body.privateKeys.length;
-      console.log('!!!!!!!!!!!!!!!!:', req.body);
       var n = 2;
       var enteredKeys = [req.body.dealInfo.buyerKey, req.body.dealInfo.sellerKey];
       var publicHexes = req.body.dealInfo.publicHexes;
