@@ -6,20 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CoinDrop</title>
 
-  <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css'>
   <link rel='stylesheet' href='lib/font-awesome/css/font-awesome.min.css'>
   <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- replace bootstrap with bootstrap.custom -->
+  <link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.min.css'>
+  <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
   <link href="material/css/ripples.min.css" rel="stylesheet">
   <link href="material/css/material-wfont.min.css" rel="stylesheet">
   <link rel='stylesheet' href='css/index.css'>
+  <link rel='stylesheet' href='css/backgroundChange.css'>
   <link rel='stylesheet' href='css/main.css'>
   <link rel='stylesheet' href='css/user.css'>
   <link rel='stylesheet' href='css/style.css'>
 
 </head>
 
-<body>
+<body background-change>
   <header ng-include="'views/navbar.html'"></header>  
 
   <div ui-view class='main-container'>
@@ -49,6 +51,10 @@
   <script src="scripts/appRoutes.js"></script>
   <script src="scripts/auth/auth.controller.js"></script>
   <script src="scripts/auth/auth.service.js"></script>
+  <script src="scripts/directives/backgroundChange/backgroundChange.js"></script>
+  <script src="scripts/states/deal/deal.controller.js"></script>
+  <script src="scripts/states/deal/deal.js"></script>
+  <script src="scripts/states/deal/deal.service.js"></script>
   <script src="scripts/states/dealNew/dealNew.controller.js"></script>
   <script src="scripts/states/dealNew/dealNew.js"></script>
   <script src="scripts/states/dealNew/dealNew.service.js"></script>
@@ -59,9 +65,6 @@
   <script src="scripts/states/user/user.controller.js"></script>
   <script src="scripts/states/user/user.js"></script>
   <script src="scripts/states/user/user.service.js"></script>
-  <script src="scripts/states/deal/deal.controller.js"></script>
-  <script src="scripts/states/deal/deal.js"></script>
-  <script src="scripts/states/deal/deal.service.js"></script>
   <!-- endinject -->
 
 </body>

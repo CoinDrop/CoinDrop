@@ -1,0 +1,9 @@
+.bg-city {
+  background: url('../images/splashDark.jpg') no-repeat;
+  background-size: cover;
+}
+
+.bg-main {
+  background-color: #f1f1f1;
+  background: #f1f1f1;
+}

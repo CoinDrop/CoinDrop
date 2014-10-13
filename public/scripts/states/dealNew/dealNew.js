@@ -1,7 +1,7 @@
 ;(function(){
   'use strict';
   angular.module('coindropApp')
-  .config(['$stateProvider', configuration]);
+  .config( configuration );
 
   /* @inject */
   function configuration($stateProvider) {

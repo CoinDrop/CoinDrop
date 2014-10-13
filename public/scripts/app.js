@@ -1,19 +1,26 @@
 ;(function(){
   'use strict';
   angular.module('coindropApp', [
-    'ngAnimate',
+    // 'ngAnimate',
     // 'ngCookies',
     // 'ng-Table',
-    'ui.router'
+    'ui.router',
     // 'ngSanitize',
     // 'ngTouch'
+
+    'backgroundChange'
+
   ])
   .service('$storage', Storage)
   /* @inject */
   .config(['$urlRouterProvider', '$stateProvider','$httpProvider', configuration])
   /* @inject */
-  .factory('authInterceptor', authInterceptor).run(function() {
+  .factory('authInterceptor', authInterceptor)
   /* @inject */
+  .run(function($rootScope) {
+    $rootScope.$on('$stateChanged', function(event, next){
+      $rootScope.$broadcast('changeBackground');
+    });
   });
   
   function configuration($urlRouterProvider, $stateProvider, $httpProvider) {
