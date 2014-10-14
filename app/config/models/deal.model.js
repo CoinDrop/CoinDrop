@@ -9,7 +9,9 @@ var DealSchema = new Schema({
   
 
   seller:       { type:objectId , ref:'User' },
+  sellerName:   String,
   buyer:        { type:objectId , ref:'User' },
+  buyerName:    String,  
   buyerKey:     String,
   sellerKey:    String,
   memo:         String,
