@@ -18,7 +18,7 @@
       $rootScope.$on('$stateChangeStart', function(event, next){
         console.log(angular.element($element)); // to make sure that url is the correct property
         console.log(next);
-        if (next.name==='home' || next.name==='login' || next.name==='signup'){
+        if (true || next.name==='home' || next.name==='login' || next.name==='signup'){
           angular.element($element).removeClass('bg-main');
           angular.element($element).addClass('bg-city');
         } else {
