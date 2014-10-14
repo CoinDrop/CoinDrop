@@ -11,7 +11,7 @@
     };
     function link($scope, $element, $attributes){
       angular.element($element).addClass('bg-city');
-      console.log(angular.element($element))
+      console.log(angular.element($element));
       // $scope.$on('changeBackground', function(){
 //         console.log('hell');
 //       })

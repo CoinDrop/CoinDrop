@@ -23,8 +23,8 @@ describe('coindropApp module', function() {
     it('should have ui.route as a dependency', function() {
       expect(hasModule('ui.router')).to.equal(true);
     });
-    it('should have ngAnimate as a dependency', function() {
-      expect(hasModule('ngAnimate')).to.equal(true);
+    it('should have backgroundChange as a dependency', function() {
+      expect(hasModule('backgroundChange')).to.equal(true);
     });
   });
 });
