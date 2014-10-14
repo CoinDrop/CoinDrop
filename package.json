@@ -23,6 +23,7 @@
   "dependencies": {
     "angular-mocks": "^1.2.22",
     "basic-auth": "^1.0.0",
+    "bcrypt": "^0.8.0",
     "bitcoinjs-lib": "^1.1.1",
     "body-parser": "*",
     "bs58check": "^1.0.1",

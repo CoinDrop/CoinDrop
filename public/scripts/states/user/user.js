@@ -1,10 +1,10 @@
 ;(function(){
   'use strict';
   angular.module('coindropApp')
-  .config(['$stateProvider', configuration]);
+  .config( configuration );
 
   /* @inject */
-  function configuration($stateProvider, authService, $stateParams) {
+  function configuration($stateProvider) {
     $stateProvider
       .state('user', {
         url: '/user/:id',
